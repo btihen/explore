@@ -2,6 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Lucky 0.18.2)
+
 :sectnums:
 :toc:
 :toclevels: 4

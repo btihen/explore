@@ -1,6 +1,7 @@
 = Explorations -- Start Page
 :source-highlighter: prettify
 Bill Tihen
+
 :sectnums:
 :toc:
 :toclevels: 4
