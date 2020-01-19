@@ -36,4 +36,4 @@ address = server.bind_tcp "localhost", 3030
 
 # Listen until '^c' is entered
 puts "Listening on ws://#{address}"
-server.listenlisten
+server.listen

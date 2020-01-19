@@ -1,0 +1,99 @@
+= Crystal Lang Explorations -- Web Server
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Crystal's Features
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:index.html[Crystal Page]*
+
+== Basic Web Server 
+
+.code/crystal/src/web_server/web_server.cr
+[source,linenums]
+----
+# A very basic HTTP server
+require "http/server"
+
+server = HTTP::Server.new do |context|
+  context.response.content_type = "text/plain"
+  context.response.print "Hello world, got #{context.request.path}!"
+end
+
+puts "Listening on http://127.0.0.1:8080"
+server.listen(8080)
+----
+
+Run with 
+```bash 
+$ crystal code/crystal/src/web_server/web_server.cr
+```
+
+Now open your browser to: 
+* http://localhost:8080
+* http://localhost:8080/bill
+
+== Basic Web Routing 
+
+.code/crystal/src/web_server/web_routing.cr
+[source,linenums]
+----
+require "http/server"
+require "json"
+
+server = HTTP::Server.new do |context|
+  route = context.request.path
+  path  = route.split("/")
+  puts route
+  puts path
+  
+  case path[1]
+  when "json"
+    context.response.content_type = "application/json"
+    json_response = JSON.build do |json|
+                      json.object do
+                        json.field "route", route
+                        json.field "values" do
+                          json.array do
+                            # todo: dynamic array of path values
+                            json.number 1
+                            json.number 2
+                          end
+                        end
+                      end
+                    end
+    context.response.print json_response
+  when "html"
+    context.response.content_type = "text/html; charset=UTF-8"
+    context.response.print "<h1>Hello world</h1><b>got #{context.request.path}!</b>"   
+  else
+    context.response.content_type = "text/plain"
+    context.response.print "*Hello world* -- got #{context.request.path}!"
+  end
+end
+
+puts "Listening on http://127.0.0.1:8080"
+server.listen(8080)
+----
+
+Run with 
+```bash 
+$ crystal code/crystal/src/web_server/web_routing.cr
+```
+
+Now open your browser to: 
+* http://localhost:8080
+* http://localhost:8080/bill
+* http://localhost:8080/txt/bill
+* http://localhost:8080/text/bill
+* http://localhost:8080/html/bill
+* http://localhost:8080/json/bill
+
+*link:index.html[Crystal Page]*

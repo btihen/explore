@@ -36,7 +36,7 @@ For all other systems see: https://crystal-lang.org/install/
 crystal run src/file_name.cr
 ```
 
-== Structs & Records
+== Data Structures
 
 === link:crystal_structs.html[Structs]
 
@@ -46,8 +46,19 @@ crystal run src/file_name.cr
 
 * Structs _(& Records)_ are immutable data structures - these are `safe` when used in a concurrent/parallel context.
 
+=== JSON Data
 
-== link:crystal_websockets.html[WebSockets]
+== Web Services
+
+=== link:crystal_web_server.html[Web Server]
+
+=== link:crystal_web_routes.html[Web Routing]
+
+=== Secure Web Server
+
+=== link:crystal_websockets.html[WebSockets]
+
+=== WebSockets with SSL
 
 Making long-lived client-server connections over a TCP.
 

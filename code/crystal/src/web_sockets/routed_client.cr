@@ -4,10 +4,10 @@ require "http/web_socket"
 
 print "Name: "
 name = gets
-# print "Room: "
-# room = gets
+print "Room: "
+room = gets
 
-uri    = URI.parse("ws://localhost:3030")
+uri    = URI.parse("ws://localhost:3030/#{room}")
 socket = HTTP::WebSocket.new(uri)
 
 socket.on_message do |message|
