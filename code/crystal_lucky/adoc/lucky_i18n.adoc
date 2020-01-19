@@ -18,7 +18,7 @@ Bill Tihen (Lucky 0.32.1)
 **Working with multiple languages**
 If these steps are done in order then Lucky should continue to compile (& be usable/testable) with each change.
 
-**Summary:**
+**TLDR:**
 After configuration you can apply translations using either:
 
 ```crystal
@@ -30,7 +30,7 @@ I18n.t("tranlation.key.values", current_user.lang)
 
 > This document assumes you are using the default [Authentication](https://luckyframework.org/guides/authentication) - if not, you will need to make adjustments to the `user` in the Translator!
 
-== Step 1 - Add i18n shard
+== Add i18n shard
 
 ```yml
 dependencies:
@@ -55,7 +55,7 @@ $ shards install
 ```
 
 
-== Step 2 - Add localization ymls
+== Add localization ymls
 
 first make a locales folder:
 
@@ -125,7 +125,7 @@ en:
     preferred_language: "Preferred Language"
 ```
 
-== Step 3 - Configure i18n within Lucky
+== Configure i18n within Lucky
 
 The i18n needs to know the location of your language files.
 > NOTE: This config file is only executed at load, so all language changes require a server restart.
@@ -138,7 +138,7 @@ I18n.backend = I18n::Backends::YAML.new.tap do |backend|
 end
 ```
 
-== Step 4 - Add 'lang' to users table
+== Add 'lang' to users table
 
 This setup will assocatiate a language key with each user this language key is used when displaying information.
 Generate a migration using:
@@ -171,7 +171,7 @@ Of course migrate
 $ lucky db.migrate
 ```
 
-== Step 5 - Add lang column to User model
+== Add lang column to User model
 
 ```crystal
 # src/models/user.cr
@@ -185,7 +185,7 @@ class User < BaseModel
 end
 ```
 
-== Step 6 - Create a Translator module
+== Create a Translator module
 
 First create a location to extend your lucky system (I suggest `mixins`):
 
@@ -226,7 +226,7 @@ require "./mixins/translator"
 # ...
 ```
 
-== Step 7 - Update Operations
+== Update Operations
 
 SignUp Save Opoeration needs:
 - Update permitted columns (required for the signup form)
@@ -294,7 +294,7 @@ class RequestPasswordReset < Avram::Operation
 end
 ```
 
-== Step 8 - Internationalize Templates
+== Internationalize Templates
 
 Basic ideas:
 - Every Layout (abstract class) needs the `include Translator`
@@ -369,7 +369,7 @@ class Errors::ShowPage
   # ...
 end
 ```
-== Step 9 - Update Sign-up Form
+== Update Sign-up Form
 
 Basic Idea:
 - Add translations
@@ -401,7 +401,7 @@ class SignUps::NewPage < AuthLayout
 end
 ```
 
-== Step 10 - Internationalize Pages
+== Internationalize Pages
 
 Add translations to the pages.
 
@@ -436,7 +436,7 @@ Follow the same logic for the following files (as desired):
 # src/pages/errors/show_page.cr
 ```
 
-== Step 11 - Internationalize Actions
+== Internationalize Actions
 
 Add `include Translator` to the abstract class BrowserAction - this allows translations in flash messages too.
 ```crystal
@@ -508,7 +508,7 @@ Follow the same logic in these files:
 # src/actions/password_resets/create.cr
 # src/actions/password_reset_requests/create.cr
 ```
-== Step 12 - Internationalize API Responses
+== Internationalize API Responses
 
 If standard APIs responses need translation `include Translator` here:
 ```crystal

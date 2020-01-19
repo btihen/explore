@@ -447,18 +447,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_intro">1. Intro</a></li>
-<li><a href="#_step_1_add_i18n_shard">2. Step 1 - Add i18n shard</a></li>
-<li><a href="#_step_2_add_localization_ymls">3. Step 2 - Add localization ymls</a></li>
-<li><a href="#_step_3_configure_i18n_within_lucky">4. Step 3 - Configure i18n within Lucky</a></li>
-<li><a href="#_step_4_add_lang_to_users_table">5. Step 4 - Add 'lang' to users table</a></li>
-<li><a href="#_step_5_add_lang_column_to_user_model">6. Step 5 - Add lang column to User model</a></li>
-<li><a href="#_step_6_create_a_translator_module">7. Step 6 - Create a Translator module</a></li>
-<li><a href="#_step_7_update_operations">8. Step 7 - Update Operations</a></li>
-<li><a href="#_step_8_internationalize_templates">9. Step 8 - Internationalize Templates</a></li>
-<li><a href="#_step_9_update_sign_up_form">10. Step 9 - Update Sign-up Form</a></li>
-<li><a href="#_step_10_internationalize_pages">11. Step 10 - Internationalize Pages</a></li>
-<li><a href="#_step_11_internationalize_actions">12. Step 11 - Internationalize Actions</a></li>
-<li><a href="#_step_12_internationalize_api_responses">13. Step 12 - Internationalize API Responses</a></li>
+<li><a href="#_add_i18n_shard">2. Add i18n shard</a></li>
+<li><a href="#_add_localization_ymls">3. Add localization ymls</a></li>
+<li><a href="#_configure_i18n_within_lucky">4. Configure i18n within Lucky</a></li>
+<li><a href="#_add_lang_to_users_table">5. Add 'lang' to users table</a></li>
+<li><a href="#_add_lang_column_to_user_model">6. Add lang column to User model</a></li>
+<li><a href="#_create_a_translator_module">7. Create a Translator module</a></li>
+<li><a href="#_update_operations">8. Update Operations</a></li>
+<li><a href="#_internationalize_templates">9. Internationalize Templates</a></li>
+<li><a href="#_update_sign_up_form">10. Update Sign-up Form</a></li>
+<li><a href="#_internationalize_pages">11. Internationalize Pages</a></li>
+<li><a href="#_internationalize_actions">12. Internationalize Actions</a></li>
+<li><a href="#_internationalize_api_responses">13. Internationalize API Responses</a></li>
 </ul>
 </div>
 </div>
@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 If these steps are done in order then Lucky should continue to compile (&amp; be usable/testable) with each change.</p>
 </div>
 <div class="paragraph">
-<p><strong>Summary:</strong>
+<p><strong>TLDR:</strong>
 After configuration you can apply translations using either:</p>
 </div>
 <div class="listingblock">
@@ -499,7 +499,7 @@ I18n.t("tranlation.key.values", current_user.lang)</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_1_add_i18n_shard">2. Step 1 - Add i18n shard</h2>
+<h2 id="_add_i18n_shard">2. Add i18n shard</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -531,7 +531,7 @@ require "i18n/backends/yaml"</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_2_add_localization_ymls">3. Step 2 - Add localization ymls</h2>
+<h2 id="_add_localization_ymls">3. Add localization ymls</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>first make a locales folder:</p>
@@ -608,7 +608,7 @@ en:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_3_configure_i18n_within_lucky">4. Step 3 - Configure i18n within Lucky</h2>
+<h2 id="_configure_i18n_within_lucky">4. Configure i18n within Lucky</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The i18n needs to know the location of your language files.
@@ -626,7 +626,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_4_add_lang_to_users_table">5. Step 4 - Add 'lang' to users table</h2>
+<h2 id="_add_lang_to_users_table">5. Add 'lang' to users table</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This setup will assocatiate a language key with each user this language key is used when displaying information.
@@ -668,7 +668,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_5_add_lang_column_to_user_model">6. Step 5 - Add lang column to User model</h2>
+<h2 id="_add_lang_column_to_user_model">6. Add lang column to User model</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -686,7 +686,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_6_create_a_translator_module">7. Step 6 - Create a Translator module</h2>
+<h2 id="_create_a_translator_module">7. Create a Translator module</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>First create a location to extend your lucky system (I suggest <code>mixins</code>):</p>
@@ -735,7 +735,7 @@ require "./mixins/translator"
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_7_update_operations">8. Step 7 - Update Operations</h2>
+<h2 id="_update_operations">8. Update Operations</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>SignUp Save Opoeration needs:
@@ -813,7 +813,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_8_internationalize_templates">9. Step 8 - Internationalize Templates</h2>
+<h2 id="_internationalize_templates">9. Internationalize Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Basic ideas:
@@ -898,7 +898,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_9_update_sign_up_form">10. Step 9 - Update Sign-up Form</h2>
+<h2 id="_update_sign_up_form">10. Update Sign-up Form</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Basic Idea:
@@ -935,7 +935,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_10_internationalize_pages">11. Step 10 - Internationalize Pages</h2>
+<h2 id="_internationalize_pages">11. Internationalize Pages</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add translations to the pages.</p>
@@ -977,7 +977,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_11_internationalize_actions">12. Step 11 - Internationalize Actions</h2>
+<h2 id="_internationalize_actions">12. Internationalize Actions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add <code>include Translator</code> to the abstract class BrowserAction - this allows translations in flash messages too.</p>
@@ -1065,7 +1065,7 @@ end</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_12_internationalize_api_responses">13. Step 12 - Internationalize API Responses</h2>
+<h2 id="_internationalize_api_responses">13. Internationalize API Responses</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If standard APIs responses need translation <code>include Translator</code> here:</p>
@@ -1116,7 +1116,7 @@ end</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 17:46:58 +0100
+Last updated 2020-01-19 17:54:25 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
