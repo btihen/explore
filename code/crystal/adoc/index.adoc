@@ -52,7 +52,7 @@ crystal run src/file_name.cr
 
 === link:crystal_web_server.html[Web Server]
 
-=== link:crystal_web_routes.html[Web Routing]
+=== link:crystal_web_routing.html[Web Routing]
 
 === Secure Web Server
 

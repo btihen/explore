@@ -483,69 +483,6 @@ server.listen(8080)</code></pre>
 * <a href="http://localhost:8080" class="bare">http://localhost:8080</a>
 * <a href="http://localhost:8080/bill" class="bare">http://localhost:8080/bill</a></p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_basic_web_routing">2. Basic Web Routing</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="title">code/crystal/src/web_server/web_routing.cr</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="linenums">require "http/server"
-require "json"
-
-server = HTTP::Server.new do |context|
-  route = context.request.path
-  path  = route.split("/")
-  puts route
-  puts path
-
-  case path[1]
-  when "json"
-    context.response.content_type = "application/json"
-    json_response = JSON.build do |json|
-                      json.object do
-                        json.field "route", route
-                        json.field "values" do
-                          json.array do
-                            # todo: dynamic array of path values
-                            json.number 1
-                            json.number 2
-                          end
-                        end
-                      end
-                    end
-    context.response.print json_response
-  when "html"
-    context.response.content_type = "text/html; charset=UTF-8"
-    context.response.print "&lt;h1&gt;Hello world&lt;/h1&gt;&lt;b&gt;got #{context.request.path}!&lt;/b&gt;"
-  else
-    context.response.content_type = "text/plain"
-    context.response.print "*Hello world* -- got #{context.request.path}!"
-  end
-end
-
-puts "Listening on http://127.0.0.1:8080"
-server.listen(8080)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Run with</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ crystal code/crystal/src/web_server/web_routing.cr</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now open your browser to:
-* <a href="http://localhost:8080" class="bare">http://localhost:8080</a>
-* <a href="http://localhost:8080/bill" class="bare">http://localhost:8080/bill</a>
-* <a href="http://localhost:8080/txt/bill" class="bare">http://localhost:8080/txt/bill</a>
-* <a href="http://localhost:8080/text/bill" class="bare">http://localhost:8080/text/bill</a>
-* <a href="http://localhost:8080/html/bill" class="bare">http://localhost:8080/html/bill</a>
-* <a href="http://localhost:8080/json/bill" class="bare">http://localhost:8080/json/bill</a></p>
-</div>
 <div class="paragraph">
 <p><strong><a href="index.html">Crystal Page</a></strong></p>
 </div>
@@ -554,7 +491,7 @@ server.listen(8080)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 20:52:17 +0100
+Last updated 2020-01-19 20:57:18 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
