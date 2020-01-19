@@ -442,19 +442,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Channel Basics</h1>
 <div class="details">
 <span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
-<span id="revdate"></span>
-</div>
-<div id="toc" class="toc">
-<div id="toctitle">Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_channels">1. Channels</a>
-<ul class="sectlevel2">
-<li><a href="#_simple_channels_between_objects">1.1. Simple Channels (between Objects)</a></li>
-<li><a href="#_closing_channels">1.2. Closing Channels</a></li>
-<li><a href="#_waiting_for_channels_to_close">1.3. Waiting for Channels to close</a></li>
-</ul>
-</li>
-</ul>
 </div>
 </div>
 <div id="content">
@@ -480,7 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>In the following code the <code>User</code> creates a fiber that listens to new messages on its <code>channel</code> to receive messages asynchronously.  We <code>channel.receive</code> <strong>(listen)</strong> for new messages within a <strong>spawn block</strong> to create a <code>fiber</code> that loops waiting to receive and process new messages <em>(basically making our own even loop listening for messages over a channel).</em></p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/channel_basics/user.cr</div>
+<div class="title">code/crystal/src/channel_basics/user.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">class User
   getter channel : Channel(String)
@@ -514,7 +501,7 @@ end</code></pre>
 <p>To use the above code we will make two users and send each messages from Crystal&#8217;s main thread directly to their respective channels.</p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/channel_basics/main.cr</div>
+<div class="title">code/crystal/src/channel_basics/main.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">require "./user"
 
@@ -566,7 +553,7 @@ end</code></pre>
 <p>In order to close channels we can use <code>object.channel.close</code> - to check if a channel is closed we can use: <code>object.channel.closed?</code></p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/channel_basics/main_close.cr</div>
+<div class="title">code/crystal/src/channel_basics/main_close.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">require "./user"
 
@@ -628,7 +615,7 @@ end</code></pre>
 <p>How well does our code work when messaging lots of objects?</p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/channel_basics/main_stress.cr</div>
+<div class="title">code/crystal/src/channel_basics/main_stress.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums"># src/channel_basics/main_close_wait.cr
 require "./user"
@@ -718,7 +705,7 @@ end</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 16:00:37 +0100
+Last updated 2020-01-19 17:28:13 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

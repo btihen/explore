@@ -442,20 +442,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Concurrency Basics</h1>
 <div class="details">
 <span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
-<span id="revdate"></span>
-</div>
-<div id="toc" class="toc">
-<div id="toctitle">Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_introduction_spawn_fibers">1. Introduction - Spawn Fibers</a></li>
-<li><a href="#_spawn_block">2. Spawn Block</a>
-<ul class="sectlevel2">
-<li><a href="#_passing_values_when_fiber_executes">2.1. Passing Values when Fiber EXECUTES</a></li>
-<li><a href="#_passes_values_when_fiber_spawns">2.2. Passes Values when Fiber SPAWNS</a></li>
-</ul>
-</li>
-<li><a href="#_spawn_method_passing_values_when_fiber_spawn">3. Spawn Method (Passing Values when Fiber Spawn)</a></li>
-</ul>
 </div>
 </div>
 <div id="content">
@@ -495,7 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>A spawn block looks like:</p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/concurrency/spawn_block.cr</div>
+<div class="title">code/crystal/src/concurrency/spawn_block.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">puts "before spawn"
 spawn do
@@ -535,7 +521,7 @@ We don&#8217;t see the text <strong>within spawn</strong>
 <p>Spawn block - uses the <strong>value at the time when the Fiber is executed</strong> - which can lead to unexpected results. Try the following code:</p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/concurrency/spawn_block_unexpected.cr</div>
+<div class="title">code/crystal/src/concurrency/spawn_block_unexpected.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">i = 0
 puts "SYNC: i = 0 = #{i}"     # synchronous
@@ -573,7 +559,7 @@ Fiber.yield  # i = 1 when the main thread yields to the fibers!</code></pre>
 <p>This code works as expected, but is clumsy looking:</p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/concurrency/spawn_proc.cr</div>
+<div class="title">code/crystal/src/concurrency/spawn_proc.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">i = 0
 puts "SYNC: i = 0 = #{i}"       # synchronous
@@ -626,7 +612,7 @@ now all works well - but lots of code for 2 simple <code>puts</code> statements.
 <p>A <strong>much nicer</strong> way to pass the value at the time of call&#8201;&#8212;&#8201;not at the time of execution is to use the <code>spawn</code> call:</p>
 </div>
 <div class="listingblock">
-<div class="title">crystal/src/concurrency/spawn_call.cr</div>
+<div class="title">code/crystal/src/concurrency/spawn_call.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">i = 0
 puts "SYNC: i = 0 = #{i}"         # synchronous
@@ -661,7 +647,7 @@ Fiber.yield</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 16:00:37 +0100
+Last updated 2020-01-19 17:28:13 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

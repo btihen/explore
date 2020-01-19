@@ -24,7 +24,7 @@ Exploring & Learning a variety of programming Languages
 
 == Frameworks
 
-=== Crystal -- Lucky
+=== link:crystal_lucky/lucky_index.html[Crystal -- Lucky]
 
 === Elixir -- Phoenix
 
@@ -54,6 +54,6 @@ Thanks for your input.
 $ asciidoctor -D docs adoc/*
 
 # each language needs to be organized inside docs
-$ asciidoctor -D docs/crystal crystal/adoc/*
-$ asciidoctor -D docs/crystal_lucky crystal_lucky/adoc/*
+$ asciidoctor -D docs/crystal code/crystal/adoc/*
+$ asciidoctor -D docs/crystal_lucky code/crystal_lucky/adoc/*
 ```

@@ -117,7 +117,7 @@ NOTE: *Crystal Lang Gitter* is a great group of people willing to help. (special
 == Generating these Docs
 
 ```bash
-$ asciidoctor -D docs/crystal crystal/adoc/*
+$ asciidoctor -D docs/crystal code/crystal/adoc/*
 ```
 
 *link:../index.html[Home Page]*
