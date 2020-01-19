@@ -16,7 +16,7 @@ Version 0.0.1
 
 To demonstrate Structs and Records - lets assume we have a `User` class that can receive messages posted to it.
 
-.src/structs_n_records/user.cr
+.crystal/src/structs_n_records/user.cr
 [source,linenums]
 ----
 require "./message_record"
@@ -75,7 +75,7 @@ end
 
 Below is an example of how the struct is used.
 
-.src/structs_n_records/message_struct_simple.cr
+.crystal/src/structs_n_records/message_struct_simple.cr
 [source,linenums]
 ----
 require "./user"
@@ -141,7 +141,7 @@ Data Structs work well for the purpose of passing immutable data as seen above, 
 
 To fix this `structs` can also define *methods* -- they should be at a minimum and should not attempt to mutate the state.  Below is an example that adds the `to_s` to allow the `User` class to easily consume / print the Message (in a much cleaner way where *Message* class knows how to present its data).
 
-.src/structs_n_records/message_struct.cr
+.crystal/src/structs_n_records/message_struct.cr
 [source,linenums]
 ----
 require "./user"

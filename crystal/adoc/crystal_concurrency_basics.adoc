@@ -32,7 +32,7 @@ There two main way to `spawn` threads - we will need both:
 
 A spawn block looks like:
 
-.src/concurrency/spawn_block.cr
+.crystal/src/concurrency/spawn_block.cr
 [source,linenums]
 ----
 puts "before spawn"
@@ -57,7 +57,7 @@ In order to get the main thread to let the Fiber run before ending we need to un
 
 Spawn block - uses the **value at the time when the Fiber is executed** - which can lead to unexpected results. Try the following code:
 
-.src/concurrency/spawn_block_unexpected.cr
+.crystal/src/concurrency/spawn_block_unexpected.cr
 [source,linenums]
 ----
 i = 0
@@ -88,7 +88,7 @@ The solution is to define a proc which will pass the value at the time the `Proc
 
 This code works as expected, but is clumsy looking:
 
-.src/concurrency/spawn_proc.cr
+.crystal/src/concurrency/spawn_proc.cr
 [source,linenums]
 ----
 i = 0
@@ -123,7 +123,7 @@ NOTE: now all works well - but lots of code for 2 simple `puts` statements.
 
 A *much nicer* way to pass the value at the time of call -- not at the time of execution is to use the `spawn` call:
 
-.src/concurrency/spawn_call.cr
+.crystal/src/concurrency/spawn_call.cr
 [source,linenums]
 ----
 i = 0

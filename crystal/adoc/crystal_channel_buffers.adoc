@@ -41,7 +41,7 @@ Send many:
 * many asynchronous messages
 * then close the channels
 
-.src/channel_buffers/main_buffers.cr
+.crystal/src/channel_buffers/main_buffers.cr
 [source,linenums]
 ----
 class User

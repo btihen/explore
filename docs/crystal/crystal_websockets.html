@@ -473,21 +473,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_websocket_server">1.1. Websocket Server</h3>
+<div class="paragraph">
+<p>We can consider the sockets to behave a lot like channels - the <code>on_message</code> is the block to execute when a message comes in.</p>
+</div>
 <div class="listingblock">
+<div class="title">crystal/src/web_sockets/server.cr</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal"># src/web_sockets/server.cr
-require "http/server"
+<pre class="prettyprint highlight"><code data-lang="linenums">require "http/server"
 
 # track the open websockets
 SOCKETS = [] of HTTP::WebSocket
 
 ws_handler = HTTP::WebSocketHandler.new do |socket|
-  puts "Socket opened"
+
+  # log each new connection opened
+  puts "Socket opened by client"
+
+  # keep track of connections to send to
   SOCKETS &lt;&lt; socket
 
-  # A very simple chat room indeed
+  # listen for incoming messages on the socket
   socket.on_message do |message|
+    # 'log' the messages on the server side
     puts message
+
+    # send message to all connections
     SOCKETS.each { |socket| socket.send message }
   end
 
@@ -499,35 +509,82 @@ ws_handler = HTTP::WebSocketHandler.new do |socket|
   # `.run` is called on the WebSocket automatically when this block returns
 end
 
+# define the server as the ws_handler block defined above
 server = HTTP::Server.new([ws_handler])
 
-address = server.bind_tcp "localhost", 3000
+# connect the websocket server to the TCP stack
+address = server.bind_tcp "localhost", 3030
+
+# Listen until '^c' is entered
 puts "Listening on ws://#{address}"
 server.listen</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Run using (make only one):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="crystal">crystal run crystal/src/web_sockets/server.cr</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you should see a few messages and no prompt - the server is running (in the foreground).</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_websocket_client">1.2. Websocket Client</h3>
+<div class="paragraph">
+<p>Now we can open 2 (or more) new terminals - ideally arraign these so you can see all 3 at once.</p>
+</div>
 <div class="listingblock">
+<div class="title">crystal/src/web_sockets/client.cr</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal"># src/web_sockets/client.cr
+<pre class="prettyprint highlight"><code data-lang="linenums"># allow listen in background and accept new inputs too
 require "http/web_socket"
 
-uri    = URI.parse("ws://localhost:3000")
+# setup the websocket to connect to
+uri    = URI.parse("ws://localhost:3030")
 socket = HTTP::WebSocket.new(uri)
-socket.send "Howdy1"
 
+# code to processes messages when received from socket
 socket.on_message do |message|
   puts message
 end
 
-socket.send "Howdy2"
+# starts listening to the socket
+# spawned so it backgrounds - then we can also enter messages
+spawn socket.run
 
-socket.run
+# get user name for identification
+print "Name: "
+name = gets
 
-socket.send "Howdy2"</code></pre>
+# send a notice you logged in
+socket.send "Logged in: #{name}"
+
+# loop until user quits with 'q'
+loop do
+  puts "enter a message or 'q' to end.\n&gt; "
+  mesg = gets
+  # quit the program if 'q' is entered
+  break if mesg == "q" || mesg == "Q"
+
+  # send typed message to the socket for all to see
+  socket.send "#{name}: #{mesg}"
+end</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Run using (in the other terminals):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="crystal">crystal run crystal/src/web_sockets/client.cr</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can start typing messages and they will be shared to other connected sockets.</p>
 </div>
 </div>
 <div class="sect2">
@@ -557,7 +614,7 @@ socket.send "Howdy2"</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 15:52:08 +0100
+Last updated 2020-01-19 16:50:06 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

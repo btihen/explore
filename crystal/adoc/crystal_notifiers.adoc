@@ -1,4 +1,4 @@
-= Crystal Lang Explorations -- Channel Notifiers
+= Crystal Lang Explorations -- Notifiers
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)

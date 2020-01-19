@@ -14,26 +14,36 @@ Version 0.0.1
 
 *link:crystal_index.html[Crystal Page]*
 
-== Websockets 
+== Websockets
 
 Making long-lived client-server connections over a TCP.
 
-=== Websocket Server 
+=== Websocket Server
 
-```crystal
-# src/web_sockets/server.cr
+We can consider the sockets to behave a lot like channels - the `on_message` is the block to execute when a message comes in.
+
+.crystal/src/web_sockets/server.cr
+[source,linenums]
+----
 require "http/server"
 
 # track the open websockets
 SOCKETS = [] of HTTP::WebSocket
 
 ws_handler = HTTP::WebSocketHandler.new do |socket|
-  puts "Socket opened"
+
+  # log each new connection opened
+  puts "Socket opened by client"
+
+  # keep track of connections to send to
   SOCKETS << socket
 
-  # A very simple chat room indeed
+  # listen for incoming messages on the socket
   socket.on_message do |message|
+    # 'log' the messages on the server side
     puts message
+
+    # send message to all connections
     SOCKETS.each { |socket| socket.send message }
   end
 
@@ -45,35 +55,74 @@ ws_handler = HTTP::WebSocketHandler.new do |socket|
   # `.run` is called on the WebSocket automatically when this block returns
 end
 
+# define the server as the ws_handler block defined above
 server = HTTP::Server.new([ws_handler])
 
-address = server.bind_tcp "localhost", 3000
+# connect the websocket server to the TCP stack
+address = server.bind_tcp "localhost", 3030
+
+# Listen until '^c' is entered
 puts "Listening on ws://#{address}"
 server.listen
+----
+
+Run using (make only one):
 ```
+crystal run crystal/src/web_sockets/server.cr
+```
+
+Now you should see a few messages and no prompt - the server is running (in the foreground).
 
 === Websocket Client
 
-```crystal
-# src/web_sockets/client.cr
+Now we can open 2 (or more) new terminals - ideally arraign these so you can see all 3 at once.
+
+.crystal/src/web_sockets/client.cr
+[source,linenums]
+----
+# allow listen in background and accept new inputs too
 require "http/web_socket"
 
-uri    = URI.parse("ws://localhost:3000")
-socket = HTTP::WebSocket.new(uri)  
-socket.send "Howdy1"
+# setup the websocket to connect to
+uri    = URI.parse("ws://localhost:3030")
+socket = HTTP::WebSocket.new(uri)
 
+# code to processes messages when received from socket
 socket.on_message do |message|
   puts message
 end
 
-socket.send "Howdy2"
+# starts listening to the socket
+# spawned so it backgrounds - then we can also enter messages
+spawn socket.run
 
-socket.run
+# get user name for identification
+print "Name: "
+name = gets
 
-socket.send "Howdy2"
+# send a notice you logged in
+socket.send "Logged in: #{name}"
+
+# loop until user quits with 'q'
+loop do
+  puts "enter a message or 'q' to end.\n> "
+  mesg = gets
+  # quit the program if 'q' is entered
+  break if mesg == "q" || mesg == "Q"
+
+  # send typed message to the socket for all to see
+  socket.send "#{name}: #{mesg}"
+end
+----
+
+Run using (in the other terminals):
+```
+crystal run crystal/src/web_sockets/client.cr
 ```
 
-=== Helpful Resources 
+Now you can start typing messages and they will be shared to other connected sockets.
+
+=== Helpful Resources
 * https://spider-gazelle.net/#/controllers/websockets
 * https://crystal-lang.org/api/0.32.1/HTTP/WebSocket.html
 * https://crystal-lang.org/api/0.32.1/HTTP/WebSocketHandler.html

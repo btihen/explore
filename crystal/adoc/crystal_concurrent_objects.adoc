@@ -20,7 +20,7 @@ We `spawn` to other objects for concurrent processing.  This next code sample sh
 
 Here is our base `User` object:
 
-.src/concurrency/user.cr
+.crystal/src/concurrency/user.cr
 [source,linenums]
 ----
 class User
@@ -43,7 +43,7 @@ end
 
 Code to send `user` messages:
 
-.src/concurrency/user_messaging.cr
+.crystal/src/concurrency/user_messaging.cr
 [source,linenums]
 ----
 require "./user"     # autoloads the above user.cr file

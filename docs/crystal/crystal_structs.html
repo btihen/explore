@@ -467,7 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>To demonstrate Structs and Records - lets assume we have a <code>User</code> class that can receive messages posted to it.</p>
 </div>
 <div class="listingblock">
-<div class="title">src/structs_n_records/user.cr</div>
+<div class="title">crystal/src/structs_n_records/user.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">require "./message_record"
 
@@ -548,7 +548,7 @@ end</code></pre>
 <p>Below is an example of how the struct is used.</p>
 </div>
 <div class="listingblock">
-<div class="title">src/structs_n_records/message_struct_simple.cr</div>
+<div class="title">crystal/src/structs_n_records/message_struct_simple.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">require "./user"
 
@@ -621,7 +621,7 @@ user_2.post_message(mesg_3)
 <p>To fix this <code>structs</code> can also define <strong>methods</strong>&#8201;&#8212;&#8201;they should be at a minimum and should not attempt to mutate the state.  Below is an example that adds the <code>to_s</code> to allow the <code>User</code> class to easily consume / print the Message (in a much cleaner way where <strong>Message</strong> class knows how to present its data).</p>
 </div>
 <div class="listingblock">
-<div class="title">src/structs_n_records/message_struct.cr</div>
+<div class="title">crystal/src/structs_n_records/message_struct.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">require "./user"
 
@@ -675,7 +675,7 @@ user_2.post_message(mesg_3)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 15:52:08 +0100
+Last updated 2020-01-19 16:00:37 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

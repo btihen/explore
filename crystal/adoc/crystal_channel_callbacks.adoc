@@ -23,7 +23,7 @@ For example in our User messaging examples - what if we were connected to a chat
 
 We can do this with a notification channel (a sort-of callback) to the chatroom when we leave - and we can keep the code focused on *Tell* don't *Ask* using channels with our callback.
 
-.src/channel_callbacks/user.cr
+.crystal/src/channel_callbacks/user.cr
 [source,linenums]
 ----
 class User
@@ -63,7 +63,7 @@ end
 
 We can use our new channel callback in the following way:
 
-.src/channel_callbacks/main.cr
+.crystal/src/channel_callbacks/main.cr
 [source,linenums]
 ----
 require "./user"

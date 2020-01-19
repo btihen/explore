@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Crystal Lang Explorations&#8201;&#8212;&#8201;Channel Buffers</title>
+<title>Crystal Lang Explorations&#8201;&#8212;&#8201;Notifiers</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Channel Buffers</h1>
+<h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Notifiers</h1>
 <div class="details">
 <span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
 <span id="revdate">Version 0.0.1</span>
@@ -447,7 +447,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_channel_buffers">1. Channel Buffers</a></li>
+<li><a href="#_channel_notifiers">1. Channel Notifiers</a></li>
 </ul>
 </div>
 </div>
@@ -460,152 +460,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_channel_buffers">1. Channel Buffers</h2>
+<h2 id="_channel_notifiers">1. Channel Notifiers</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Channel Buffers allow us to collect Channel Messages until they can be scheduled.</p>
-</div>
-<div class="paragraph">
-<p>An unbuffered channel is instantiated with:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">@channel = Channel(String).new</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>which is the equivalent of:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">@channel = Channel(String).new(1)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>A Message buffer of 1 (the channel holds at the MOST 1 message at a time.</p>
-</div>
-<div class="paragraph">
-<p>To create a Channel with a buffer of 3 messages use:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">@channel = Channel(String).new(3)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To demonstrate this lets overwhelm our message bus with the below code.
-To trigger a problem do the following in this order with an Unbuffered Channel.
-Send many:
-* many synchronous messages
-* many asynchronous messages
-* then close the channels</p>
-</div>
-<div class="listingblock">
-<div class="title">crystal/src/channel_buffers/main_buffers.cr</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="linenums">class User
-  getter  channel : Channel(String)
-  private getter name : String, email : String
-
-  def initialize(@name, @email)
-    # @channel = Channel(String).new(3)  # buffered - holds 3 messages
-    # @channel = Channel(String).new(1)  # unbuffered - holds 1 message
-    @channel = Channel(String).new       # unbuffered - holds 1 message
-    listen_for_messages
-  end
-
-  def to_s
-    "#{name} &lt;#{email}&gt;"
-  end
-
-  private def listen_for_messages
-    spawn do
-      loop do
-        message = channel.receive?
-        break     if message.nil?
-
-        puts "To: #{to_s} -- #{message}"
-      end
-    end
-  end
-end
-
-module MainBuffers
-  # make a large number of users
-  users  = [] of User
-  1000.times do |i|
-    user = User.new(name: "user_#{i}",  email: "user_#{i}@example.ch")
-    users &lt;&lt; user
-  end
-
-  # sending many sync and async ensures more messages than secondary fibers can handle without a buffer
-  users.each do |receiver|
-    # synchronous messaging
-    receiver.channel.send("SYNC 0 -- From: #{receiver.to_s} - with channel")
-    # # synchronous messaging
-    # spawn receiver.channel.send("SYNC 2 -- From: #{receiver.to_s} - with channel")
-  end
-
-  # sending many sync and async ensures more messages than secondary fibers can handle without a buffer
-  users.each do |receiver|
-    # async messaging
-    spawn receiver.channel.send("ASYNC 3 -- From: #{receiver.to_s} - with channel")
-  end
-
-  # close user channels
-  users.each do |receiver|
-    # close asynchronously to allow messages to be delivered
-    spawn receiver.channel.close
-  end
-
-  # wait for all channels to close before allowing main to terminate
-  loop do
-    break if users.all?{ |u| u.channel.closed? } # are all channels are closed?
-    Fiber.yield
-  end
-end</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Run with:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ crystal src/channel_buffers/main_buffers.cr</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Running this you will see many errors:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">Unhandled exception in spawn: Channel is closed (Channel::ClosedError)
-  from /usr/local/Cellar/crystal/0.32.1/src/channel.cr:224:9 in 'send'
-  from src/channel_buffers/main_buffers.cr:50:11 in '-&gt;'
-  from /usr/local/Cellar/crystal/0.32.1/src/fiber.cr:255:3 in 'run'
-  from /usr/local/Cellar/crystal/0.32.1/src/fiber.cr:47:34 in '-&gt;'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We start to close the channels before the message bus is empty.</p>
-</div>
-<div class="paragraph">
-<p>To easily fix this simply change the user code initializer to:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">def initialize(@name, @email)
-  @channel = Channel(String).new(3)
-  listen_for_messages
-end</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now rerun the code.</p>
-</div>
-<div class="paragraph">
-<p>The errors should now be gone &amp; we can successfully message many users synchronously and asynchronously.</p>
-</div>
 <div class="paragraph">
 <p><strong><a href="crystal_index.html">Crystal Page</a></strong></p>
 </div>
@@ -614,7 +470,7 @@ end</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 16:00:37 +0100
+Last updated 2020-01-19 16:01:49 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

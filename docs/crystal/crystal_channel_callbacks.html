@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>We can do this with a notification channel (a sort-of callback) to the chatroom when we leave - and we can keep the code focused on <strong>Tell</strong> don&#8217;t <strong>Ask</strong> using channels with our callback.</p>
 </div>
 <div class="listingblock">
-<div class="title">src/channel_callbacks/user.cr</div>
+<div class="title">crystal/src/channel_callbacks/user.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">class User
   getter         message_channel : Channel(String)
@@ -521,7 +521,7 @@ end</code></pre>
 <p>We can use our new channel callback in the following way:</p>
 </div>
 <div class="listingblock">
-<div class="title">src/channel_callbacks/main.cr</div>
+<div class="title">crystal/src/channel_callbacks/main.cr</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="linenums">require "./user"
 
@@ -595,7 +595,7 @@ end</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 15:52:08 +0100
+Last updated 2020-01-19 16:00:37 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
