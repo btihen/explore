@@ -12,7 +12,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Home Page]*
+*link:crystal_index.html[Crystal Page]*
 
 == Fibers with Objects
 
@@ -85,4 +85,4 @@ $ crystal src/concurrency/spawn_call.cr
 
 Just a reminder, notice how all async messages happen after `Fiber.yield`
 
-*link:index.html[Home Page]*
+*link:crystal_index.html[Crystal Page]*

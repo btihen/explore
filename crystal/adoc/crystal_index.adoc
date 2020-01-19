@@ -11,7 +11,7 @@ Bill Tihen (Crystal 0.32.1)
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Home Page]*
+*link:../index.html[Home Page]*
 
 *Fast as C, slick as Ruby*
 
@@ -81,7 +81,7 @@ Augment and adapt content using inspiration from: https://blog.golang.org/pipeli
 
 * Safely share state information when its available
 
-=== Crystal Promises 
+=== Crystal Promises
 
 * See: https://github.com/spider-gazelle/promise
 
@@ -131,4 +131,4 @@ $ asciidoctor -D docs/crystal crystal/adoc/*
 
 Thanks!
 
-*link:index.html[Home Page]*
+*link:../index.html[Home Page]*

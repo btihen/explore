@@ -12,7 +12,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Home Page]*
+*link:crystal_index.html[Crystal Page]*
 
 == Introduction - Spawn Fibers
 
@@ -146,4 +146,4 @@ This is syntactic sugar (a crystal `macro`) for `proc`-`spawn` technique shown a
 
 Just a reminder, notice how all async messages happen after `Fiber.yield`
 
-*link:index.html[Home Page]*
+*link:crystal_index.html[Crystal Page]*

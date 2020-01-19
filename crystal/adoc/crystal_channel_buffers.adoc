@@ -13,7 +13,7 @@ Version 0.0.1
 :imagesdir: ./images
 
 
-*link:index.html[Home Page]*
+*link:crystal_index.html[Crystal Page]*
 
 == Channel Buffers
 
@@ -133,4 +133,4 @@ Now rerun the code.
 
 The errors should now be gone & we can successfully message many users synchronously and asynchronously.
 
-*link:index.html[Home Page]*
+*link:crystal_index.html[Crystal Page]*
