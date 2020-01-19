@@ -1,8 +1,7 @@
-= Crystal Lang Explorations -- Start Page
+= Crystal Lang Explorations
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
 :sectnums:
 :toc:
 :toclevels: 4
@@ -12,7 +11,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:../../docs/index.html[Start Page]*
+*link:index.html[Start Page]*
 
 *Fast as C, slick as Ruby*
 
@@ -39,16 +38,16 @@ crystal run src/file_name.cr
 
 == Structs & Records
 
-=== link:structs.html[Structs]
+=== link:crystal_structs.html[Structs]
 
 * Structs _(& Records)_ are immutable data structures - these are `safe` when used in a concurrent/parallel context.
 
-=== link:records.html[Records]
+=== link:crystal_records.html[Records]
 
 * Structs _(& Records)_ are immutable data structures - these are `safe` when used in a concurrent/parallel context.
 
 
-== link:websockets.html[WebSockets]
+== link:crystal_websockets.html[WebSockets]
 
 Making long-lived client-server connections over a TCP.
 
@@ -61,24 +60,24 @@ An intro into the basics of how things like websockets work
 Augment and adapt content using inspiration from: https://blog.golang.org/pipelines
 ****
 
-=== link:concurrency_basics.html[Concurrency Basics]
+=== link:crystal_concurrency_basics.html[Concurrency Basics]
 
 * Basics on starting processes concurrently
 
-=== link:concurrent_objects.html[Concurrent Objects]
+=== link:crystal_concurrent_objects.html[Concurrent Objects]
 
 * Examples of using concurrency with objects
 
-=== link:channels_async_messaging.html[Channels _(Async Messaging)_]
+=== link:crystal_channels_async_messaging.html[Channels _(Async Messaging)_]
 
 * Channels allow us to safely communicate between concurrent processes.
 * To safely share data/state send immutable data only **(Structs are a good option)**.
 
-=== link:channel_buffers.html[Channel Buffers]
+=== link:crystal_channel_buffers.html[Channel Buffers]
 
 * What to do when messages come faster than collected
 
-=== link:channel_callbacks.html[Channel Callbacks]
+=== link:crystal_channel_callbacks.html[Channel Callbacks]
 
 * Safely share state information when its available
 
@@ -86,7 +85,7 @@ Augment and adapt content using inspiration from: https://blog.golang.org/pipeli
 
 * See: https://github.com/spider-gazelle/promise
 
-=== link:parallelism.html[Parallelism]
+=== link:crystal_parallelism.html[Parallelism]
 
 * Compiling to use multiple CPUs (add `-Dpreview_mt`) to the compile command
 
@@ -122,7 +121,7 @@ Webpage and associated code can be found at: https://github.com/btihen/crystal_e
 == Generating these Docs
 
 ```bash
-$ asciidoctor -D docs adoc/*
+$ asciidoctor -D docs/crystal crystal/adoc/*
 ```
 
 == Corrections & Improvements
@@ -132,4 +131,4 @@ $ asciidoctor -D docs adoc/*
 
 Thanks!
 
-*link:../../docs/index.html[Start Page]*
+*link:index.html[Start Page]*

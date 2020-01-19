@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Explorations&#8201;&#8212;&#8201;Start Page</title>
+<title>Crystal Lang Explorations&#8201;&#8212;&#8201;Parallelism</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,29 +439,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Explorations&#8201;&#8212;&#8201;Start Page</h1>
+<h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Parallelism</h1>
 <div class="details">
 <span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
 <span id="revdate">Version 0.0.1</span>
 </div>
 <div id="toc" class="toc">
-<div id="toctitle">Languages</div>
+<div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_languages">1. Languages</a>
-<ul class="sectlevel2">
-<li><a href="#_crystal">1.1. Crystal</a></li>
-<li><a href="#_elixir">1.2. Elixir</a></li>
-<li><a href="#_ruby">1.3. Ruby</a></li>
-</ul>
-</li>
-<li><a href="#_frameworks">2. Frameworks</a>
-<ul class="sectlevel2">
-<li><a href="#_crystallucky">2.1. Crystal&#8201;&#8212;&#8201;Lucky</a></li>
-<li><a href="#_elixirphoenix">2.2. Elixir&#8201;&#8212;&#8201;Phoenix</a></li>
-<li><a href="#_rubyrails">2.3. Ruby&#8201;&#8212;&#8201;Rails</a></li>
-</ul>
-</li>
-<li><a href="#_generating_these_docs">3. Generating these Docs</a></li>
+<li><a href="#_parallelism">1. Parallelism</a></li>
 </ul>
 </div>
 </div>
@@ -469,74 +455,66 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Exploring &amp; Learning a variety of programming Languages</p>
+<p><strong><a href="index.html">Start Page</a></strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_languages">1. Languages</h2>
+<h2 id="_parallelism">1. Parallelism</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_crystal">1.1. <a href="crystal/crystal_index.html">Crystal</a></h3>
-
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Compiling for Parallelism is EXPERIMENTAL - see:<br>
+<a href="https://crystal-lang.org/2019/09/06/parallelism-in-crystal.html" class="bare">https://crystal-lang.org/2019/09/06/parallelism-in-crystal.html</a>
+</td>
+</tr>
+</table>
 </div>
-<div class="sect2">
-<h3 id="_elixir">1.2. Elixir</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_ruby">1.3. Ruby</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_frameworks">2. Frameworks</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_crystallucky">2.1. Crystal&#8201;&#8212;&#8201;Lucky</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_elixirphoenix">2.2. Elixir&#8201;&#8212;&#8201;Phoenix</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_rubyrails">2.3. Ruby&#8201;&#8212;&#8201;Rails</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">3. Generating these Docs</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs adoc/*
-$ asciidoctor -D docs/crystal crystal/adoc/*</code></pre>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">NOTE:</div>
 <div class="ulist">
 <ul>
 <li>
-<p>The code is just good enough to demonstrate an idea.</p>
-</li>
-<li>
-<p>This code does not focus on best practices, testing, security or stability.</p>
+<p>To compiling for parallelism (multiple CPUs) add: <code>-Dpreview_mt</code> to the compile command as shown bellow:</p>
 </li>
 </ul>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ crystal build -Dpreview_mt main.cr</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Run using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ ./main                    # default is to run with 4 CPUs
+$ CRYSTAL_WORKERS=8 ./main  # this case run will use 8 CPUs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now if you need to ensure a Fiber is in the same thread you must use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="crystal">spawn same_thread: true do
+  # ...
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Start Page</a></strong></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 15:34:56 +0100
+Last updated 2020-01-19 15:29:11 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

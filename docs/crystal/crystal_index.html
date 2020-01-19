@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Explorations&#8201;&#8212;&#8201;Start Page</title>
+<title>Crystal Lang Explorations</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,29 +439,39 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Explorations&#8201;&#8212;&#8201;Start Page</h1>
+<h1>Crystal Lang Explorations</h1>
 <div class="details">
 <span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
-<span id="revdate">Version 0.0.1</span>
 </div>
 <div id="toc" class="toc">
-<div id="toctitle">Languages</div>
+<div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_languages">1. Languages</a>
+<li><a href="#_installation">1. Installation</a></li>
+<li><a href="#_crystal_cli">2. Crystal CLI</a></li>
+<li><a href="#_structs_records">3. Structs &amp; Records</a>
 <ul class="sectlevel2">
-<li><a href="#_crystal">1.1. Crystal</a></li>
-<li><a href="#_elixir">1.2. Elixir</a></li>
-<li><a href="#_ruby">1.3. Ruby</a></li>
+<li><a href="#_structs">3.1. Structs</a></li>
+<li><a href="#_records">3.2. Records</a></li>
 </ul>
 </li>
-<li><a href="#_frameworks">2. Frameworks</a>
+<li><a href="#_websockets">4. WebSockets</a></li>
+<li><a href="#_concurrency_parallelism">5. Concurrency &amp; Parallelism</a>
 <ul class="sectlevel2">
-<li><a href="#_crystallucky">2.1. Crystal&#8201;&#8212;&#8201;Lucky</a></li>
-<li><a href="#_elixirphoenix">2.2. Elixir&#8201;&#8212;&#8201;Phoenix</a></li>
-<li><a href="#_rubyrails">2.3. Ruby&#8201;&#8212;&#8201;Rails</a></li>
+<li><a href="#_concurrency_basics">5.1. Concurrency Basics</a></li>
+<li><a href="#_concurrent_objects">5.2. Concurrent Objects</a></li>
+<li><a href="#_channels_async_messaging">5.3. Channels <em>(Async Messaging)</em></a></li>
+<li><a href="#_channel_buffers">5.4. Channel Buffers</a></li>
+<li><a href="#_channel_callbacks">5.5. Channel Callbacks</a></li>
+<li><a href="#_crystal_promises">5.6. Crystal Promises</a></li>
+<li><a href="#_parallelism">5.7. Parallelism</a></li>
+<li><a href="#_actor_model_not_done">5.8. Actor Model <em><strong>(not done)</strong></em></a></li>
 </ul>
 </li>
-<li><a href="#_generating_these_docs">3. Generating these Docs</a></li>
+<li><a href="#_to_dos">6. TO-DOs</a></li>
+<li><a href="#_resources">7. Resources</a></li>
+<li><a href="#_webpage_code_repo">8. Webpage &amp; Code Repo</a></li>
+<li><a href="#_generating_these_docs">9. Generating these Docs</a></li>
+<li><a href="#_corrections_improvements">10. Corrections &amp; Improvements</a></li>
 </ul>
 </div>
 </div>
@@ -469,74 +479,296 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Exploring &amp; Learning a variety of programming Languages</p>
+<p><strong><a href="index.html">Start Page</a></strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Fast as C, slick as Ruby</strong></p>
+</div>
+<div class="paragraph">
+<p>Exploring &amp; Learning Crystal Language with code examples and augment the documentation.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://crystal-lang.org/" class="bare">https://crystal-lang.org/</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_languages">1. Languages</h2>
+<h2 id="_installation">1. Installation</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_crystal">1.1. <a href="crystal/crystal_index.html">Crystal</a></h3>
-
+<div class="paragraph">
+<p>On MacOS - use:</p>
 </div>
-<div class="sect2">
-<h3 id="_elixir">1.2. Elixir</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_ruby">1.3. Ruby</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_frameworks">2. Frameworks</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_crystallucky">2.1. Crystal&#8201;&#8212;&#8201;Lucky</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_elixirphoenix">2.2. Elixir&#8201;&#8212;&#8201;Phoenix</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_rubyrails">2.3. Ruby&#8201;&#8212;&#8201;Rails</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">3. Generating these Docs</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs adoc/*
-$ asciidoctor -D docs/crystal crystal/adoc/*</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">$ brew install crystal</code></pre>
 </div>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">NOTE:</div>
+<div class="paragraph">
+<p>For all other systems see: <a href="https://crystal-lang.org/install/" class="bare">https://crystal-lang.org/install/</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_crystal_cli">2. <a href="crystal_cli.html">Crystal CLI</a></h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>The code is just good enough to demonstrate an idea.</p>
+<p>Useful commands when using crystal</p>
 </li>
 <li>
-<p>This code does not focus on best practices, testing, security or stability.</p>
+<p>My most useful command while developing is:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="crystal">crystal run src/file_name.cr</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_structs_records">3. Structs &amp; Records</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_structs">3.1. <a href="crystal_structs.html">Structs</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Structs <em>(&amp; Records)</em> are immutable data structures - these are <code>safe</code> when used in a concurrent/parallel context.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_records">3.2. <a href="crystal_records.html">Records</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Structs <em>(&amp; Records)</em> are immutable data structures - these are <code>safe</code> when used in a concurrent/parallel context.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_websockets">4. <a href="crystal_websockets.html">WebSockets</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Making long-lived client-server connections over a TCP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concurrency_parallelism">5. Concurrency &amp; Parallelism</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An intro into the basics of how things like websockets work</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">TODO</div>
+<div class="paragraph">
+<p>Augment and adapt content using inspiration from: <a href="https://blog.golang.org/pipelines" class="bare">https://blog.golang.org/pipelines</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concurrency_basics">5.1. <a href="crystal_concurrency_basics.html">Concurrency Basics</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Basics on starting processes concurrently</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concurrent_objects">5.2. <a href="crystal_concurrent_objects.html">Concurrent Objects</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Examples of using concurrency with objects</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channels_async_messaging">5.3. <a href="crystal_channels_async_messaging.html">Channels <em>(Async Messaging)</em></a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Channels allow us to safely communicate between concurrent processes.</p>
+</li>
+<li>
+<p>To safely share data/state send immutable data only <strong>(Structs are a good option)</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel_buffers">5.4. <a href="crystal_channel_buffers.html">Channel Buffers</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>What to do when messages come faster than collected</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel_callbacks">5.5. <a href="crystal_channel_callbacks.html">Channel Callbacks</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Safely share state information when its available</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_crystal_promises">5.6. Crystal Promises</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>See: <a href="https://github.com/spider-gazelle/promise" class="bare">https://github.com/spider-gazelle/promise</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parallelism">5.7. <a href="crystal_parallelism.html">Parallelism</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Compiling to use multiple CPUs (add <code>-Dpreview_mt</code>) to the compile command</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_actor_model_not_done">5.8. Actor Model <em><strong>(not done)</strong></em></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Using macros to build async message sending, callbacks and state sharing.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_to_dos">6. TO-DOs</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Add Macros</p>
+</li>
+<li>
+<p>Write Channel Buffering</p>
+</li>
+<li>
+<p>Reseach Promises in Crystal</p>
+</li>
+<li>
+<p>Finish Callbacks &amp; (Notification)</p>
+</li>
+<li>
+<p>Research/Add Crystal Value Objects</p>
+</li>
+<li>
+<p>Build a Macro to make a simple Actor Class</p>
+</li>
+<li>
+<p>Add Parallelism (Ideally with WebSockets example&#8201;&#8212;&#8201;to extend <code>chat</code>)</p>
+</li>
+<li>
+<p>Add, review, augment and adapt content using: <a href="https://blog.golang.org/pipelines" class="bare">https://blog.golang.org/pipelines</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources">7. Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Crystal Git Repo - <a href="https://github.com/crystal-lang/crystal/" class="bare">https://github.com/crystal-lang/crystal/</a></p>
+</li>
+<li>
+<p>Crystal Lang GitBook - <a href="https://crystal-lang.org/reference/guides" class="bare">https://crystal-lang.org/reference/guides</a></p>
+</li>
+<li>
+<p>Crystal Lang API Docs - <a href="https://crystal-lang.org/api/0.32.1/index.html" class="bare">https://crystal-lang.org/api/0.32.1/index.html</a></p>
+</li>
+<li>
+<p>Crystal Lang Gitter - <a href="https://gitter.im/crystal-lang/crystal" class="bare">https://gitter.im/crystal-lang/crystal</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<strong>Crystal Lang Gitter</strong> is a great group of people willing to help. (special mention to: @stnluu_twitter, @watzon, @repomaa, @randiaz95, @straight-shoota &amp; @paulcsmith)
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_webpage_code_repo">8. Webpage &amp; Code Repo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Webpage and associated code can be found at: <a href="https://github.com/btihen/crystal_explorations" class="bare">https://github.com/btihen/crystal_explorations</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generating_these_docs">9. Generating these Docs</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/crystal crystal/adoc/*</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_corrections_improvements">10. Corrections &amp; Improvements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>make a <a href="https://github.com/btihen/crystal_explorations">pull request</a> with your suggestion(s)</p>
+</li>
+<li>
+<p>or a <a href="https://github.com/btihen/crystal_explorations/issues">Github issue</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Thanks!</p>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Start Page</a></strong></p>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 15:34:56 +0100
+Last updated 2020-01-19 15:35:10 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

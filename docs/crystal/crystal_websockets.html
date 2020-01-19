@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Explorations&#8201;&#8212;&#8201;Start Page</title>
+<title>Crystal Lang Explorations&#8201;&#8212;&#8201;Websockets</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,29 +439,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Explorations&#8201;&#8212;&#8201;Start Page</h1>
+<h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Websockets</h1>
 <div class="details">
 <span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
 <span id="revdate">Version 0.0.1</span>
 </div>
 <div id="toc" class="toc">
-<div id="toctitle">Languages</div>
+<div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_languages">1. Languages</a>
+<li><a href="#_websockets">1. Websockets</a>
 <ul class="sectlevel2">
-<li><a href="#_crystal">1.1. Crystal</a></li>
-<li><a href="#_elixir">1.2. Elixir</a></li>
-<li><a href="#_ruby">1.3. Ruby</a></li>
+<li><a href="#_websocket_server">1.1. Websocket Server</a></li>
+<li><a href="#_websocket_client">1.2. Websocket Client</a></li>
+<li><a href="#_helpful_resources">1.3. Helpful Resources</a></li>
 </ul>
 </li>
-<li><a href="#_frameworks">2. Frameworks</a>
-<ul class="sectlevel2">
-<li><a href="#_crystallucky">2.1. Crystal&#8201;&#8212;&#8201;Lucky</a></li>
-<li><a href="#_elixirphoenix">2.2. Elixir&#8201;&#8212;&#8201;Phoenix</a></li>
-<li><a href="#_rubyrails">2.3. Ruby&#8201;&#8212;&#8201;Rails</a></li>
-</ul>
-</li>
-<li><a href="#_generating_these_docs">3. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -469,66 +461,95 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Exploring &amp; Learning a variety of programming Languages</p>
+<p><strong><a href="index.html">Start Page</a></strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_languages">1. Languages</h2>
+<h2 id="_websockets">1. Websockets</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_crystal">1.1. <a href="crystal/crystal_index.html">Crystal</a></h3>
-
+<div class="paragraph">
+<p>Making long-lived client-server connections over a TCP.</p>
 </div>
 <div class="sect2">
-<h3 id="_elixir">1.2. Elixir</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_ruby">1.3. Ruby</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_frameworks">2. Frameworks</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_crystallucky">2.1. Crystal&#8201;&#8212;&#8201;Lucky</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_elixirphoenix">2.2. Elixir&#8201;&#8212;&#8201;Phoenix</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_rubyrails">2.3. Ruby&#8201;&#8212;&#8201;Rails</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">3. Generating these Docs</h2>
-<div class="sectionbody">
+<h3 id="_websocket_server">1.1. Websocket Server</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs adoc/*
-$ asciidoctor -D docs/crystal crystal/adoc/*</code></pre>
+<pre class="prettyprint highlight"><code data-lang="crystal"># src/web_sockets/server.cr
+require "http/server"
+
+# track the open websockets
+SOCKETS = [] of HTTP::WebSocket
+
+ws_handler = HTTP::WebSocketHandler.new do |socket|
+  puts "Socket opened"
+  SOCKETS &lt;&lt; socket
+
+  # A very simple chat room indeed
+  socket.on_message do |message|
+    puts message
+    SOCKETS.each { |socket| socket.send message }
+  end
+
+  # Clean up any references
+  socket.on_close do
+    SOCKETS.delete(socket)
+  end
+
+  # `.run` is called on the WebSocket automatically when this block returns
+end
+
+server = HTTP::Server.new([ws_handler])
+
+address = server.bind_tcp "localhost", 3000
+puts "Listening on ws://#{address}"
+server.listen</code></pre>
 </div>
 </div>
-<div class="sidebarblock">
+</div>
+<div class="sect2">
+<h3 id="_websocket_client">1.2. Websocket Client</h3>
+<div class="listingblock">
 <div class="content">
-<div class="title">NOTE:</div>
+<pre class="prettyprint highlight"><code data-lang="crystal"># src/web_sockets/client.cr
+require "http/web_socket"
+
+uri    = URI.parse("ws://localhost:3000")
+socket = HTTP::WebSocket.new(uri)
+socket.send "Howdy1"
+
+socket.on_message do |message|
+  puts message
+end
+
+socket.send "Howdy2"
+
+socket.run
+
+socket.send "Howdy2"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_helpful_resources">1.3. Helpful Resources</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>The code is just good enough to demonstrate an idea.</p>
+<p><a href="https://spider-gazelle.net/#/controllers/websockets" class="bare">https://spider-gazelle.net/#/controllers/websockets</a></p>
 </li>
 <li>
-<p>This code does not focus on best practices, testing, security or stability.</p>
+<p><a href="https://crystal-lang.org/api/0.32.1/HTTP/WebSocket.html" class="bare">https://crystal-lang.org/api/0.32.1/HTTP/WebSocket.html</a></p>
+</li>
+<li>
+<p><a href="https://crystal-lang.org/api/0.32.1/HTTP/WebSocketHandler.html" class="bare">https://crystal-lang.org/api/0.32.1/HTTP/WebSocketHandler.html</a></p>
+</li>
+<li>
+<p><a href="https://medium.com/@muhammadtriwibowo/simple-websocket-using-crystal-13b6f67eba61" class="bare">https://medium.com/@muhammadtriwibowo/simple-websocket-using-crystal-13b6f67eba61</a></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><strong><a href="index.html">Start Page</a></strong></p>
 </div>
 </div>
 </div>
@@ -536,7 +557,7 @@ $ asciidoctor -D docs/crystal crystal/adoc/*</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 15:34:56 +0100
+Last updated 2020-01-19 15:28:56 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
