@@ -63,6 +63,7 @@ $ crystal code/crystal/src/web_server/web_routing.cr
 ```
 
 Now open your browser to:
+
 * http://localhost:8080
 * http://localhost:8080/bill
 * http://localhost:8080/txt/bill
