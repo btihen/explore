@@ -12,7 +12,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
 
 To demonstrate Structs and Records - lets assume we have a `User` class that can receive messages posted to it.
 
@@ -125,4 +125,4 @@ Run this using:
 $ crystal src/structs_n_records/message_record.cr
 ```
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*

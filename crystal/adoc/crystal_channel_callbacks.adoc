@@ -13,7 +13,7 @@ Version 0.0.1
 :imagesdir: ./images
 
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
 
 == Callbacks (Async Responses)
 
@@ -117,4 +117,4 @@ Now we can wait for all channels to close using our callback.
 * Message arrive in the order they are RECEIVED - _Async messages are sent when scheduled (later) - thus Sync messages arrive first_
 ****
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*

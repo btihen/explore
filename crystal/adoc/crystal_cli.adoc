@@ -12,7 +12,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
 
 == Crystal CLI
 
@@ -62,4 +62,4 @@ $ crystal spec
 $ crystal docs
 ```
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*

@@ -14,12 +14,6 @@ Version 0.0.1
 
 Exploring & Learning Crystal Language with code examples and augment the documentation.
 
-.NOTE:
-****
-* The code is just good enough to demonstrate an idea.
-* This code does not focus on best practices, security nor being production ready.
-****
-
 == Installation
 
 On MacOS - use:

@@ -12,7 +12,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
 
 == Channels
 
@@ -230,4 +230,4 @@ end
 
 Now we have time to deliver ALL our messages before exiting!
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*

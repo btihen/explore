@@ -12,7 +12,7 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
 
 == Websockets 
 
@@ -80,4 +80,4 @@ socket.send "Howdy2"
 * https://medium.com/@muhammadtriwibowo/simple-websocket-using-crystal-13b6f67eba61
 
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*

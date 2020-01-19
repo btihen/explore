@@ -11,7 +11,7 @@ Bill Tihen (Crystal 0.32.1)
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
 
 *Fast as C, slick as Ruby*
 
@@ -131,4 +131,4 @@ $ asciidoctor -D docs/crystal crystal/adoc/*
 
 Thanks!
 
-*link:index.html[Start Page]*
+*link:index.html[Home Page]*
