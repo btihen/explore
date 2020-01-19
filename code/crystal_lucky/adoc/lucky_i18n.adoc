@@ -12,7 +12,7 @@ Bill Tihen (Lucky 0.32.1)
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:lucky_index.html[Lucky Page]*
+*link:index.html[Lucky Page]*
 
 == Intro
 
@@ -547,4 +547,4 @@ module Api::Auth::RequireAuthToken
 end
 ```
 
-*link:lucky_index.html[Lucky Page]*
+*link:index.html[Lucky Page]*

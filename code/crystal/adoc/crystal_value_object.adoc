@@ -12,8 +12,8 @@ Bill Tihen (Crystal 0.32.1)
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*
 
 
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*

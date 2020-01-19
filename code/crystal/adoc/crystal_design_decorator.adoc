@@ -12,7 +12,7 @@ Bill Tihen (Crystal 0.32.1)
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*
 
 To demonstrate Structs and Records - lets assume we have a `User` class that can receive messages posted to it.
 
@@ -75,4 +75,4 @@ Run this using:
 $ crystal src/design_patterns/decorators.cr
 ```
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*

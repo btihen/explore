@@ -13,7 +13,7 @@ Bill Tihen (Crystal 0.32.1)
 :imagesdir: ./images
 
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*
 
 == Callbacks (Async Responses)
 
@@ -117,4 +117,4 @@ Now we can wait for all channels to close using our callback.
 * Message arrive in the order they are RECEIVED - _Async messages are sent when scheduled (later) - thus Sync messages arrive first_
 ****
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*

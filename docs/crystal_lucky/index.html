@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Crystal Lang Explorations&#8201;&#8212;&#8201;Decorator</title>
+<meta name="author" content="Bill Tihen (Lucky 0.18.2)">
+<title>Lucky Framework Explorations</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,88 +439,101 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Crystal Lang Explorations&#8201;&#8212;&#8201;Decorator</h1>
+<h1>Lucky Framework Explorations</h1>
 <div class="details">
-<span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
+<span id="author" class="author">Bill Tihen (Lucky 0.18.2)</span><br>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong><a href="index.html">Crystal Page</a></strong></p>
-</div>
-<div class="paragraph">
-<p>To demonstrate Structs and Records - lets assume we have a <code>User</code> class that can receive messages posted to it.</p>
-</div>
-<div class="listingblock">
-<div class="title">code/crystal/src/structs_n_records/user.cr</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="linenums">require "./message_record"
-
-class User
-  private getter name : String, email : String
-
-  def initialize(@name, @email)
-  end
-
-  def to_s
-    "#{name} &lt;#{email}&gt;"
-  end
-
-  def post_message(message : Message)
-    puts message.to_s
-  end
-end</code></pre>
-</div>
+<p><strong><a href="../index.html">Home Page</a></strong></p>
 </div>
 <div class="paragraph">
-<p>Below is an example of how the struct is used.</p>
-</div>
-<div class="listingblock">
-<div class="title">code/crystal/src/structs_n_records/message_struct_simple.cr</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="linenums">require "./user"
-
-# UserUnpackPost: A User Decorator responsible to unpack User Messages Posted
-# class UserUnpackPost
-#   def initialize(@user : User)
-#   end
-#
-#   def post_message(message : Message)
-#     text     = message.text
-#     topic    = message.topic
-#     sender   = message.sender
-#     receiver = message.receiver
-#     output = [] of String
-#     output &lt;&lt; "-" * 30
-#     output &lt;&lt; "From: #{sender.to_s}"
-#     output &lt;&lt; "To: #{receiver.to_s}"       unless receiver.nil?
-#     output &lt;&lt; "Topic: #{topic.to_s.strip}" unless topic.nil?
-#     output &lt;&lt; text.strip
-#     output &lt;&lt; "-" * 30
-#     puts output.join("\n")
-#   end
-# end
-#
-# UserUnpackPost.new(user_1).post_message(mesg_1)
-# UserUnpackPost.new(user_2).post_message(mesg_2)
-# UserUnpackPost.new(user_2).post_message(mesg_3)</code></pre>
-</div>
+<p><strong>A full-featured Crystal web framework that catches bugs for you, runs incredibly fast, and helps you write code that lasts.</strong></p>
 </div>
 <div class="paragraph">
-<p>Run this using:</p>
+<p><a href="https://luckyframework.org" class="bare">https://luckyframework.org</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation">1. Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On MacOS - use:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ crystal src/design_patterns/decorators.cr</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">$ brew install openssl
+$ brew install overmind
+$ brew install postgresql
+$ brew tap luckyframework/homebrew-lucky
+$ brew install lucky</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong><a href="index.html">Crystal Page</a></strong></p>
+<p>For details see: <a href="https://luckyframework.org/guides/getting-started/installing" class="bare">https://luckyframework.org/guides/getting-started/installing</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_project">2. New Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The cli guides you through a new project setup - with an option for a devise like authentication code.
+* <strong>Full</strong> - includes webpacker, css and all code for a frontend &amp; API responses
+* <strong>API</strong> - no webpacker just api response code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ lucky init
+$ cd {project_name}
+
+# install dependencies
+$ script/setup
+
+# start lucky with:
+$ lucky dev</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_organization">3. Organization</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_actions">3.1. Actions</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_namespacing">3.2. Namespacing</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_internationalization">3.3. <a href="lucky_i18n.html">Internationalization</a></h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generating_these_docs">4. Generating these Docs</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/crystal_lucky code/crystal_lucky/adoc/*</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong><a href="../index.html">Home Page</a></strong></p>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 19:24:22 +0100
+Last updated 2020-01-19 17:58:17 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

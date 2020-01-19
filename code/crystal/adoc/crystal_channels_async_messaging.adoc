@@ -12,7 +12,7 @@ Bill Tihen (Crystal 0.32.1)
 :keywords: Crystal Language
 :imagesdir: ./images
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*
 
 == Channels
 
@@ -230,4 +230,4 @@ end
 
 Now we have time to deliver ALL our messages before exiting!
 
-*link:crystal_index.html[Crystal Page]*
+*link:index.html[Crystal Page]*

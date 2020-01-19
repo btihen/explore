@@ -15,7 +15,7 @@ Exploring & Learning a variety of programming Languages
 
 == Languages
 
-=== link:crystal/crystal_index.html[Crystal]
+=== link:crystal/index.html[Crystal]
 
 *Fast as C, slick as Ruby*
 
@@ -25,7 +25,7 @@ Exploring & Learning a variety of programming Languages
 
 == Frameworks
 
-=== link:crystal_lucky/lucky_index.html[Crystal -- Lucky]
+=== link:crystal_lucky/index.html[Crystal -- Lucky]
 
 === Elixir -- Phoenix
 
