@@ -55,4 +55,5 @@ $ asciidoctor -D docs adoc/*
 
 # each language needs to be organized inside docs
 $ asciidoctor -D docs/crystal crystal/adoc/*
+$ asciidoctor -D docs/crystal_lucky crystal_lucky/adoc/*
 ```

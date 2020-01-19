@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -18,11 +18,11 @@ Version 0.0.1
 
 Making long-lived client-server connections over a TCP.
 
-=== Websocket Server
+=== Websocket Server (without SSL)
 
 We can consider the sockets to behave a lot like channels - the `on_message` is the block to execute when a message comes in.
 
-.crystal/src/web_sockets/server.cr
+.code/crystal/src/web_sockets/server.cr
 [source,linenums]
 ----
 require "http/server"
@@ -73,11 +73,11 @@ crystal run crystal/src/web_sockets/server.cr
 
 Now you should see a few messages and no prompt - the server is running (in the foreground).
 
-=== Websocket Client
+=== Websocket Client (without SSL)
 
 Now we can open 2 (or more) new terminals - ideally arraign these so you can see all 3 at once.
 
-.crystal/src/web_sockets/client.cr
+.code/crystal/src/web_sockets/client.cr
 [source,linenums]
 ----
 # allow listen in background and accept new inputs too
@@ -122,11 +122,14 @@ crystal run crystal/src/web_sockets/client.cr
 
 Now you can start typing messages and they will be shared to other connected sockets.
 
+=== Websocket Server (with SSL)
+
+=== Websocket Client (with SSL)
+
 === Helpful Resources
 * https://spider-gazelle.net/#/controllers/websockets
 * https://crystal-lang.org/api/0.32.1/HTTP/WebSocket.html
 * https://crystal-lang.org/api/0.32.1/HTTP/WebSocketHandler.html
 * https://medium.com/@muhammadtriwibowo/simple-websocket-using-crystal-13b6f67eba61
-
 
 *link:crystal_index.html[Crystal Page]*

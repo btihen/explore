@@ -114,21 +114,10 @@ Augment and adapt content using inspiration from: https://blog.golang.org/pipeli
 
 NOTE: *Crystal Lang Gitter* is a great group of people willing to help. (special mention to: @stnluu_twitter, @watzon, @repomaa, @randiaz95, @straight-shoota & @paulcsmith)
 
-== Webpage & Code Repo
-
-Webpage and associated code can be found at: https://github.com/btihen/crystal_explorations
-
 == Generating these Docs
 
 ```bash
 $ asciidoctor -D docs/crystal crystal/adoc/*
 ```
-
-== Corrections & Improvements
-
-- make a https://github.com/btihen/crystal_explorations[pull request] with your suggestion(s)
-- or a https://github.com/btihen/crystal_explorations/issues[Github issue]
-
-Thanks!
 
 *link:../index.html[Home Page]*

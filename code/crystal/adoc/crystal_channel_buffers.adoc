@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -41,7 +41,7 @@ Send many:
 * many asynchronous messages
 * then close the channels
 
-.crystal/src/channel_buffers/main_buffers.cr
+.code/crystal/src/channel_buffers/main_buffers.cr
 [source,linenums]
 ----
 class User

@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -25,7 +25,7 @@ We will use channels to communicate between Users listening concurrently for mes
 In the following code the `User` creates a fiber that listens to new messages on its `channel` to receive messages asynchronously.  We `channel.receive` *(listen)* for new messages within a *spawn block* to create a `fiber` that loops waiting to receive and process new messages _(basically making our own even loop listening for messages over a channel)._
 
 
-.crystal/src/channel_basics/user.cr
+.code/crystal/src/channel_basics/user.cr
 [source,linenums]
 ----
 class User
@@ -58,7 +58,7 @@ end
 
 To use the above code we will make two users and send each messages from Crystal's main thread directly to their respective channels.
 
-.crystal/src/channel_basics/main.cr
+.code/crystal/src/channel_basics/main.cr
 [source,linenums]
 ----
 require "./user"
@@ -104,7 +104,7 @@ It would be nice to be able to wait and end the main thread when all the channel
 
 In order to close channels we can use `object.channel.close` - to check if a channel is closed we can use: `object.channel.closed?`
 
-.crystal/src/channel_basics/main_close.cr
+.code/crystal/src/channel_basics/main_close.cr
 [source,linenums]
 ----
 require "./user"
@@ -159,7 +159,7 @@ A simple solution for this is to send the close asynchronously.
 
 How well does our code work when messaging lots of objects?
 
-.crystal/src/channel_basics/main_stress.cr
+.code/crystal/src/channel_basics/main_stress.cr
 [source,linenums]
 ----
 # src/channel_basics/main_close_wait.cr

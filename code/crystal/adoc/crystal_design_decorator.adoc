@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -16,7 +16,7 @@ Version 0.0.1
 
 To demonstrate Structs and Records - lets assume we have a `User` class that can receive messages posted to it.
 
-.crystal/src/structs_n_records/user.cr
+.code/crystal/src/structs_n_records/user.cr
 [source,linenums]
 ----
 require "./message_record"
@@ -39,7 +39,7 @@ end
 
 Below is an example of how the struct is used.
 
-.crystal/src/structs_n_records/message_struct_simple.cr
+.code/crystal/src/structs_n_records/message_struct_simple.cr
 [source,linenums]
 ----
 require "./user"

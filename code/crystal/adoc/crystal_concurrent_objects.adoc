@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -20,7 +20,7 @@ We `spawn` to other objects for concurrent processing.  This next code sample sh
 
 Here is our base `User` object:
 
-.crystal/src/concurrency/user.cr
+.code/crystal/src/concurrency/user.cr
 [source,linenums]
 ----
 class User
@@ -43,7 +43,7 @@ end
 
 Code to send `user` messages:
 
-.crystal/src/concurrency/user_messaging.cr
+.code/crystal/src/concurrency/user_messaging.cr
 [source,linenums]
 ----
 require "./user"     # autoloads the above user.cr file

@@ -1,8 +1,8 @@
-= Crystal Lang Explorations -- Notifiers
+= Crystal Lang Explorations -- Macros
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -12,10 +12,8 @@ Version 0.0.1
 :keywords: Crystal Language
 :imagesdir: ./images
 
-
 *link:crystal_index.html[Crystal Page]*
 
-== Channel Notifiers
 
 
 

@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -16,7 +16,7 @@ Version 0.0.1
 
 To demonstrate Structs and Records - lets assume we have a `User` class that can receive messages posted to it.
 
-.crystal/src/structs_n_records/user.cr
+.code/crystal/src/structs_n_records/user.cr
 [source,linenums]
 ----
 require "./message_record"
@@ -57,7 +57,7 @@ record Message, sender : User, text : String, receiver : User? = nil, topic : St
 
 The following code demostrates how to use records.
 
-.crystal/src/structs_n_records/simple_record.cr
+.code/crystal/src/structs_n_records/simple_record.cr
 [source,linenums]
 ----
 require "./user"
@@ -88,7 +88,7 @@ This of course has the same limitation as a Struct without a `to_s` methods.
 
 Assuming you want a custom method then the record looks like:
 
-.crystal/src/structs_n_records/message_record.cr
+.code/crystal/src/structs_n_records/message_record.cr
 [source,linenums]
 ----
 require "./user"

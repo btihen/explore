@@ -2,7 +2,7 @@
 :source-highlighter: prettify
 :source-language: crystal
 Bill Tihen (Crystal 0.32.1)
-Version 0.0.1
+
 :sectnums:
 :toc:
 :toclevels: 4
@@ -23,7 +23,7 @@ For example in our User messaging examples - what if we were connected to a chat
 
 We can do this with a notification channel (a sort-of callback) to the chatroom when we leave - and we can keep the code focused on *Tell* don't *Ask* using channels with our callback.
 
-.crystal/src/channel_callbacks/user.cr
+.code/crystal/src/channel_callbacks/user.cr
 [source,linenums]
 ----
 class User
@@ -63,7 +63,7 @@ end
 
 We can use our new channel callback in the following way:
 
-.crystal/src/channel_callbacks/main.cr
+.code/crystal/src/channel_callbacks/main.cr
 [source,linenums]
 ----
 require "./user"

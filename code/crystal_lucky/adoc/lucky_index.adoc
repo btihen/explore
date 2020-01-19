@@ -1,0 +1,64 @@
+= Lucky Framework Explorations
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Lucky 0.18.2)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Lucky Framework
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:../index.html[Home Page]*
+
+*A full-featured Crystal web framework that catches bugs for you, runs incredibly fast, and helps you write code that lasts.*
+
+https://luckyframework.org
+
+== Installation
+
+On MacOS - use:
+```bash
+$ brew install openssl
+$ brew install overmind
+$ brew install postgresql
+$ brew tap luckyframework/homebrew-lucky
+$ brew install lucky
+```
+
+For details see: https://luckyframework.org/guides/getting-started/installing
+
+== New Project
+
+The cli guides you through a new project setup - with an option for a devise like authentication code.
+* *Full* - includes webpacker, css and all code for a frontend & API responses
+* *API* - no webpacker just api response code
+
+```bash
+$ lucky init
+$ cd {project_name}
+
+# install dependencies
+$ script/setup
+
+# start lucky with:
+$ lucky dev
+```
+
+== Organization
+
+=== Actions
+
+=== Namespacing
+
+=== link:lucky_i18n.html[Internationalization]
+
+== Generating these Docs
+
+```bash
+$ asciidoctor -D docs/crystal_lucky code/crystal_lucky/adoc/*
+```
+
+*link:../index.html[Home Page]*
