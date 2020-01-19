@@ -16,7 +16,7 @@ Exploring & Learning a variety of programming Languages
 
 == Languages
 
-=== link:../crystal/docs/index.html[Crystal]
+=== link:explore/crystal/docs/index.html[Crystal]
 
 === Elixir
 
