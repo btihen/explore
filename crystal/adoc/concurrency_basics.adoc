@@ -1,0 +1,149 @@
+= Crystal Lang Explorations -- Concurrency Basics
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+Version 0.0.1
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Crystal's Features
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:index.html[Start Page]*
+
+== Introduction - Spawn Fibers
+
+By default when crystal code launches a *main thread* is created for the running code, a separate thread is created for the *garbage collector*, and an *Event Loop* to handle IO waits - allowing the main thread to continue while waiting for slow IO calls to finish.
+
+Concurrency happens by **spawning fibers** _(light-weight sub-threads within the *main thread*)._  **Fibers** are scheduled to run within the *main thread* on it's CPU.  Concurrency is a form of *multi-tasking* - quickly switching between tasks on the *main thead*
+
+Parallelism - _with the appropriate compiler switches_ - allows processes to happen simultaneously on separate CPUs.
+
+New Fibers are created using `spawn`.
+
+There two main way to `spawn` threads - we will need both:
+- using the block notation
+- using the method call notation
+
+== Spawn Block
+
+A spawn block looks like:
+
+.src/concurrency/spawn_block.cr
+[source,linenums]
+----
+puts "before spawn"
+spawn do
+  puts "within spawn"
+end
+puts "after spawn"
+
+# Fiber.yield
+----
+
+Run with:
+```bash
+$ crystal src/concurrency/spawn_block.cr
+```
+
+NOTE: We don't see the text *within spawn*
+
+In order to get the main thread to let the Fiber run before ending we need to uncomment the `Fiber.yield` and run again - this tells the main thread to process the fibers on the *main thread* - later we will see there are other actions that trigger the *main thread* to yield to the Fibers.
+
+=== Passing Values when Fiber EXECUTES
+
+Spawn block - uses the **value at the time when the Fiber is executed** - which can lead to unexpected results. Try the following code:
+
+.src/concurrency/spawn_block_unexpected.cr
+[source,linenums]
+----
+i = 0
+puts "SYNC: i = 0 = #{i}"     # synchronous
+spawn do
+  puts "ASYNC: i = 0 = #{i}"  # asynchronous
+end
+
+i = 1
+puts "SYNC: i = 1 = #{i}"     # synchronous
+spawn do
+  puts "ASYNC: i = 1 = #{i}"  # asynchronous
+end
+
+Fiber.yield  # i = 1 when the main thread yields to the fibers!
+----
+
+Run with:
+```bash
+$ crystal src/concurrency/spawn_block_unexpected.cr
+```
+
+=== Passes Values when Fiber SPAWNS
+
+Because i = 1 at the time when the fibers execute '1' is printed twice - this is probably not desired in this case.  The solution is to use `Proc`
+
+The solution is to define a proc which will pass the value at the time the `Proc` is called NOT when the `Fiber` is executed.
+
+This code works as expected, but is clumsy looking:
+
+.src/concurrency/spawn_proc.cr
+[source,linenums]
+----
+i = 0
+puts "SYNC: i = 0 = #{i}"       # synchronous
+proc_0 = ->(x : Int32) do
+  spawn do
+    puts "ASYNC: i = 0 = #{x}"  # asynchronous
+  end
+end
+proc_0.call(i)
+
+i = 1
+puts "SYNC: i = 1 = #{i}"       # synchronous
+proc_1 = ->(x : Int32) do
+  spawn do
+    puts "ASYNC: i = 1 = #{x}"  # asynchronous
+  end
+end
+proc_1.call(i)
+
+Fiber.yield
+----
+
+Run with:
+```bash
+$ crystal src/concurrency/spawn_proc_block.cr
+```
+
+NOTE: now all works well - but lots of code for 2 simple `puts` statements.
+
+== Spawn Method (Passing Values when Fiber Spawn)
+
+A *much nicer* way to pass the value at the time of call -- not at the time of execution is to use the `spawn` call:
+
+.src/concurrency/spawn_call.cr
+[source,linenums]
+----
+i = 0
+puts "SYNC: i = 0 = #{i}"         # synchronous
+spawn puts "ASYNC: i = 0 = #{i}"  # asynchronous
+
+i = 1
+puts "SYNC: i = 1 = #{i}"         # synchronous
+spawn puts "ASYNC: i = 1 = #{i}"  # asynchronous
+
+Fiber.yield
+----
+
+Run with:
+```bash
+$ crystal src/concurrency/spawn_call.cr
+```
+
+This is syntactic sugar (a crystal `macro`) for `proc`-`spawn` technique shown above.  I find this syntax far more attractive and will be used for method calls from now on!
+
+Just a reminder, notice how all async messages happen after `Fiber.yield`
+
+*link:index.html[Start Page]*

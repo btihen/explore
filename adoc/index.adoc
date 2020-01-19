@@ -1,0 +1,37 @@
+= Explorations -- Start Page
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+Version 0.0.1
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Languages
+
+:description: Exploring Code
+:keywords: Code Language Design Object Functional
+:imagesdir: ./images
+
+Exploring & Learning a variety of programming Languages
+
+== Languages
+
+=== link:../crystal/docs/index.html[Crystal]
+
+=== Elixir
+
+=== Ruby
+
+== Frameworks
+
+=== Crystal -- Lucky
+
+=== Elixir -- Phoenix
+
+=== Ruby -- Rails
+
+.NOTE:
+****
+* The code is just good enough to demonstrate an idea.
+* This code does not focus on best practices, testing, security or stability.
+****
