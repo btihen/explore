@@ -16,24 +16,44 @@ Exploring & Learning a variety of programming Languages
 == Languages
 
 === link:crystal/index.html[Crystal]
-
 *Fast as C, slick as Ruby*
+https://crystal-lang.org/
 
 === Elixir
 
+=== Erlang
+
+=== link:pony/index.html[Pony]
+*Pony is an open-source, object-oriented, actor-model, capabilities-secure, high-performance programming language.*
+https://www.ponylang.io/
+
+=== link:prolog/index.html[Prolog]
+https://www.swi-prolog.org/
+
+=== Python
+
 === Ruby
 
-== Frameworks
+== Web Frameworks
 
 === link:crystal_lucky/index.html[Crystal -- Lucky]
 
 === Elixir -- Phoenix
 
+=== Pony - Jennet
+https://github.com/Theodus/jennet
+
+=== Ruby -- Hanami
+
 === Ruby -- Rails
 
-== Webpage Repository
+=== Prolog -- SimpleWeb
+http://www.paulbrownmagic.com/blog/simple_web_intro.html
 
-Webpage and associated code: https://github.com/btihen/explore
+=== Python -- Django
+
+== Source Repository
+https://github.com/btihen/explore
 
 .NOTE:
 ****
@@ -52,9 +72,15 @@ Thanks for your input.
 
 ```bash
 # generate main page
-$ asciidoctor -D docs adoc/*
+asciidoctor -D docs adoc/*
 
-# each language needs to be organized inside docs
-$ asciidoctor -D docs/crystal code/crystal/adoc/*
-$ asciidoctor -D docs/crystal_lucky code/crystal_lucky/adoc/*
+# each language needs to be organized withing docs for github pages
+asciidoctor -D docs/pony code/pony/adoc/*
+asciidoctor -D docs/prolog code/prolog/adoc/*
+asciidoctor -D docs/crystal code/crystal/adoc/*
+asciidoctor -D docs/crystal_lucky code/crystal_lucky/adoc/*
 ```
+
+== Resources
+* Prag Prog (7 Languages 7 Weeks)
+* Groxio Learning - Grox.io

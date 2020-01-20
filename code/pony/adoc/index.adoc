@@ -1,0 +1,52 @@
+= Pony Lang Explorations - Absolute Beginner's Guide
+:source-highlighter: prettify
+:source-language: pony
+Bill Tihen (Pony 0.33.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Pony's
+:keywords: Pony Language
+:imagesdir: ./images
+
+*link:../index.html[Home Page]*
+
+*Pony is an open-source, object-oriented, actor-model, capabilities-secure, high-performance programming language.*
+
+Initially I was completely confused by Pony.  The actor model, behaviors, functions, permissions, references - all made it crazy confusing for me to know where to start.  This is my exploration as I clarify my understanding to be more comfortable with Pony Lang.
+
+https://www.ponylang.io/
+
+== Installation
+
+On MacOS - use:
+```bash
+$ brew install ponyc
+```
+
+For all other systems see: https://github.com/ponylang/ponyc/blob/master/README.md#installation
+
+== Pony CLI
+
+== link:pony_quick_start.html[Quick Start]
+
+== Resources
+
+* Actor Model Intro: https://www.brianstorti.com/the-actor-model/
+* Pony Quick Start (Peter Hellberg): https://c7.se/from-go-to-pony/
+* Everybody gets a Pony: https://youtu.be/e0197aoljGQ (A Beginner Friendly Intro by Kristoffer Grönlund) - basis for much of this content (with his permission)
+* List of Helpful Videos: https://codesync.global/media/top-10-pony-lang-talks/
+* https://github.com/krig/tinyhorse
+* Beginner Help: https://ponylang.zulipchat.com/login/
+* FAQ: https://www.ponylang.io/faq/
+* Exercism: https://exercism.io/my/tracks/pony
+
+== Generating these Docs
+
+```bash
+$ asciidoctor -D docs/pony code/pony/adoc/*
+```
+
+*link:../index.html[Home Page]*

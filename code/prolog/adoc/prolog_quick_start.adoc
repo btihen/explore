@@ -1,0 +1,58 @@
+= Prolog Lang Explorations - CLI
+:source-highlighter: prettify
+:source-language: prolog
+Bill Tihen (Prolog 8.0.3)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Prolog CLI
+:keywords: Prolog Language
+:imagesdir: ./images
+
+*link:index.html[Prolog Page]*
+
+== Prolog Quick Start
+
+=== Prolog code statements end with `.` a *period*
+
+Or Run program with-in the prolog REPL:
+```prolog
+$ swipl
+?- write("hello, world").
+?- halt. 
+```
+
+=== Proglog statements are joined together with `,` a *comma*
+
+Or Run program with-in the prolog REPL:
+```prolog
+$ swipl
+?- write("hello, world"), write(" and that's a wrap.").
+?- halt.
+```
+
+=== A prolog program file ends with a `.pl`
+
+Make a prolog program file:
+```bash
+$ mkdir prolog_hello
+$ cat << EOF > prolog_hello/hello.pl
+write("hello, world").
+EOF
+```
+=== Run a prolog program
+* From the command line
+```bash
+$ swipl -s prolog_hello/hello.pl
+```
+
+* from with-in the prolog REPL:
+```prolog
+$ swipl
+?- [prolog_hello/hello]
+?- halt.
+```
+
+*link:index.html[Prolog Page]*

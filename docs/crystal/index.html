@@ -448,37 +448,52 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_installation">1. Installation</a></li>
 <li><a href="#_crystal_cli">2. Crystal CLI</a></li>
-<li><a href="#_data_structures">3. Data Structures</a>
+<li><a href="#_blocks">3. Blocks</a></li>
+<li><a href="#_macros_sort_of_meta_code">4. Macros <em>(Sort-of Meta-Code)</em></a></li>
+<li><a href="#_data_structures">5. Data Structures</a>
 <ul class="sectlevel2">
-<li><a href="#_structs">3.1. Structs</a></li>
-<li><a href="#_records">3.2. Records</a></li>
-<li><a href="#_json_data">3.3. JSON Data</a></li>
+<li><a href="#_structs">5.1. Structs</a></li>
+<li><a href="#_records">5.2. Records</a></li>
+<li><a href="#_json_data">5.3. JSON Data</a></li>
 </ul>
 </li>
-<li><a href="#_web_services">4. Web Services</a>
+<li><a href="#_code_patterns">6. Code Patterns</a>
 <ul class="sectlevel2">
-<li><a href="#_web_server">4.1. Web Server</a></li>
-<li><a href="#_web_routing">4.2. Web Routing</a></li>
-<li><a href="#_secure_web_server">4.3. Secure Web Server</a></li>
-<li><a href="#_websockets">4.4. WebSockets</a></li>
-<li><a href="#_websockets_with_ssl">4.5. WebSockets with SSL</a></li>
+<li><a href="#_decorator">6.1. Decorator</a></li>
+<li><a href="#_value_object">6.2. Value Object</a></li>
+<li><a href="#_east_oriented_fluent_interface">6.3. East Oriented <em>(Fluent Interface)</em></a></li>
 </ul>
 </li>
-<li><a href="#_concurrency_parallelism">5. Concurrency &amp; Parallelism</a>
+<li><a href="#_web_services">7. Web Services</a>
 <ul class="sectlevel2">
-<li><a href="#_concurrency_basics">5.1. Concurrency Basics</a></li>
-<li><a href="#_concurrent_objects">5.2. Concurrent Objects</a></li>
-<li><a href="#_channels_async_messaging">5.3. Channels <em>(Async Messaging)</em></a></li>
-<li><a href="#_channel_buffers">5.4. Channel Buffers</a></li>
-<li><a href="#_channel_callbacks">5.5. Channel Callbacks</a></li>
-<li><a href="#_crystal_promises">5.6. Crystal Promises</a></li>
-<li><a href="#_parallelism">5.7. Parallelism</a></li>
-<li><a href="#_actor_model_not_done">5.8. Actor Model <em><strong>(not done)</strong></em></a></li>
+<li><a href="#_web_server">7.1. Web Server</a></li>
+<li><a href="#_web_routing">7.2. Web Routing</a></li>
+<li><a href="#_websockets">7.3. WebSockets</a></li>
+<li><a href="#_secure_web_server">7.4. Secure Web Server</a></li>
+<li><a href="#_websockets_with_ssl">7.5. WebSockets with SSL</a></li>
 </ul>
 </li>
-<li><a href="#_to_dos">6. TO-DOs</a></li>
-<li><a href="#_resources">7. Resources</a></li>
-<li><a href="#_generating_these_docs">8. Generating these Docs</a></li>
+<li><a href="#_concurrency_parallelism">8. Concurrency &amp; Parallelism</a>
+<ul class="sectlevel2">
+<li><a href="#_concurrency_basics">8.1. Concurrency Basics</a></li>
+<li><a href="#_concurrent_objects">8.2. Concurrent Objects</a></li>
+<li><a href="#_channels_async_messaging">8.3. Channels <em>(Async Messaging)</em></a></li>
+<li><a href="#_channel_buffers">8.4. Channel Buffers</a></li>
+<li><a href="#_channel_callbacks">8.5. Channel Callbacks</a></li>
+<li><a href="#_crystal_promises">8.6. Crystal Promises</a></li>
+<li><a href="#_parallelism">8.7. Parallelism</a></li>
+<li><a href="#_actor_model">8.8. Actor Model</a></li>
+</ul>
+</li>
+<li><a href="#_making_shards">9. Making Shards</a></li>
+<li><a href="#_mini_projects">10. Mini-Projects</a>
+<ul class="sectlevel2">
+<li><a href="#_game_of_life">10.1. Game of Life</a></li>
+<li><a href="#_chat_room">10.2. Chat Room</a></li>
+</ul>
+</li>
+<li><a href="#_resources">11. Resources</a></li>
+<li><a href="#_generating_these_docs">12. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -536,10 +551,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_data_structures">3. Data Structures</h2>
+<h2 id="_blocks">3. Blocks</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_macros_sort_of_meta_code">4. Macros <em>(Sort-of Meta-Code)</em></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structures">5. Data Structures</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_structs">3.1. <a href="crystal_structs.html">Structs</a></h3>
+<h3 id="_structs">5.1. <a href="crystal_structs.html">Structs</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -549,7 +576,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_records">3.2. <a href="crystal_records.html">Records</a></h3>
+<h3 id="_records">5.2. <a href="crystal_records.html">Records</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -559,32 +586,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_json_data">3.3. JSON Data</h3>
+<h3 id="_json_data">5.3. JSON Data</h3>
 
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_web_services">4. Web Services</h2>
+<h2 id="_code_patterns">6. Code Patterns</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_web_server">4.1. <a href="crystal_web_server.html">Web Server</a></h3>
+<h3 id="_decorator">6.1. Decorator</h3>
 
 </div>
 <div class="sect2">
-<h3 id="_web_routing">4.2. <a href="crystal_web_routing.html">Web Routing</a></h3>
+<h3 id="_value_object">6.2. Value Object</h3>
 
 </div>
 <div class="sect2">
-<h3 id="_secure_web_server">4.3. Secure Web Server</h3>
+<h3 id="_east_oriented_fluent_interface">6.3. East Oriented <em>(Fluent Interface)</em></h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_web_services">7. Web Services</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_web_server">7.1. <a href="crystal_web_server.html">Web Server</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_websockets">4.4. <a href="crystal_websockets.html">WebSockets</a></h3>
+<h3 id="_web_routing">7.2. <a href="crystal_web_routing.html">Web Routing</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_websockets_with_ssl">4.5. WebSockets with SSL</h3>
+<h3 id="_websockets">7.3. <a href="crystal_websockets.html">WebSockets</a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="_secure_web_server">7.4. Secure Web Server</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_websockets_with_ssl">7.5. WebSockets with SSL</h3>
 <div class="paragraph">
 <p>Making long-lived client-server connections over a TCP.</p>
 </div>
@@ -592,7 +636,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_concurrency_parallelism">5. Concurrency &amp; Parallelism</h2>
+<h2 id="_concurrency_parallelism">8. Concurrency &amp; Parallelism</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An intro into the basics of how things like websockets work</p>
@@ -606,7 +650,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concurrency_basics">5.1. <a href="crystal_concurrency_basics.html">Concurrency Basics</a></h3>
+<h3 id="_concurrency_basics">8.1. <a href="crystal_concurrency_basics.html">Concurrency Basics</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -616,7 +660,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concurrent_objects">5.2. <a href="crystal_concurrent_objects.html">Concurrent Objects</a></h3>
+<h3 id="_concurrent_objects">8.2. <a href="crystal_concurrent_objects.html">Concurrent Objects</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -626,7 +670,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_channels_async_messaging">5.3. <a href="crystal_channels_async_messaging.html">Channels <em>(Async Messaging)</em></a></h3>
+<h3 id="_channels_async_messaging">8.3. <a href="crystal_channels_async_messaging.html">Channels <em>(Async Messaging)</em></a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -639,7 +683,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_channel_buffers">5.4. <a href="crystal_channel_buffers.html">Channel Buffers</a></h3>
+<h3 id="_channel_buffers">8.4. <a href="crystal_channel_buffers.html">Channel Buffers</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -649,7 +693,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_channel_callbacks">5.5. <a href="crystal_channel_callbacks.html">Channel Callbacks</a></h3>
+<h3 id="_channel_callbacks">8.5. <a href="crystal_channel_callbacks.html">Channel Callbacks</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -659,7 +703,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_crystal_promises">5.6. Crystal Promises</h3>
+<h3 id="_crystal_promises">8.6. Crystal Promises</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -669,7 +713,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parallelism">5.7. <a href="crystal_parallelism.html">Parallelism</a></h3>
+<h3 id="_parallelism">8.7. <a href="crystal_parallelism.html">Parallelism</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -679,7 +723,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_actor_model_not_done">5.8. Actor Model <em><strong>(not done)</strong></em></h3>
+<h3 id="_actor_model">8.8. Actor Model</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -691,40 +735,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_to_dos">6. TO-DOs</h2>
+<h2 id="_making_shards">9. Making Shards</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Add Macros</p>
-</li>
-<li>
-<p>Write Channel Buffering</p>
-</li>
-<li>
-<p>Reseach Promises in Crystal</p>
-</li>
-<li>
-<p>Finish Callbacks &amp; (Notification)</p>
-</li>
-<li>
-<p>Research/Add Crystal Value Objects</p>
-</li>
-<li>
-<p>Build a Macro to make a simple Actor Class</p>
-</li>
-<li>
-<p>Add Parallelism (Ideally with WebSockets example&#8201;&#8212;&#8201;to extend <code>chat</code>)</p>
-</li>
-<li>
-<p>Add, review, augment and adapt content using: <a href="https://blog.golang.org/pipelines" class="bare">https://blog.golang.org/pipelines</a></p>
-</li>
-</ul>
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mini_projects">10. Mini-Projects</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_game_of_life">10.1. Game of Life</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_chat_room">10.2. Chat Room</h3>
+
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_resources">7. Resources</h2>
+<h2 id="_resources">11. Resources</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -739,6 +769,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>Crystal Lang Gitter - <a href="https://gitter.im/crystal-lang/crystal" class="bare">https://gitter.im/crystal-lang/crystal</a></p>
+</li>
+<li>
+<p>Exercism: <a href="https://exercism.io/my/tracks/crystal" class="bare">https://exercism.io/my/tracks/crystal</a></p>
 </li>
 </ul>
 </div>
@@ -757,7 +790,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generating_these_docs">8. Generating these Docs</h2>
+<h2 id="_generating_these_docs">12. Generating these Docs</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -772,7 +805,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 21:01:45 +0100
+Last updated 2020-01-20 10:54:26 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

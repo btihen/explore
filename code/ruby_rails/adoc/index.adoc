@@ -1,0 +1,4 @@
+
+https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/
+https://www.sitepoint.com/7-design-patterns-to-refactor-mvc-components-in-rails/
+https://www.jamesgolick.com/2010/3/14/crazy-heretical-and-awesome-the-way-i-write-rails-apps.html

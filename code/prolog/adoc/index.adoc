@@ -1,0 +1,47 @@
+= Prolog Lang Explorations
+:source-highlighter: prettify
+:source-language: prolog
+Bill Tihen (Prolog 8.0.3)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Prolog
+:keywords: Prolog Language
+:imagesdir: ./images
+
+*link:../index.html[Home Page]*
+
+Prolog is a rule based programming language.
+
+https://www.swi-prolog.org/
+
+== Installation
+On MacOS - use:
+```bash
+$ brew install swi-prolog
+```
+For all other systems see: https://www.swi-prolog.org/Download.html
+
+== link:prolog_cli.html[Prolog CLI]
+* start prolog and load code
+```bash
+$ swipl -s hello.pl
+```
+== link:prolog_quick_start.html[Quick Start]
+* A prolog program file ends with a `.pl`
+* Prolog code statements end with `.` a *period*
+* Proglog statements are joined together with `,` a *comma*
+
+== Resources
+* Tutorials: https://www.swi-prolog.org/
+* Exercism: https://exercism.io/my/tracks/prolog
+
+== Generating these Docs
+
+```bash
+$ asciidoctor -D docs/prolog code/prolog/adoc/*
+```
+
+*link:../index.html[Home Page]*

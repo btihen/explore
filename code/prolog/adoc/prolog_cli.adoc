@@ -1,0 +1,66 @@
+= Prolog Lang Explorations - CLI
+:source-highlighter: prettify
+:source-language: prolog
+Bill Tihen (Prolog 8.0.3)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Prolog CLI
+:keywords: Prolog Language
+:imagesdir: ./images
+
+*link:index.html[Prolog Page]*
+
+== Prolog CLI
+
+* Start Prolog's repl 
+```bash
+$ swipl
+```
+
+* Run code within prolog repl _(prolog statements must end with '.')_
+```prolog
+$ swipl
+?- write("hello, world").
+```
+
+* Start a program within swi-prolog repl
+```prolog
+$ swipl 
+?- [program]
+```
+
+* Exit swi-prolog
+```prolog
+$ swipl
+?- halt.
+```
+
+* prolog code ends with `.pl`
+```bash
+$ cat << EOF > hello.pl
+write("hello, world").
+EOF
+```
+
+* start prolog and load code
+```bash
+$ swipl -s hello.pl
+```
+
+* Proglog Help
+```prolog
+$ swipl
+?- help. 
+?- help(Topic).
+```
+
+* Exit (halt) Prolog:
+```prolog
+$ swipl
+?- halt.
+```
+
+*link:index.html[Prolog Page]*

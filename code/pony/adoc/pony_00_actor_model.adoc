@@ -1,0 +1,26 @@
+
+Actors
+
+The concurrency in Pony is based on Actors, just like in Erlang. Actors in Pony can, unlike classes, have behaviours (asynchronous methods)
+
+Behaviours are asynchronous, but actors themselves are sequential. Actors will only execute a single behaviour at the same time.
+
+```pony
+//mascot/main.pony
+actor Main
+  let mascot: Mascot
+
+  new create(env: Env) =>
+    mascot = Mascot("Go gopher")
+
+    env.out.print(mascot.message())
+
+class Mascot
+  let _name: String
+
+  new create(name: String) =>
+    _name = name
+
+  fun message(): String =>
+    "The " + _name + " is the best mascot!"
+```

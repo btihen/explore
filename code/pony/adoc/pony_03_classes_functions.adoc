@@ -1,0 +1,6 @@
+
+Classes
+
+A class in Pony can have multiple named constructors. Every constructor has to set every field in an object.
+
+The underscore (_) is used to make something private in Pony. (Exported identifiers in Go start with a upper case letter)

@@ -1,0 +1,54 @@
+= Pony Lang Explorations - Absolute Beginner's Guide
+:source-highlighter: prettify
+:source-language: pony
+Bill Tihen (Pony 0.33.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Pony's
+:keywords: Pony Language
+:imagesdir: ./images
+
+*link:index.html[Pony Page]*
+
+== Intro
+
+```bash
+$ brew install ponyc
+```
+
+* Every Pony Project must be in a folder - the name of the folder will be the default name of the compiled code.
+* Every Pony Project must minimally have a `Main` actor (will be described in detail shortly) -- so I suggest naming that file `main.pony`
+* Compile with `ponyc`
+* Run with the `./project_name`
+
+== Hello World
+
+* We need to make a project folder:
+```bash
+$ mkdir hello_world
+```
+
+* We need a `Main` actor:
+```bash
+$ cat <<EOF > hello_world/main.pony
+actor Main
+  new create(env: Env) =>
+    env.out.print("Hello, World!")
+EOF
+```
+
+* Lets compile our hello_world:
+```bash
+ponyc hello_world
+```
+
+* Now lets run our hello_world:
+
+```bash
+$ ./hello_world/hello_world
+```
+
+*link:index.html[Pony Page]*

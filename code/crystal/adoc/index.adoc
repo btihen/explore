@@ -35,6 +35,9 @@ For all other systems see: https://crystal-lang.org/install/
 ```
 crystal run src/file_name.cr
 ```
+== Blocks
+
+== Macros _(Sort-of Meta-Code)_
 
 == Data Structures
 
@@ -48,15 +51,23 @@ crystal run src/file_name.cr
 
 === JSON Data
 
+== Code Patterns
+
+=== Decorator
+
+=== Value Object
+
+=== East Oriented _(Fluent Interface)_
+
 == Web Services
 
 === link:crystal_web_server.html[Web Server]
 
 === link:crystal_web_routing.html[Web Routing]
 
-=== Secure Web Server
-
 === link:crystal_websockets.html[WebSockets]
+
+=== Secure Web Server
 
 === WebSockets with SSL
 
@@ -100,21 +111,17 @@ Augment and adapt content using inspiration from: https://blog.golang.org/pipeli
 
 * Compiling to use multiple CPUs (add `-Dpreview_mt`) to the compile command
 
-
-=== Actor Model _**(not done)**_
+=== Actor Model
 
 * Using macros to build async message sending, callbacks and state sharing.
 
-== TO-DOs
+== Making Shards
 
-* Add Macros
-* Write Channel Buffering
-* Reseach Promises in Crystal
-* Finish Callbacks & (Notification)
-* Research/Add Crystal Value Objects
-* Build a Macro to make a simple Actor Class
-* Add Parallelism (Ideally with WebSockets example -- to extend `chat`)
-* Add, review, augment and adapt content using: https://blog.golang.org/pipelines
+== Mini-Projects
+
+=== Game of Life 
+
+=== Chat Room
 
 == Resources
 
@@ -122,6 +129,7 @@ Augment and adapt content using inspiration from: https://blog.golang.org/pipeli
 * Crystal Lang GitBook - https://crystal-lang.org/reference/guides
 * Crystal Lang API Docs - https://crystal-lang.org/api/0.32.1/index.html
 * Crystal Lang Gitter - https://gitter.im/crystal-lang/crystal
+* Exercism: https://exercism.io/my/tracks/crystal
 
 NOTE: *Crystal Lang Gitter* is a great group of people willing to help. (special mention to: @stnluu_twitter, @watzon, @repomaa, @randiaz95, @straight-shoota & @paulcsmith)
 
