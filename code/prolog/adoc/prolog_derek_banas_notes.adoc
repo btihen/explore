@@ -1,0 +1,189 @@
+https://www.youtube.com/watch?v=SykxWpFwMGs
+
+```prolog
+?- write('Hello World'),  # write is output - join commands with comma
+nl,                       # nl is new line
+write('Let\'s Code').     # end with '.' period
+```
+
+* create db entries (facts)
+# love is called a predicate
+# romeo & juliet are atoms - constants
+# this stores the fact that Romeo loves Juliet
+```prolog
+loves(romeo, juliet).
+```
+
+* Rules (`:-` are like `if` in other languages)
+```prolog
+loves(romeo, juliet).
+
+# Juliet loves romeo if romeo loves juliet
+loves(juliet, romeo) :- loves(romeo, juliet).
+```
+* *Facts* and rules together are clauses
+
+* *Variables* start with *Capital*
+```prolog
+loves(romeo, juliet).
+
+# Juliet loves romeo if romeo loves juliet
+loves(juliet, romeo) :- loves(romeo, juliet).
+
+# to find out whom romeo loves
+loves(romeo, X).
+
+X = juliet
+```
+
+* *FACTS* - write relationships followed by a dot
+```prolog
+male(albert).
+male(bob).
+male(bill).
+male(carl).
+male(charlie).
+male(dan).
+male(edward).
+
+female(alice).
+female(betsy).
+female(diana).
+
+female(alice).  # second time should confirm (or deny)
+listing(male).  # list all males
+
+# list all male and female combos:
+?- male(X), female(Y).
+
+X = albert
+Y = alice ? ; # hit ';' to view next option
+
+X = albert
+Y = betsy ? ; # etc
+```
+
+* Rules 
+```prolog
+# start with some facts:
+loves(romeo, juliet).
+
+# Juliet loves romeo if romeo loves juliet
+loves(juliet, romeo) :- loves(romeo, juliet).
+
+happy(albert).
+happy(alice).
+happy(bob).
+happy(bill).
+with_albert(alice).
+
+# rule: albert runs when:
+runs(albert) :-
+  happy(albert).
+
+# rule with and Alice dances if she is happy and with albert
+dances(alice) :- 
+  happy(alice),       # comma is like AND
+  with_albert(alice).
+
+# conditional output
+when_alice_dances :- dances(alice),
+  write('Alice dances when she is happy and with Albert')
+
+# OR statemdng
+swims(bill) :-
+  happy(bill).
+
+# Queries
+?- runs(albert).   # true
+?- dances(alice).  # true
+```
+
+* *VARIABLE* 
+```prolog
+# db.pl
+male(albert).
+male(bob).
+male(bill).
+male(carl).
+male(charlie).
+male(dan).
+male(edward).
+
+female(alice).
+female(betsy).
+female(diana).
+
+
+happy(albert).
+happy(alice).
+happy(bob).
+happy(bill).
+with_albert(alice).
+
+# rule: albert runs when:
+runs(albert) :-
+  happy(albert).
+
+# rule with and Alice dances if she is happy and with albert
+dances(alice) :- 
+  happy(alice),       # comma is like AND
+  with_albert(alice).
+
+# conditional output
+when_alice_dances :- dances(alice),
+  write('Alice dances when she is happy and with Albert')
+
+# OR statemdng
+swims(bill) :-
+  happy(bill).
+
+parent(albert, bob).
+parent(albert, betsy).
+parent(albert, bill).
+
+parent(alice, bob).
+parent(alice, betsy).
+parent(alice, bill).
+
+parent(bob, carl).
+parent(bob, charlie).
+
+
+# repl
+?- [db].  # load above DB
+?- female(X).
+
+# parent of bob
+?- parent(X, bob).
+X=albert ? ;
+X=alice ? ;
+no # no more answers
+
+# ask multiple queries - who is the parent of bob who also dances
+?- parent(X, bob), dances(X)
+X = alice ? ;
+no             # just alice
+
+# query to find out if carl is a grandchild?
+?- parent(Y, carl),   # Y is the parent of carl
+   parent(X, Y)       # X is the grand parent of carl (Y's parent)
+
+X = albert
+Y = bob ? ;
+
+X = alice 
+Y = bob ? ;
+# thus alice and albert are carl's grand-parents & bob is the parent
+
+# who are albert's grand-children?
+?- parent(albert, X),   # X are the children of albert
+   parent(X, Y)         # Y are the childern of X who are the children of albert
+
+X = bob
+Y = carl ? ;
+
+X = bob 
+Y = charlie ? ;
+
+no # more

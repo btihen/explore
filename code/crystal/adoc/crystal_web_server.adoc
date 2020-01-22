@@ -20,11 +20,31 @@ Bill Tihen (Crystal 0.32.1)
 [source,linenums]
 ----
 # A very basic HTTP server
+# https://crystal-lang.org/api/0.19.4/HTTP/Server.html
+# https://crystal-lang.org/api/0.19.4/HTTP/Handler.html
 require "http/server"
 
 server = HTTP::Server.new do |context|
+
+  # get incomming info: 
+  # https://crystal-lang.org/api/0.32.1/HTTP/Request.html
+  path   = context.request.path
+  query  = context.request.query
+  # log request info (stdout - screen)
+  # https://crystal-lang.org/api/0.32.1/HTTP/Request.html
+  puts "HTTP request for path: #{path}"
+  puts "HTTP request for query: #{query}"
+  
+  # could also grab header info: 
+  # https://crystal-lang.org/api/0.32.1/HTTP/Headers.html
+
+  # build text response
+  text_response = "Hello world, got #{path}!"
+  text_response += " and #{query}"  unless query == ""
+
+  # send response to the web client
   context.response.content_type = "text/plain"
-  context.response.print "Hello world, got #{context.request.path}!"
+  context.response.print text_response
 end
 
 puts "Listening on http://127.0.0.1:8080"
@@ -39,5 +59,33 @@ $ crystal code/crystal/src/web_server/web_server.cr
 Now open your browser to:
 * http://localhost:8080
 * http://localhost:8080/bill
+
+=== Basic Web Client
+
+For more examples like streaming, sending parameters. etc go to: 
+https://crystal-lang.org/api/0.32.1/HTTP/Client.html
+
+
+.code/crystal/src/web_server/web_client.cr
+[source,linenums]
+----
+require "http/client"
+
+response = HTTP::Client.get "http://localhost:8080"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+
+// params = HTTP::Params.encode({"dog" => "Nyima"}) # => dog=Nyima
+// response = HTTP::Client.get "http://www.example.com?" + params
+
+response = HTTP::Client.get "http://localhost:8080/bill/tihen?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+----
 
 *link:index.html[Crystal Page]*

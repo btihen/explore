@@ -35,7 +35,8 @@ ws_handler = HTTP::WebSocketHandler.new do |socket|
   # `.run` is called on the WebSocket automatically when this block returns
 end
 
-
+# https://crystal-lang.org/api/0.19.4/HTTP/Request.html
+# https://crystal-lang.org/api/0.19.4/HTTP/WebSocketHandler.html
 server = HTTP::Server.new([ws_handler])
 address = server.bind_tcp server_addr, server_port
 puts "Listening on ws://#{address}"

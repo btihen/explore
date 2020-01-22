@@ -104,8 +104,10 @@ Augment and adapt content using inspiration from: https://blog.golang.org/pipeli
 * Safely share state information when its available
 
 === Crystal Promises
+* https://github.com/spider-gazelle/promise
 
-* See: https://github.com/spider-gazelle/promise
+=== Crystal Priority Queues
+* https://github.com/spider-gazelle/priority-queue
 
 === link:crystal_parallelism.html[Parallelism]
 

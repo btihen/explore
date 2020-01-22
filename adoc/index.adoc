@@ -13,15 +13,27 @@ Bill Tihen
 
 Exploring & Learning a variety of programming Languages
 
-== Languages
+
+== General Languages
+
+=== Concurnas 
+https://concurnas.com/
 
 === link:crystal/index.html[Crystal]
 *Fast as C, slick as Ruby*
 https://crystal-lang.org/
 
 === Elixir
+https://elixir-lang.org/
 
 === Erlang
+https://www.erlang.org/
+
+=== Julia
+https://julialang.org/
+
+=== Kotlin
+https://kotlinlang.org/
 
 === link:pony/index.html[Pony]
 *Pony is an open-source, object-oriented, actor-model, capabilities-secure, high-performance programming language.*
@@ -31,26 +43,78 @@ https://www.ponylang.io/
 https://www.swi-prolog.org/
 
 === Python
+https://www.python.org/
 
 === Ruby
+https://www.ruby-lang.org/
+
+=== Swift
+https://swift.org/
+
+
+== Frontend Languages
+
+=== Elm (Frontend without npm)
+https://elm-lang.org/
+
+=== Ember JS
+https://emberjs.com/
+
+=== Mint (Frontend without npm)
+https://www.mint-lang.com/
+
+=== React JS
+https://reactjs.org/
+
+=== Stimulus JS
+https://stimulusjs.org/reference/controllers
+
+=== Vue JS
+https://vuejs.org/
+
 
 == Web Frameworks
+https://www.techempower.com/benchmarks/
+https://github.com/the-benchmarker/web-frameworks
+
+=== Crystal -- Amber (Basics)
+https://amberframework.org/
+https://docs.amberframework.org/amber/cookbook/websocket-chat
+https://docs.amberframework.org/amber/guides/websockets/javascript-client
+
+=== Crystal -- Amber (Crecto)
+https://amberframework.org/
+https://www.crecto.com/getting-started
+
+=== Crystal -- Amber (Jennifer)
+https://amberframework.org/
+https://docs.amberframework.org/amber/guides/models/jennifer
+https://docs.amberframework.org/amber/guides/models/jennifer/migrations
 
 === link:crystal_lucky/index.html[Crystal -- Lucky]
+https://luckyframework.org/
+
+=== Crystal -- Spider-Gazelle 
+https://spider-gazelle.net/#/
+https://spider-gazelle.net/#/controllers/websockets
 
 === Elixir -- Phoenix
+https://www.phoenixframework.org/
 
 === Pony - Jennet
 https://github.com/Theodus/jennet
 
 === Ruby -- Hanami
+https://hanamirb.org/
 
 === Ruby -- Rails
+https://rubyonrails.org/
 
 === Prolog -- SimpleWeb
 http://www.paulbrownmagic.com/blog/simple_web_intro.html
 
 === Python -- Django
+https://www.djangoproject.com/
 
 == Source Repository
 https://github.com/btihen/explore

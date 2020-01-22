@@ -24,6 +24,13 @@ $ brew install swi-prolog
 ```
 For all other systems see: https://www.swi-prolog.org/Download.html
 
+Alternatively:
+```bash
+$ brew install gnu-prolog
+gprolog
+?- halt.
+```
+
 == link:prolog_cli.html[Prolog CLI]
 * start prolog and load code
 ```bash
@@ -36,7 +43,10 @@ $ swipl -s hello.pl
 
 == Resources
 * Tutorials: https://www.swi-prolog.org/
+* Quick Start: https://www.swi-prolog.org/pldoc/man?section=quickstart
 * Exercism: https://exercism.io/my/tracks/prolog
+* First Look: https://csci305.github.io/lectures/slides/Lecture33.pdf
+* Prolog Tutorial Video: https://www.youtube.com/watch?v=SykxWpFwMGs
 
 == Generating these Docs
 

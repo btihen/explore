@@ -7,6 +7,7 @@ ws_handler = HTTP::WebSocketHandler.new do |socket|
 
   # log each new connection opened
   puts "Socket opened by client"
+  puts socket.inspect
 
   # keep track of connections to send to
   SOCKETS << socket

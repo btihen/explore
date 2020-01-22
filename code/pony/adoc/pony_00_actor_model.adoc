@@ -1,3 +1,15 @@
+* https://www.youtube.com/watch?v=7erJ1DV_Tlo&feature=youtu.be - Hewitt, Meijer and Szyperski: The Actor Model 
+* https://www.brianstorti.com/the-actor-model/ - video and blog
+* https://www.youtube.com/watch?v=lPTqcecwkJg
+* https://www.youtube.com/watch?v=enJtcusvpzc
+* https://finematics.com/actor-model-explained/ - 2 videos & blog
+* https://dev.to/amalrik/explain-actor-concurrency-model
+* https://rebeccabilbro.github.io/actor-model/
+* https://www.developer.com/design/down-and-dirty-understanding-the-actor-model.html
+* https://mattferderer.com/what-is-the-actor-model-and-when-should-you-use-it
+* https://blog.knoldus.com/actor-model-basics-before-going-deep/
+* https://www.youtube.com/watch?v=rMv4sul0RwU
+
 
 Actors
 

@@ -63,4 +63,12 @@ $ swipl
 ?- halt.
 ```
 
+* Load our Data:
+```prolog
+$ swipl
+?- [db].
+?- consult('db.pl'). # alternative to [db].
+?- listing.          # shows/lists the db data
+```
+
 *link:index.html[Prolog Page]*
