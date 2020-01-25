@@ -1,0 +1,205 @@
+= Crystal Lang Explorations -- Web Server
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Crystal's Features
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:index.html[Crystal Page]*
+
+== Web Processing
+
+Helpful Docs: 
+
+* https://crystal-lang.org/api/0.20.4/URI.html 
+* https://crystal-lang.org/api/0.20.4/JSON.html
+* https://crystal-lang.org/api/0.20.4/HTTP/Params.html
+* https://crystal-lang.org/api/0.20.4/HTTP/Headers.html
+* https://crystal-lang.org/api/0.32.1/HTTP/Request.html
+
+
+.code/crystal/src/web_server/web_inspector.cr
+[source,linenums]
+----
+require "http/server"
+require "json"
+
+server = HTTP::Server.new do |context|
+  # get incoming info (for all details / headers, etc): 
+  path_string   = context.request.path
+  headers       = context.request.headers
+  query_string  = context.request.query || ""
+  params_tuples = context.request.query_params  
+  params_string = params_tuples.map{|p| p.inspect}.join(", ")
+
+  # log incomming requests
+  puts "HTTP context is type: #{context.class.name}"
+  puts "HTTP request path_string: #{path_string}"     # simple string of path
+  puts "HTTP request query_string: #{query_string}"   # simple text of query
+  puts "HTTP Params #{params_string} are of type: #{params_tuples.class.name}"
+  puts "HTTP Headers #{headers.to_s} are of type: #{headers.class.name}"
+
+  # process incomming requests
+  if path_string.includes?(".")
+    path, format  = path_string.split(".") 
+  else
+    path   = path_string
+    format = ""
+  end
+
+  # build 'response'
+  type, response = case format
+                    when "text", "txt"
+                      tmp_resp = "*Hello world*\n\tgot path: #{path_string}"
+                      tmp_resp += "\n\tquery encoded is: #{query_string} and decoded is: #{URI.decode(query_string)}."  unless query_string == ""
+                      ["text/plain; charset=UTF-8", tmp_resp]
+
+                    when "json", "jsn"
+                      path_list     = path.split("/")
+                      params_hash   = params_tuples.each_with_object({} of String => String) { |pt,hash| hash[pt[0]] = pt[1] }
+                      tmp_resp = {"path": path_string, 
+                                  "query": "#{query_string} is actually #{URI.decode(query_string)}",
+                                  "path_list": path_list,
+                                  "params_hash": params_hash
+                                }.to_json
+                      ["application/json; charset=UTF-8", tmp_resp]
+                      # # Alternative way to build the same Json - just for fun
+                      # tmp_resp = JSON.build do |json|
+                      #   json.object do
+                      #     json.field "path", path_string
+                      #     json.field "query", "#{query_string} is actually #{URI.decode(query_string || "")}"
+                      #     json.field "path_list" do
+                      #       json.array do
+                      #         path_list.each { |p| json.string p }
+                      #       end
+                      #     end
+                      #     json.field "query_list" do
+                      #       json.object do
+                      #         params_tuples.each do |param|
+                      #           json.field param[0], param[1]
+                      #         end
+                      #       end
+                      #     end
+                      #   end
+                      # end
+                      # ["application/json; charset=UTF-8", tmp_resp]
+
+                    else                      
+                      tmp_resp = "<h1>Hello world</h1><b>got #{path_string}!</b>"
+                      tmp_resp += " and #{query_string} is actually #{URI.decode(query_string)}."  unless query_string == ""
+                      ["text/html; charset=UTF-8", tmp_resp]
+                    end
+  # configure response
+  context.response.content_type = type
+  # send response
+  context.response.print response
+  puts "sent request"
+  puts
+end
+
+# start server as a listening fiber
+puts "Listening on http://127.0.0.1:8080"
+server.listen(8080)
+----
+
+Run with
+```bash
+$ crystal code/crystal/src/web_server/web_inspector.cr
+```
+
+Notes:
+
+* Remember the encoding problem of non-ascii characters - here is the solution's: `URI.decode(query_string)` URI.decode has NO ability to handle `nil` so the `|| ""` is a simple way to guarantee query_string will never be nil.
+This is documented in URI API: https://crystal-lang.org/api/0.20.4/URI.html#unescape%28string%3AString%2Cplus_to_space%3Dfalse%29%3AString-class-method)
+* Notice how when we use the values `context.request.query_params` crystal automatically decodes the params for us!
+* The `context` is needed to respond - so if we were to route or build a more complex code structure the `context` of the data received must be available for the response too!
+
+=== Web client
+
+For more examples like streaming, sending parameters. etc go to: 
+https://crystal-lang.org/api/0.32.1/HTTP/Client.html
+
+.code/crystal/src/web_server/web_client.cr
+[source,linenums]
+----
+require "http/client"
+# to do all the http verbs see:
+# https://crystal-lang.org/api/0.20.4/HTTP/Client.html
+
+# TODO: figure out how to accept self-signed certs for testing
+
+response = HTTP::Client.get "http://localhost:8080"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill.txt"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill.jsn"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill/tihen"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.json"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.text"
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+params = HTTP::Params.encode({"dog" => "Nyima"}) # => dog=Nyima
+response = HTTP::Client.get "http://localhost:8080/bill/tihen?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+# NOTE: URI encodes params to convert "Shiné" to "Shin%C3%A9"
+params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"})
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.txt?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+params = HTTP::Params.encode({"dog" => "Nyima"})
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.html?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"})
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.html?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+params = HTTP::Params.encode({"dog" => "Nyima"}) 
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.json?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+
+params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"}) 
+response = HTTP::Client.get "http://localhost:8080/bill/tihen.text?" + params
+puts response.status_code      
+puts response.body.lines.each { |line| puts line }
+----
+
+In this case its easier to see generate a variety of web packets with out own client.
+
+Run with:
+```bash
+$ crystal code/crystal/src/web_server/web_client.cr
+```
+
+*link:index.html[Crystal Page]*

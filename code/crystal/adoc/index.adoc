@@ -59,19 +59,29 @@ crystal run src/file_name.cr
 
 === East Oriented _(Fluent Interface)_
 
-== Web Services
+=== HTTP (Server and Client)
 
-=== link:crystal_web_server.html[Web Server]
+Non-stateful - short-term connections over TCP.
 
-=== link:crystal_web_routing.html[Web Routing]
+==== link:crystal_web_client.html[Basic Web Client]
 
-=== link:crystal_websockets.html[WebSockets]
+==== link:crystal_web_server.html[Basic Web Server]
 
-=== Secure Web Server
+==== link:crystal_web_processing.html[Processing Web Requests]
 
-=== WebSockets with SSL
+==== link:crystal_web_https.html[Secure Web Server (HTTPS)]
 
-Making long-lived client-server connections over a TCP.
+
+=== WebSockets (Server and Client)
+
+Long-lived client-server connections over TCP.
+
+==== link:crystal_websockets.html[WebSockets]
+
+==== WebSockets with SSL
+
+==== WebSockets with Multiple Channels
+
 
 == Concurrency & Parallelism
 

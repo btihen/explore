@@ -455,15 +455,43 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_basic_web_server">1. Basic Web Server</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Based on the following docs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://crystal-lang.org/api/0.19.4/HTTP/Server.html" class="bare">https://crystal-lang.org/api/0.19.4/HTTP/Server.html</a></p>
+</li>
+<li>
+<p><a href="https://crystal-lang.org/api/0.19.4/HTTP/Handler.html" class="bare">https://crystal-lang.org/api/0.19.4/HTTP/Handler.html</a></p>
+</li>
+<li>
+<p><a href="https://crystal-lang.org/api/0.32.1/HTTP/Request.html" class="bare">https://crystal-lang.org/api/0.32.1/HTTP/Request.html</a></p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="title">code/crystal/src/web_server/web_server.cr</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="linenums"># A very basic HTTP server
-require "http/server"
+<pre class="prettyprint highlight"><code data-lang="linenums">require "http/server"
 
 server = HTTP::Server.new do |context|
+  # get incomming info:
+  path   = context.request.path
+  query  = context.request.query
+
+  # log request info (to stdout - screen)
+  puts "HTTP request for path: #{path}"
+  puts "HTTP request for query: #{query}"
+
+  # build text response
+  text_response = "Hello world, got '#{path}'"
+  text_response += " and '#{query}'" unless query == ""
+
+  # send response to the web client
   context.response.content_type = "text/plain"
-  context.response.print "Hello world, got #{context.request.path}!"
+  context.response.print text_response
 end
 
 puts "Listening on http://127.0.0.1:8080"
@@ -479,9 +507,37 @@ server.listen(8080)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Now open your browser to:
-* <a href="http://localhost:8080" class="bare">http://localhost:8080</a>
-* <a href="http://localhost:8080/bill" class="bare">http://localhost:8080/bill</a></p>
+<p>Now open your browser  and point it to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://localhost:8080" class="bare">http://localhost:8080</a></p>
+</li>
+<li>
+<p><a href="http://localhost:8080/bill" class="bare">http://localhost:8080/bill</a></p>
+</li>
+<li>
+<p><a href="http://localhost:8080/bill/tihen" class="bare">http://localhost:8080/bill/tihen</a></p>
+</li>
+<li>
+<p><a href="http://localhost:8080/bill/tihen?dog=Nyima" class="bare">http://localhost:8080/bill/tihen?dog=Nyima</a></p>
+</li>
+<li>
+<p><a href="http://localhost:8080/bill/tihen?dog=Nyima&amp;cat=Shiné" class="bare">http://localhost:8080/bill/tihen?dog=Nyima&amp;cat=Shiné</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Notice in the last request the server 'logs' the query as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="crystal">dog=Nyima&amp;cat=Shin%C3%A9</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This has to do with how web clients escape all non-ascii data into ascii characters.  We will explore a fix for processing in the our next version.</p>
 </div>
 <div class="paragraph">
 <p><strong><a href="index.html">Crystal Page</a></strong></p>
@@ -491,7 +547,7 @@ server.listen(8080)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-19 20:57:18 +0100
+Last updated 2020-01-25 09:00:23 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

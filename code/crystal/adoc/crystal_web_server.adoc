@@ -16,31 +16,29 @@ Bill Tihen (Crystal 0.32.1)
 
 == Basic Web Server
 
+Based on the following docs:
+
+* https://crystal-lang.org/api/0.19.4/HTTP/Server.html
+* https://crystal-lang.org/api/0.19.4/HTTP/Handler.html
+* https://crystal-lang.org/api/0.32.1/HTTP/Request.html
+
 .code/crystal/src/web_server/web_server.cr
 [source,linenums]
 ----
-# A very basic HTTP server
-# https://crystal-lang.org/api/0.19.4/HTTP/Server.html
-# https://crystal-lang.org/api/0.19.4/HTTP/Handler.html
 require "http/server"
 
 server = HTTP::Server.new do |context|
-
   # get incomming info: 
-  # https://crystal-lang.org/api/0.32.1/HTTP/Request.html
   path   = context.request.path
   query  = context.request.query
-  # log request info (stdout - screen)
-  # https://crystal-lang.org/api/0.32.1/HTTP/Request.html
+
+  # log request info (to stdout - screen)
   puts "HTTP request for path: #{path}"
   puts "HTTP request for query: #{query}"
-  
-  # could also grab header info: 
-  # https://crystal-lang.org/api/0.32.1/HTTP/Headers.html
 
   # build text response
-  text_response = "Hello world, got #{path}!"
-  text_response += " and #{query}"  unless query == ""
+  text_response = "Hello world, got '#{path}'"
+  text_response += " and '#{query}'" unless query == ""
 
   # send response to the web client
   context.response.content_type = "text/plain"
@@ -56,36 +54,18 @@ Run with
 $ crystal code/crystal/src/web_server/web_server.cr
 ```
 
-Now open your browser to:
+Now open your browser  and point it to:
+
 * http://localhost:8080
 * http://localhost:8080/bill
+* http://localhost:8080/bill/tihen
+* http://localhost:8080/bill/tihen?dog=Nyima
+* http://localhost:8080/bill/tihen?dog=Nyima&cat=Shiné
 
-=== Basic Web Client
-
-For more examples like streaming, sending parameters. etc go to: 
-https://crystal-lang.org/api/0.32.1/HTTP/Client.html
-
-
-.code/crystal/src/web_server/web_client.cr
-[source,linenums]
-----
-require "http/client"
-
-response = HTTP::Client.get "http://localhost:8080"
-puts response.status_code      
-puts response.body.lines.each { |line| puts line }
-
-response = HTTP::Client.get "http://localhost:8080/bill"
-puts response.status_code      
-puts response.body.lines.each { |line| puts line }
-
-
-// params = HTTP::Params.encode({"dog" => "Nyima"}) # => dog=Nyima
-// response = HTTP::Client.get "http://www.example.com?" + params
-
-response = HTTP::Client.get "http://localhost:8080/bill/tihen?" + params
-puts response.status_code      
-puts response.body.lines.each { |line| puts line }
-----
+Notice in the last request the server 'logs' the query as:
+```
+dog=Nyima&cat=Shin%C3%A9
+```
+This has to do with how web clients escape all non-ascii data into ascii characters.  We will explore a fix for processing in the our next version.
 
 *link:index.html[Crystal Page]*

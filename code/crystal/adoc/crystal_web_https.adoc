@@ -82,6 +82,11 @@ Now open your browser to _(dismiss all the warnings about the self-signed cert)_
 
 === Write an SSL web client
 
+.CAUTION
+****
+This doesn't work with a self-signed or otherwise imperfect certificate & I still need to figured out how to tell the http client to *NOT* check the certificate's authenticity.
+****
+
 .code/crystal/src/web_server/web_ssl_client.cr
 [source,linenums]
 ----

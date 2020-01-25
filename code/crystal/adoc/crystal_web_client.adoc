@@ -1,7 +1,30 @@
-# to do all the http verbs see:
-# https://crystal-lang.org/api/0.20.4/HTTP/Client.html
-# TODO: figure out how to accept self-signed certs for testing
-# NOTE: URI will encodes params to convert "Shiné" to "Shin%C3%A9"
+= Crystal Lang Explorations -- Web Client
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Crystal's Features
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:index.html[Crystal Page]*
+
+== Web client
+
+This is a handy way to test your web services (with the GET verb).
+
+For more advanced examples using other verbs or data streaming, basic auth, etc see: 
+https://crystal-lang.org/api/0.32.1/HTTP/Client.html
+
+
+.code/crystal/src/web_server/web_client.cr
+[source,linenums]
+----
 require "http/client"
 
 response = HTTP::Client.get "http://localhost:8080"
@@ -41,3 +64,15 @@ params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.html?" + params
 puts response.status_code      
 puts response.body.lines.each { |line| puts line }
+----
+
+In this case its easier to see generate a variety of web packets with out own client.
+
+Run with:
+```bash
+$ crystal code/crystal/src/web_server/web_client.cr
+```
+
+NOTE: one helpful feature is that the http client automatically encodes any non-ascii characters into *safe* ascii characters! You will see if send the param `Shiné` it will arrive at the server automatically as `Shin%C3%A9` - without you having to do anything more!
+
+*link:index.html[Crystal Page]*
