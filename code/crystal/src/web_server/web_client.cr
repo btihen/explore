@@ -1,6 +1,5 @@
 # to do all the http verbs see:
 # https://crystal-lang.org/api/0.20.4/HTTP/Client.html
-# TODO: figure out how to accept self-signed certs for testing
 # NOTE: URI will encodes params to convert "Shiné" to "Shin%C3%A9"
 require "http/client"
 

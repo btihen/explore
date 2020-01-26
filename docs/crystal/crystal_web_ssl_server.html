@@ -505,20 +505,26 @@ $ openssl rsa -in server.key.org -out server.key</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generate_a_self_signed_certificate_as_your_own_certificat_authority_ca">1.2. Generate a self signed certificate - as your own Certificat Authority (CA)</h3>
+<h3 id="_generate_a_self_signed_certificate_as_your_own_certificate_authority_ca">1.2. Generate a self signed certificate - as your own Certificate Authority (CA)</h3>
+<div class="paragraph">
+<p>This allows you to import the CA into your OS and simplifies the permissions.</p>
+</div>
+<div class="paragraph">
+<p>TODO: Figure out how to import into a web-client without importing into the OS.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
 <p><a href="https://gist.github.com/mtigas/952344" class="bare">https://gist.github.com/mtigas/952344</a></p>
 </li>
 <li>
+<p><a href="https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/" class="bare">https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/</a></p>
+</li>
+<li>
 <p><a href="https://www.makethenmakeinstall.com/2014/05/ssl-client-authentication-step-by-step/" class="bare">https://www.makethenmakeinstall.com/2014/05/ssl-client-authentication-step-by-step/</a></p>
 </li>
 <li>
 <p><a href="https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl" class="bare">https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl</a></p>
-</li>
-<li>
-<p><a href="https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/" class="bare">https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/</a></p>
 </li>
 <li>
 <p>Step 1 - create ca key and authority cert</p>
@@ -533,7 +539,7 @@ $ openssl rsa -in server.key.org -out server.key</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>step 2 - import the CA_auth into your OS</p>
+<p>step 2 - import the CA_auth into your OS (as described in the various articles)</p>
 </li>
 </ul>
 </div>
@@ -634,8 +640,8 @@ server.listen</code></pre>
 </div>
 <div class="paragraph">
 <p>Now open your browser to <em>(dismiss all the warnings about the self-signed cert)</em>
-* <a href="http://localhost:8443" class="bare">http://localhost:8443</a>
-* <a href="http://localhost:8443/bill" class="bare">http://localhost:8443/bill</a></p>
+* <a href="https://localhost:8443" class="bare">https://localhost:8443</a>
+* <a href="https://localhost:8443/bill" class="bare">https://localhost:8443/bill</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -676,7 +682,7 @@ response.body.lines.each { |line| puts line }</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-26 20:21:51 +0100
+Last updated 2020-01-26 20:40:39 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
