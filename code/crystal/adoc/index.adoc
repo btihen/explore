@@ -69,8 +69,13 @@ Non-stateful - short-term connections over TCP.
 
 ==== link:crystal_web_processing.html[Processing Web Requests]
 
-==== link:crystal_web_https.html[Secure Web Server (HTTPS)]
+=== HTTP (Server and Client)
 
+Encrypted HTTP Interactions
+
+==== link:crystal_web_ssl_client.html[Basic Web Client]
+
+==== link:crystal_web_ssl_server.html[Secure Web Server (HTTPS)]
 
 === WebSockets (Server and Client)
 
@@ -80,7 +85,7 @@ Long-lived client-server connections over TCP.
 
 ==== WebSockets with SSL
 
-==== WebSockets with Multiple Channels
+==== WebSockets with Named Channels
 
 
 == Concurrency & Parallelism

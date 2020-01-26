@@ -1,44 +1,38 @@
-# # generatate a pem
-# https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
-# openssl req -x509 -newkey rsa:4096 -keyout ca_key.pem -out cert_auth.pem -days 365 -subj '/CN=localhost'
+# # # generatate a pem
+# # https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
+# # openssl req -x509 -newkey rsa:4096 -keyout ca_key.pem -out cert_auth.pem -days 365 -subj '/CN=localhost'
 
-(notice the addition of -x509 option):
-openssl req -x509 -newkey rsa:4096 -keyout ca.key.pem -out ca.cert.pem -days 365 -subj '/CN=localhost'
+# # https://medium.com/@hugomejia74/how-to-create-your-own-ssl-certificate-authority-for-local-https-development-3b97573c7bb5
+# # Make a CA - certificate authority
+# # first generate a key
+# # openssl genrsa -des3 -out ca_private.key 2048
+# # # make a CA PEM (using the above key) - 'localhost_CA.pem' can be installed in clients (or the os of clients)
+# # openssl req -x509 -new -nodes -key ca_private.key -sha256 -days 365 -out ca_auth.pem -subj '/CN=localhost'
 
-(notice the lack of -x509 option):
-openssl req -newkey rsa:4096 -keyout ca.key.pem -out ca.req.pem -days 365 -subj '/CN=localhost'
+# # or the above in one step with 4096 bits
+# # https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
+# openssl req -x509 -newkey rsa:4096 -keyout ca_private.key -out ca_auth.pem -days 365 -subj '/CN=localhost'
 
-# https://medium.com/@hugomejia74/how-to-create-your-own-ssl-certificate-authority-for-local-https-development-3b97573c7bb5
-# Make a CA - certificate authority
-# first generate a key
-# openssl genrsa -des3 -out ca_private.key 2048
-# # make a CA PEM (using the above key) - 'localhost_CA.pem' can be installed in clients (or the os of clients)
-# openssl req -x509 -new -nodes -key ca_private.key -sha256 -days 365 -out ca_auth.pem -subj '/CN=localhost'
+# # https://medium.com/@hugomejia74/how-to-create-your-own-ssl-certificate-authority-for-local-https-development-3b97573c7bb5
+# # create a self-signed cert - using the above CA
+# # start with making a key for the request
+# openssl genrsa -out localhost.key 4096
+# # make the certificate reqest 'csr' using the dev key
+# openssl req -new -key localhost.key -out localhost_req.csr -subj '/CN=localhost'
+# # Now generate the self-signed certificate based on the request & the CA
+# openssl x509 -req -in localhost_req.csr -CA ca_auth.pem -CAkey ca_private.key -CAcreateserial -out localhost.crt -days 365 -sha256
 
-# or the above in one step with 4096 bits
-# https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
-openssl req -x509 -newkey rsa:4096 -keyout ca_private.key -out ca_auth.pem -days 365 -subj '/CN=localhost'
-
-# https://medium.com/@hugomejia74/how-to-create-your-own-ssl-certificate-authority-for-local-https-development-3b97573c7bb5
-# create a self-signed cert - using the above CA
-# start with making a key for the request
-openssl genrsa -out localhost_private.key 4096
-# make the certificate reqest 'csr' using the dev key
-openssl req -new -key localhost_private.key -out localhost_req.csr -subj '/CN=localhost'
-# Now generate the self-signed certificate based on the request & the CA
-openssl x509 -req -in localhost_req.csr -CA ca_auth.pem -CAkey ca_private.key -CAcreateserial -out localhost.crt -days 365 -sha256
-
-# # generate self-cert
-# https://www.akadia.com/services/ssh_test_certificate.html
-# # Step 1: Generate a Private Key
-# openssl genrsa -des3 -out server.key 1024
-# # Step 2: Generate a CSR
-# openssl req -new -key server.key -out server.csr
-# # Step 3: Remove Passphrase from Key
-# cp server.key server.key.org
-# openssl rsa -in server.key.org -out server.key
-# # Step 4: Generating a Self-Signed Certificate
-# openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+# # # generate self-cert
+# # https://www.akadia.com/services/ssh_test_certificate.html
+# # # Step 1: Generate a Private Key
+# # openssl genrsa -des3 -out server.key 1024
+# # # Step 2: Generate a CSR
+# # openssl req -new -key server.key -out server.csr
+# # # Step 3: Remove Passphrase from Key
+# # cp server.key server.key.org
+# # openssl rsa -in server.key.org -out server.key
+# # # Step 4: Generating a Self-Signed Certificate
+# # openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 
 
 # require "socket"
@@ -52,14 +46,8 @@ require "http/server"
 #   tls_config
 # end
 tls_config = OpenSSL::SSL::Context::Server.new
-tls_config.private_key = "./server.key"
-tls_config.certificate_chain = "./server.crt"
-
-# ssl_client = OpenSSL::SSL::Context::Client
-#                       .from_hash({"key" => "./server.key", 
-#                                   "cert" => "./server.crt", 
-#                                   "ca" => "./server_auth.pem",
-#                                   "verify_mode" => "none"})
+tls_config.private_key = "./localhost.key"
+tls_config.certificate_chain = "./localhost.crt"
 
 server = HTTP::Server.new do |context|
   context.response.content_type = "text/plain"

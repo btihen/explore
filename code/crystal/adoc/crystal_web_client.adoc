@@ -29,41 +29,44 @@ require "http/client"
 
 response = HTTP::Client.get "http://localhost:8080"
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+# lines as an iterator -- faster for large pages and processing
+response.body.each_line{ |line| puts line }  
+# iterating through collection of lines (also valid)
+response.body.lines.each{ |line| puts line } 
 
 # normally default is html
 response = HTTP::Client.get "http://localhost:8080/bill/tihen"
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.json"
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.text"
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 # send params: # => dog=Nyima&cat=Shiné
 params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.txt?" + params
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.text?" + params
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"}) 
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.json?" + params
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 params = HTTP::Params.encode({"dog" => "Nyima", "cat" => "Shiné"}) 
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.html?" + params
 puts response.status_code      
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 ----
 
 In this case its easier to see generate a variety of web packets with out own client.

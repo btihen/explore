@@ -565,6 +565,21 @@ EOF</code></pre>
 ?- halt.</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Load our Data:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="prolog">$ swipl
+?- [db].
+?- consult('db.pl'). # alternative to [db].
+?- listing.          # shows/lists the db data</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p><strong><a href="index.html">Prolog Page</a></strong></p>
 </div>
@@ -573,7 +588,7 @@ EOF</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-20 11:05:38 +0100
+Last updated 2020-01-20 14:05:07 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

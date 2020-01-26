@@ -1,0 +1,122 @@
+= Crystal Lang Explorations -- Web SSL Client
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Crystal's Features
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:index.html[Crystal Page]*
+
+== Basic Web SSL Client
+
+Helpful docs:
+
+* https://crystal-lang.org/api/0.32.1/OpenSSL.html
+* https://crystal-lang.org/api/0.32.1/HTTP/Client.html
+* https://crystal-lang.org/api/0.32.1/OpenSSL/SSL/Context/Client.html
+
+A standard HTTPS server using a certified cert and port 443 is very simple - just add the 's' and its otherwise just like http!
+
+.code/crystal/src/web_server/web_client_githubs.cr
+[source,linenums]
+----
+require "openssl"
+require "http/client"
+
+response = HTTP::Client.get "https://github.com/btihen"
+puts response.status_code      
+response.body.each_line{ |line| puts line } 
+---- 
+
+Run with
+```bash
+$ crystal code/crystal/src/web_server/web_client_githubs.cr
+```
+
+
+== Web SSL Client Configuration
+
+=== Disable Verification
+
+However, to connect to special https configurations such as a *self-signed cert* (used in the 'home-made' https server in the next section) -- requires extra work:
+ 
+* we need to define our ssl setup (we will turn off verification)
+* we need to configure a web client that is pointed to the server and imports the tls config.
+
+.code/crystal/src/web_server/web_ssl_client.cr
+[source,linenums]
+----
+require "openssl"
+require "http/client"
+
+# instantiate a new ssl client with the defaults (checks the servers cert is valid)
+# reconfigure the ssl to "NONE" - disable the cert validity checks
+tls_client = OpenSSL::SSL::Context::Client.new
+tls_client.verify_mode = OpenSSL::SSL::VerifyMode::NONE
+puts tls_client.verify_mode              # verify "NONE"
+
+# configure web-client for server "localhost" settings and tls_client
+web_client = HTTP::Client.new(host: "localhost", port: 8443, tls: tls_client)
+
+# now we can override the url (with the path to visit on the server)
+response = web_client.get "/"
+puts response.status_code      
+response.body.each_line{ |line| puts line }
+
+response = web_client.get "/bill"
+puts response.status_code      
+response.body.lines.each { |line| puts line }
+----
+
+Run with (after starting the ssl_server)
+```bash
+$ crystal code/crystal/src/web_server/web_ssl_client.cr
+```
+
+
+=== Import Certificate Authority
+
+A better (more secure option would be to import the CA used to create the self-signed cert into the web-client) using 
+```
+#ca_certificates=(file_path : String)
+
+Sets the path to a file containing all CA certificates, in PEM format, used to validate the peers certificate.
+```
+
+.code/crystal/src/web_server/web_ssl_ca_client.cr
+[source,linenums]
+----
+require "openssl"
+require "http/client"
+
+tls_client = OpenSSL::SSL::Context::Client.new
+tls_client.ca_certificates = "./ca_cert.pem"
+puts tls_client.verify_mode  # verify "PEER"
+
+# now we can override the url (with the path to visit on the server)
+web_client = HTTP::Client.new(host: "localhost", port: 8443, tls: tls_client)
+
+response = web_client.get "/"
+puts response.status_code      
+response.body.each_line{ |line| puts line }
+
+response = web_client.get "/bill"
+puts response.status_code      
+response.body.lines.each { |line| puts line }
+----
+
+Run with (after starting the ssl_server)
+```bash
+$ crystal code/crystal/src/web_server/web_ssl_ca_client.cr
+```
+
+*link:index.html[Crystal Page]*
+
+

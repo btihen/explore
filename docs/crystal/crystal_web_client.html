@@ -469,41 +469,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 response = HTTP::Client.get "http://localhost:8080"
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+# lines as an iterator -- faster for large pages and processing
+response.body.each_line{ |line| puts line }
+# iterating through collection of lines (also valid)
+response.body.lines.each{ |line| puts line }
 
 # normally default is html
 response = HTTP::Client.get "http://localhost:8080/bill/tihen"
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.json"
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.text"
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 # send params: # =&gt; dog=Nyima&amp;cat=Shiné
 params = HTTP::Params.encode({"dog" =&gt; "Nyima", "cat" =&gt; "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.txt?" + params
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 params = HTTP::Params.encode({"dog" =&gt; "Nyima", "cat" =&gt; "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.text?" + params
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 params = HTTP::Params.encode({"dog" =&gt; "Nyima", "cat" =&gt; "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.json?" + params
 puts response.status_code
-puts response.body.lines.each { |line| puts line }
+response.body.each_line{ |line| puts line }
 
 params = HTTP::Params.encode({"dog" =&gt; "Nyima", "cat" =&gt; "Shiné"})
 response = HTTP::Client.get "http://localhost:8080/bill/tihen.html?" + params
 puts response.status_code
-puts response.body.lines.each { |line| puts line }</code></pre>
+response.body.each_line{ |line| puts line }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -537,7 +540,7 @@ one helpful feature is that the http client automatically encodes any non-ascii 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-25 10:12:21 +0100
+Last updated 2020-01-26 18:46:29 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

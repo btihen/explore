@@ -1,0 +1,144 @@
+= Crystal Lang Explorations -- Web SSL Server
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Crystal 0.32.1)
+
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Crystal's Features
+:keywords: Crystal Language
+:imagesdir: ./images
+
+*link:index.html[Crystal Page]*
+
+== Basic Web SSL Server
+
+=== Generate a self signed certificate - without a Certificat Authority (CA)
+
+https://www.akadia.com/services/ssh_test_certificate.html
+* Step 1: Generate a Private Key
+```bash
+$ openssl genrsa -des3 -out server.key 1024
+```
+* Step 2: Generate a CSR
+```bash
+$ openssl req -new -key server.key -out server.csr
+```
+* Step 3: Remove Passphrase from Key
+```bash
+$ cp server.key server.key.org
+$ openssl rsa -in server.key.org -out server.key
+```
+* Step 4: Generating a Self-Signed Certificate (without a CA)
+```bash
+$ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+```
+
+=== Generate a self signed certificate - as your own Certificat Authority (CA)
+
+* https://gist.github.com/mtigas/952344
+* https://www.makethenmakeinstall.com/2014/05/ssl-client-authentication-step-by-step/
+* https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl 
+* https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
+
+* Step 1 - create ca key and authority cert
+```bash
+openssl req -x509 -newkey rsa:4096 -keyout ca_auth.key -out ca_auth.pem -days 365 -subj '/CN=localhost'
+```
+* step 2 - import the CA_auth into your OS
+```bash
+ca_auth.pem
+```
+* step 3 - create a self-signed server cert - start with a server key
+```bash
+openssl genrsa -out server.key 4096
+```
+* step 4 - *make the certificate reqest 'csr' using the server key
+```bash
+openssl req -new -key server.key -out server_req.csr -subj '/CN=localhost'
+```
+* Step 5 - generate the self-signed certificate based on the request & the CA
+```bash
+openssl x509 -req -in server_req.csr -CA ca_auth.pem -CAkey ca_auth.key -CAcreateserial -out server.crt -days 365 -sha256
+```
+
+
+=== Write the SSL Server Code
+
+Helpful Docs:
+
+* https://crystal-lang.org/api/0.32.1/OpenSSL/SSL/Context.html
+* https://crystal-lang.org/api/0.32.1/OpenSSL/SSL/Context/Server.html
+
+.code/crystal/src/web_server/web_ssl_server.cr
+[source,linenums]
+----
+# A very basic HTTPS server
+require "openssl"
+require "http/server"
+
+server = HTTP::Server.new do |context|
+  # get incoming request
+  path = context.request.path
+
+  # log request to stdout - for fun
+  puts "HTTP request for path: #{path}"
+
+  # build / send response
+  context.response.content_type = "text/plain"
+  context.response.print "Hello world, got #{path}!"
+end
+
+# configure the ssl service
+tls_config = OpenSSL::SSL::Context::Server.new
+tls_config.private_key = "./server.key"
+tls_config.certificate_chain = "./server.crt"
+
+# 'bind' the ssl server to the web server
+server.bind_tls "localhost", 8443, tls_config 
+puts "Listening on http://127.0.0.1:8443"
+server.listen
+----
+
+Run with
+```bash
+$ crystal code/crystal/src/web_server/web_ssl.cr
+```
+
+Now open your browser to _(dismiss all the warnings about the self-signed cert)_
+* http://localhost:8443
+* http://localhost:8443/bill
+
+
+=== Use the Custom TLS Web Client 
+
+.code/crystal/src/web_server/web_ssl_client.cr
+[source,linenums]
+----
+require "openssl"
+require "http/client"
+
+tls_client = OpenSSL::SSL::Context::Client.new
+tls_client.verify_mode = OpenSSL::SSL::VerifyMode::NONE
+web_client = HTTP::Client.new(host: "localhost", port: 8443, tls: tls_client)
+
+response = web_client.get "/"
+puts response.status_code      
+response.body.each_line{ |line| puts line }
+
+response = web_client.get "/bill"
+puts response.status_code      
+response.body.lines.each { |line| puts line }
+----
+
+Run with (after starting the ssl_server)
+```bash
+$ crystal code/crystal/src/web_server/web_ssl_client.cr
+```
+
+*link:index.html[Crystal Page]*
+
+
