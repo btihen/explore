@@ -1,0 +1,223 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Component Properties 
+
+Property values are passed to the component when it is rendered.
+
+NOTE: We are still using the Bulma Config & the CounterStore & Routing from the previous explorations.
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init count_routes
+$ cd count_routes 
+$ mkdir assets
+$ touch assets/head.html
+$ touch source/Routes.mint
+$ touch source/Counter.mint
+$ touch source/Application.mint
+$ touch source/CounterStore.mint
+```
+
+=== Application Store 
+
+We will start by adding to the Application Store:
+
+* a `Named` Page
+* a `route` state 
+* a function to update the route state `setRoute`
+
+.code/mint/src/count_properties/source/Application.mint
+[source,linenums]
+----
+enum Page {
+  Home
+  Count
+  Named
+  NotFound
+}
+
+store Application {
+  state page : Page = Page::Home
+  state route : String = "/"
+
+  fun initialize : Promise(Never, Void) {
+    sequence {
+      Http.abortAll()
+    }
+  }
+
+  fun setPage (page : Page) : Promise(Never, Void) {
+    next { page = page }
+  }
+
+  fun setRoute (slug : String) : Promise(Never, Void) {
+    next { route = slug }
+  }
+}
+----
+
+=== Counter Routes
+
+Now we will add: 
+
+* a dynamic page route using :slug
+* the new route has more than one thing to do now set the page and set the route in the Application Store -- to do this we need to use the *sequence* block -- since functions may only have one command.
+
+.code/mint/src/count_properties/source/Routes.mint
+[source,linenums]
+----
+routes {
+  / {
+    Application.setPage(Page::Home)
+  }
+
+  /counter {
+    Application.setPage(Page::Count)
+  }
+
+  /counter/:slug (slug: String) {
+    sequence {
+      Application.setPage(Page::Named)
+      Application.setRoute(slug)
+    }
+  }
+
+  * {
+    Application.setPage(Page::NotFound)
+  }
+}
+----
+
+=== Counter Properties
+
+Note: Property values are passed to the component when it is rendered.
+
+* To define a property we use: `property routeName : String = "/"` -- note it needs a Type and default value.
+* To use a property we simple do: `<{ "Path: #{routeName}" }>`
+
+.code/mint/src/count_properties/source/Counter.mint
+[source,linenums]
+----
+component Counter {
+
+  property routeName : String = "/"
+
+  connect Counter.Store exposing {
+    count,
+    increment as incrementCounter,
+    decrement as decrementCounter
+  }
+
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  fun render : Html {
+    <nav class="panel">
+      <p class="panel-heading">
+        <{ "Path: #{routeName}" }>
+      </p>
+      <p class="panel-tabs">
+        <a>
+          <button class="button is-medium is-warning" onClick={handleDecrement}>
+            <i class="fas fa-minus"></i>
+          </button>
+        </a>
+        <a>
+          <p class="title is-3">
+            <{ "Count: #{count}" }>
+          </p>
+        </a>
+        <a>
+          <button class="button is-medium is-success" onClick={handleIncrement}>
+            <i class="fas fa-plus"></i>
+          </button>
+        </a>
+      </p>
+    </nav>
+  }
+}
+----
+
+=== Main Page Passing Properties
+
+Now you can see we are passing properties using: 
+
+* a static value: `<Counter routeName="/counter"/>`
+* a dynamic value: `<Counter routeName={"/counter/#{route}"}/>`
+
+These values will be used by Counter when rendering the page.
+
+.code/mint/src/count_properties/source/Main.mint
+[source,linenums]
+----
+component Main {
+  
+  connect Application exposing { page, route }
+
+  style base {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 50px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  fun render : Html {
+    case (page) {
+      Page::Home => 
+        <div::base>
+          <Counter/>
+        </div>
+
+      Page::Count => 
+        <div::base>
+          <Counter routeName="/counter"/>
+        </div>
+
+      Page::Named => 
+        <div::base>
+          <Counter routeName={"/counter/#{route}"}/>
+        </div>
+
+      Page::NotFound =>
+        <div::base>
+          "Page NOT Found"
+        </div>
+    }
+  }
+}
+----
+
+stop mint and restart
+
+Now open:
+* `http://localhost:3000` -- the counter title should now be `/`
+* `http://localhost:3000/counter` -- the counter title should now be `/counter`
+* `http://localhost:3000/counter/cool` -- the counter title should now be `/counter/cool`
+* `http://localhost:3000/counter/coolest` -- the counter title should now be `/counter/coolest`
+* `http://localhost:3000/counter/nopagefound` - not found should appear
+
+**link:index.html[Mint Page]**

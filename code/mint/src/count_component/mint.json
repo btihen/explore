@@ -1,0 +1,9 @@
+{
+  "name": "count_component",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ]
+}

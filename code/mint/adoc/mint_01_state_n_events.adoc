@@ -1,0 +1,133 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Events and State
+
+Note: Mint uses React file naming Standards
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init hello
+$ cd hello 
+$ mint-lang start
+```
+
+open `http://localhost:3000`
+
+be sure you see: `Hello Mint!`
+
+=== Main Code
+
+*Main.mint* is where Mint starts - this is what is looks like:
+
+.code/mint/src/hello/source/Main.mint
+[source,linenums]
+----
+component Main {
+  style base {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 36px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  style red {
+    background: red;
+    font-family: sans;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  style green {
+    background: lime;
+    font-family: sans;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  state counter : Number = 0
+
+  fun increment : Promise(Never, Void) {
+    next { counter = counter + 1 }
+  }
+
+  fun decrement : Promise(Never, Void) {
+    next { counter = counter - 1 }
+  }
+
+  fun countHtml (count : Number) : Html {
+    <span>
+      <{ "Count is: " + Number.toString(count) }>
+    </span>
+  }
+
+  fun countString (count : Number) : String {
+    "Count is: " + Number.toString(count)
+  }
+
+  fun render : Html {
+    <div::base>
+      <button::red onClick={decrement}>
+        "-"
+      </button>
+
+      <{ countHtml(counter) }>
+
+      <span>
+        <{ countString(counter) }>
+      </span>
+
+      <span>
+        <{ "Counter is: " + Number.toString(counter) }>
+      </span>
+
+      <button::green onClick={increment}>
+        "+"
+      </button>
+    </div>
+  }
+}
+----
+
+refresh `http://localhost:3000`
+
+You should see: `-Count is: 0Count is: 0Counter is: 0+`
+
+You can now click on the + and - buttons and the count should change.
+
+* Mint is a *typed* language (these are called literals). The list of literals is here: https://www.mint-lang.com/guide/reference/literals
+* When we declare a variable *state* it's *type* must be declared - so `state counter : Number = 0` says we have a variable named counter of type Number that will be used to track state information (count). See: https://www.mint-lang.com/guide/reference/components/internal-state
+* *style* blocks allow css formatting - so the `style base` is the base css for the app. See: https://www.mint-lang.com/guide/getting-started/styling-with-css
+* *functions* - `fun` - Functions are callable pieces of code.  Functions rules are:
+** type annotations are mandatory
+** *must have only one expression as the body*
+** start with a lowercase letter and contain only letters and numbers
+** functions are important for all the features see: https://www.mint-lang.com/guide/reference/functions
+* *Promise* is a function type used for async actions that could fail - they will return either a `result` or an `error`. See: https://www.mint-lang.com/guide/reference/built-in-types
+* *events handlers* i.e. `onClick` are triggered when events happen.  `onClick={increment}` calls the `increment` function when the button is clicked. A full list of events is here: https://www.mint-lang.com/guide/getting-started/handling-events
+* *html interpolation - `<{  }>`* - allows *evaluation* the result inside `{ }` must be either *Html* or *Strings* Type (literals) to be used in html output.
+* *calling functions* - `countHtml(counter)` is done by typing the function name and passing parameters (if any) - in our case we are outputting within html so we also need to call this within the `<{  }>` html interpolation tags
+* *string concatenation* - mint like crystal, ruby, python, etc can build a new string from several strings: i.e.: `"Count is: " + Number.toString(count)` 
+* *interpolation* - mint like crystal, ruby, python, etc can do inline string  with `"Counter is: #{counter}"` - this is often simpler than `concatenation`
+
+Play with this code to get feel for what is possible.
+
+**link:index.html[Mint Page]**

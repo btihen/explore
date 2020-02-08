@@ -1,0 +1,187 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Stores - Global containers
+
+Stores are defined with the *store* keyword and can only have `functions` and `states` 
+
+Stores are:
+
+* *Global* - accesible everywhere -- which means all accesses updates the same, shared data!
+* *Mutable* - data can be changed *only inside the store* using the `next` call
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init counter
+$ cd counter 
+$ mint-lang start
+```
+
+open `http://localhost:3000`
+
+be sure you see: `Hello Mint!`
+
+=== Counter Store / State-Machine:
+
+We will control our counter values and save the state centrally (this Store resets with every page reload / new connection)
+
+.code/mint/src/count_store/source/CounterStore.mint
+[source,linenums]
+----
+/* CounterStore.mint */
+
+store Counter.Store {
+  state count : Number = 0
+
+  fun increment : Promise(Never, Void) {
+    next { count = count + 1 }
+  }
+
+  fun decrement : Promise(Never, Void) {
+    next { count = count - 1 }
+  }
+}
+----
+
+* **Stores** are global containers of application specific data. They are defined with the store keyword -- see: https://www.mint-lang.com/guide/reference/stores
+* **States** - Stores (global public) & Components can have internal (private) states -- see: https://www.mint-lang.com/guide/reference/components/internal-state
+* **Promises** - Promises represents asynchronous tasks that might fail -- see: https://www.mint-lang.com/guide/reference/built-in-types
+
+=== Counter Component
+
+
+The code is quite straight forward:
+
+* we *connect* our component to its store:
+```mint
+connect Counter.Store exposing {
+    count,
+    increment as incrementCounter,
+    decrement as decrementCounter
+  }
+```
+* we use *fun* functions to capture user *events* and route those actions to the appropriate store functions
+```mint
+fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+```
+* finally we *render* our html which also connects our buttons to the event functions i.e.: `onClick={handleDecrement}` in: 
+```mint
+<button::counterButton::decrementButton
+        onClick={handleDecrement}>
+        "-"
+      </button>
+```
+
+.code/mint/src/count_store/source/Counter.mint
+[source,linenums]
+----
+/* Counter.mint */
+
+component Counter {
+
+  style counter {
+    display: flex;
+  }
+
+  style counterButton {
+    color: white;
+    border: 0;
+    margin: 0 7px 0;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  style decrementButton {
+    background: red;
+  }
+
+  style incrementButton {
+    background: #009c00;
+  }
+
+  style count {
+    margin: 0 7px 0;
+  }
+
+  connect Counter.Store exposing {
+    count,
+    increment as incrementCounter,
+    decrement as decrementCounter
+  }
+
+  fun handleClickOnDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun handleClickOnIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  fun render : Html {
+    <div::counter>
+      <button::counterButton::decrementButton
+        onClick={handleClickOnDecrement}>
+        "-"
+      </button>
+
+      <div::count>
+        <{"Count is: #{count}"}>
+      </div>
+
+      <button::counterButton::incrementButton
+        onClick={handleClickOnIncrement}>
+        "+"
+      </button>
+    </div>
+  }
+}
+----
+
+=== Add our Counter to Main
+
+we will replace `<{ "Hello Mint!" }>` with `<Counter/>`
+
+so Main.mint now looks like:
+
+.code/mint/src/count_store/source/Main.mint
+[source,linenums]
+----
+component Main {
+  style main {
+    font-family: sans;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  fun render : Html {
+    <div::main>
+      <Counter/>
+    </div>
+  }
+}
+----
+
+open `http://localhost:3000`
+
+be sure you see: `Count is:` with a `+` and `-` buttons
+
+**link:index.html[Mint Page]**

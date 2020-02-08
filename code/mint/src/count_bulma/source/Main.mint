@@ -1,5 +1,6 @@
 component Main {
-  style base {
+
+  style centerAll {
     font-family: sans;
     font-weight: bold;
     font-size: 50px;
@@ -12,8 +13,9 @@ component Main {
   }
 
   fun render : Html {
-    <div::base>
-      <{ "Hello Mint!" }>
+    <div::centerAll class="container is-fluid">
+      <Counter/>
     </div>
   }
+
 }

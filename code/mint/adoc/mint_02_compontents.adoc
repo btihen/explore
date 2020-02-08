@@ -13,25 +13,27 @@ Bill Tihen (Mint 0.7.1)
 
 **link:index.html[Mint Page]**
 
-== Mini Tutorial
+== Components - the main building blocks in Mint
 
-https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0
-
-Note: Mint uses React file naming Standards
+Components output html and they: 
+* can be connected to *stores* (Stores are global containers of application specific data.)
+* can subscribe to *providers* (a source of asynchronous events). These are: 
+** Tick Provider - https://github.com/mint-lang/mint/blob/master/core/source/Provider/Tick.mint
+** AnimationFrame (archived) - https://github.com/mint-lang/mint-core/blob/master/source/Provider/AnimationFrame.mint
+** Mouse - https://github.com/mint-lang/mint/blob/master/core/source/Provider/Mouse.mint
+** Scroll (archived) - https://github.com/mint-lang/mint-core/blob/master/source/Provider/Scroll.mint
+* can have *styles* to defined HTML elements inside them
+* can define *properties* (Property values are passed to the component when it is rendered). These properties can have types and default values 
 
 === Intitialize a project:
 
 ```bash
-$ mint-lang init counter
-$ cd counter 
+$ mint-lang init count_component
+$ cd count_component 
 $ mint-lang start
 ```
 
-open `http://localhost:3000`
-
-be sure you see: `Hello Mint!`
-
-=== Counter Store / State-Machine:
+=== Counter Component
 
 We will control our counter values and save the state centrally (this Store resets with every page reload / new connection)
 
@@ -41,15 +43,7 @@ We will control our counter values and save the state centrally (this Store rese
 /* CounterStore.mint */
 
 store Counter.Store {
-  state count : Number = 0
-
-  fun increment : Promise(Never, Void) {
-    next { count = count + 1 }
-  }
-
-  fun decrement : Promise(Never, Void) {
-    next { count = count - 1 }
-  }
+  
 }
 ----
 
@@ -59,37 +53,7 @@ store Counter.Store {
 
 === Counter Component
 
-The code is quite straight forward:
-
-* we define some css *styles* for our component for example where we make the decrement button red: 
-```mint
-  style decrementButton {
-    background: red;
-  }
-```
-* we *connect* our component to its store:
-```mint
-connect Counter.Store exposing {
-    count,
-    increment as incrementCounter,
-    decrement as decrementCounter
-  }
-```
-* we use *fun* functions to capture user *events* and route those actions to the appropriate store functions
-```mint
-fun handleClickOnDecrement (event : Html.Event) : Promise(Never, Void) {
-    decrementCounter()
-  }
-```
-* finally we *render* our html which also connects our buttons to the event functions i.e.: `onClick={handleClickOnDecrement}` in: 
-```mint
-<button::counterButton::decrementButton
-        onClick={handleClickOnDecrement}>
-        "-"
-      </button>
-```
-
-.code/mint/src/counter/source/Counter.mint
+.code/mint/src/counter_component/source/Counter.mint
 [source,linenums]
 ----
 /* Counter.mint */
@@ -104,7 +68,7 @@ component Counter {
     color: white;
     border: 0;
     margin: 0 7px 0;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: bold;
   }
 
@@ -113,40 +77,41 @@ component Counter {
   }
 
   style incrementButton {
-    background: #009c00;
+    background: lime;
   }
 
-  style count {
+  style counterText {
+    font-size: 36px;
     margin: 0 7px 0;
   }
 
-  connect Counter.Store exposing {
-    count,
-    increment as incrementCounter,
-    decrement as decrementCounter
+  state counter : Number = 0
+
+  fun increment : Promise(Never, Void) {
+    next { counter = counter + 1 }
   }
 
-  fun handleClickOnDecrement (event : Html.Event) : Promise(Never, Void) {
-    decrementCounter()
+  fun decrement : Promise(Never, Void) {
+    next { counter = counter - 1 }
   }
 
-  fun handleClickOnIncrement (event : Html.Event) : Promise(Never, Void) {
-    incrementCounter()
+  fun countHtml (count : Number) : Html {
+    <div::counterText>
+      <{ "Count is: #{count}" }>
+    </div>
   }
 
   fun render : Html {
     <div::counter>
       <button::counterButton::decrementButton
-        onClick={handleClickOnDecrement}>
+        onClick={decrement}>
         "-"
       </button>
 
-      <div::count>
-        <{"Count is: #{count}"}>
-      </div>
+      <{ countHtml(counter) }>
 
       <button::counterButton::incrementButton
-        onClick={handleClickOnIncrement}>
+        onClick={increment}>
         "+"
       </button>
     </div>
@@ -154,20 +119,18 @@ component Counter {
 }
 ----
 
-=== Add our Counter to Main
+=== Add our Counter Component to Main
 
 we will replace `<{ "Hello Mint!" }>` with `<Counter/>`
 
 so Main.mint now looks like:
 
-.code/mint/src/counter/source/Main.mint
+.code/mint/src/counter_component/source/Main.mint
 [source,linenums]
 ----
 component Main {
   style main {
     font-family: sans;
-    font-weight: bold;
-    font-size: 50px;
 
     justify-content: center;
     align-items: center;

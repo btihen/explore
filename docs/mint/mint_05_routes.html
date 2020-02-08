@@ -446,25 +446,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_installation">1. Installation</a></li>
-<li><a href="#_first_tutorial">2. First Tutorial]</a></li>
-<li><a href="#_exploring_mint">3. Exploring Mint</a>
+<li><a href="#_mint_routing">1. Mint-Routing</a>
 <ul class="sectlevel2">
-<li><a href="#_quick_start_hello">3.1. Quick Start (Hello)</a></li>
-<li><a href="#_state_and_events">3.2. State and Events</a></li>
-<li><a href="#_components">3.3. Components</a></li>
-<li><a href="#_store">3.4. Store</a></li>
-<li><a href="#_bulma_external_css">3.5. Bulma - external css</a></li>
-<li><a href="#_routes_properties">3.6. Routes &amp; Properties</a></li>
+<li><a href="#_intitialize_a_project">1.1. Intitialize a project:</a></li>
+<li><a href="#_application_store">1.2. Application Store</a></li>
+<li><a href="#_counter_routes">1.3. Counter Routes</a></li>
+<li><a href="#_main_page_routing">1.4. Main Page Routing</a></li>
 </ul>
 </li>
-<li><a href="#_mint_cli_commands">4. Mint CLI commands</a>
-<ul class="sectlevel2">
-<li><a href="#_build_mint_project_for_mint_docker">4.1. Build Mint Project for Mint-Docker</a></li>
-</ul>
-</li>
-<li><a href="#_resources">5. Resources</a></li>
-<li><a href="#_generating_these_docs">6. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -472,163 +461,183 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p><strong><a href="index.html">Mint Page</a></strong></p>
 </div>
-<div class="paragraph">
-<p><strong>The programming language for writing single page applications.</strong></p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_mint_routing">1. Mint-Routing</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+We are still using the Bulma Config &amp; the CounterStore from the previous explorations.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_intitialize_a_project">1.1. Intitialize a project:</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang init count_routes
+$ cd count_routes
+$ mkdir assets
+$ touch assets/head.html
+$ touch source/Routes.mint
+$ touch source/Counter.mint
+$ touch source/Application.mint
+$ touch source/CounterStore.mint</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_application_store">1.2. Application Store</h3>
 <div class="paragraph">
-<p>Exploring &amp; Learning Crystal Language with code examples and augment the documentation.</p>
+<p>We will start by making an Application Store</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_routes/source/Application.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">enum Page {
+  Home
+  Count
+  Named
+  NotFound
+}
+
+store Application {
+  state page : Page = Page::Home
+
+  fun setPage (page : Page) : Promise(Never, Void) {
+    next { page = page }
+  }
+}</code></pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.mint-lang.com/" class="bare">https://www.mint-lang.com/</a></p>
+<p>We make a <code>Page</code> <strong>enum</strong> so that each page is Type - enum values are references with TypeName::Value.</p>
 </li>
 <li>
-<p><a href="https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0*" class="bare">https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0*</a></p>
+<p>We also need a <code>page</code> state</p>
+</li>
+<li>
+<p>We also need a function to mutate the <code>page</code> state with the <strong>next</strong> command.</p>
 </li>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_installation">1. Installation</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_counter_routes">1.3. Counter Routes</h3>
 <div class="paragraph">
-<p>On MacOS - use:</p>
+<p>We use the Routes.mint file to do the routing.  We use <code>Application.setPage</code> to set the page value&#8201;&#8212;&#8201;which will be used in <code>Main</code> to render the correct HTML.  You can see we have used each of our Page enum Values - Page::Home, Page::Count, Page::NotFound.</p>
 </div>
 <div class="listingblock">
+<div class="title">code/mint/src/count_routes/source/Routes.mint</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ brew tap acciaiodigitale/homebrew-mint-lang
-$ brew install mint-lang</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>for other OSes see: <a href="https://www.mint-lang.com/install" class="bare">https://www.mint-lang.com/install</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_first_tutorial">2. First Tutorial]</h2>
-<div class="sectionbody">
+<pre class="prettyprint highlight"><code data-lang="linenums">routes {
+  / {
+    Application.setPage(Page::Home)
+  }
 
-</div>
-</div>
-<div class="sect1">
-<h2 id="_exploring_mint">3. Exploring Mint</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Note:
-* Mint uses React&#8217;s file naming conventions (capitalize component name)
-* Mint basically uses React&#8217;s html conventions</p>
-</div>
-<div class="sect2">
-<h3 id="_quick_start_hello">3.1. <a href="mint_00_hello.html">Quick Start (Hello)</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang init hello
-$ cd hello
-$ mint-lang start</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now open: <strong>http:localhost:3000</strong></p>
-</div>
-<div class="paragraph">
-<p>and see: <strong>Hello Mint!</strong></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_state_and_events">3.2. <a href="mint_01_state_n_events.html">State and Events</a></h3>
+  /counter {
+    Application.setPage(Page::Count)
+  }
 
-</div>
-<div class="sect2">
-<h3 id="_components">3.3. <a href="mint_02_components.html">Components</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_store">3.4. <a href="mint_03_stores.html">Store</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_bulma_external_css">3.5. <a href="mint_04_bulma.html">Bulma - external css</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_routes_properties">3.6. <a href="mint_05_routes.html">Routes &amp; Properties</a></h3>
-
+  * {
+    Application.setPage(Page::NotFound)
+  }
+}</code></pre>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_mint_cli_commands">4. Mint CLI commands</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>for all the cli commands do:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang --help</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or see: <a href="https://www.mint-lang.com/guide/getting-started/using-the-cli" class="bare">https://www.mint-lang.com/guide/getting-started/using-the-cli</a></p>
-</div>
-<div class="sect2">
-<h3 id="_build_mint_project_for_mint_docker">4.1. Build Mint Project for Mint-Docker</h3>
-<div class="paragraph">
-<p>How do I build a .mint file with mint-docker?</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ docker-compose run --rm mint mint build</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources">5. Resources</h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Mint Git Repo - <a href="https://github.com/mint-lang/mint" class="bare">https://github.com/mint-lang/mint</a></p>
+<p>routes match from top-down</p>
 </li>
 <li>
-<p>Mint Lang Docs - <a href="https://www.mint-lang.com/guide" class="bare">https://www.mint-lang.com/guide</a></p>
-</li>
-<li>
-<p>Mint Lang API (Standard Library) - <a href="https://www.mint-lang.com/api" class="bare">https://www.mint-lang.com/api</a></p>
-</li>
-<li>
-<p>Mint Lang Gitter - <a href="https://gitter.im/mint-lang/Lobby" class="bare">https://gitter.im/mint-lang/Lobby</a></p>
-</li>
-<li>
-<p>Mint Realworld Code - <a href="https://github.com/mint-lang/mint-realworld" class="bare">https://github.com/mint-lang/mint-realworld</a></p>
+<p>we can have a match-all at the end with the <code>*</code> route.</p>
 </li>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">6. Generating these Docs</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_main_page_routing">1.4. Main Page Routing</h3>
 <div class="listingblock">
+<div class="title">code/mint/src/count_routes/source/Main.mint</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/mint code/mint/adoc/*</code></pre>
+<pre class="prettyprint highlight"><code data-lang="linenums">component Main {
+
+  connect Application exposing { page }
+
+  style base {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 50px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  fun render : Html {
+    case (page) {
+      Page::Home =&gt;
+        &lt;div::base&gt;
+          &lt;Counter/&gt;
+        &lt;/div&gt;
+
+      Page::Count =&gt;
+        &lt;div::base&gt;
+          &lt;Counter/&gt;
+        &lt;/div&gt;
+
+      Page::NotFound =&gt;
+        &lt;div::base&gt;
+          "Page NOT Found"
+        &lt;/div&gt;
+    }
+  }
+}</code></pre>
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We need to attach <code>Main</code> to the <code>Application</code> store using <code>connect Application exposing { page }</code></p>
+</li>
+<li>
+<p>We can now use a case statement to control what data is displayed - using the <strong>page</strong> value from <code>Application</code> store.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p>stop mint and restart</p>
+</div>
+<div class="paragraph">
+<p>Now open:
+* <code><a href="http://localhost:3000" class="bare">http://localhost:3000</a></code>
+* <code><a href="http://localhost:3000/counter" class="bare">http://localhost:3000/counter</a></code>
+* <code><a href="http://localhost:3000/counter/junk" class="bare">http://localhost:3000/counter/junk</a></code> - not found should appear</p>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Mint Page</a></strong></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-08 21:07:15 +0100
+Last updated 2020-02-08 23:46:24 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

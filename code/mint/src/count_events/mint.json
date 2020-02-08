@@ -1,0 +1,9 @@
+{
+  "name": "count_events",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ]
+}

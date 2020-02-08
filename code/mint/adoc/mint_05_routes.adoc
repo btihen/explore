@@ -1,0 +1,137 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Mint-Routing
+
+NOTE: We are still using the Bulma Config & the CounterStore from the previous explorations.
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init count_routes
+$ cd count_routes 
+$ mkdir assets
+$ touch assets/head.html
+$ touch source/Routes.mint
+$ touch source/Counter.mint
+$ touch source/Application.mint
+$ touch source/CounterStore.mint
+```
+
+=== Application Store 
+
+We will start by making an Application Store
+
+.code/mint/src/count_routes/source/Application.mint
+[source,linenums]
+----
+enum Page {
+  Home
+  Count
+  Named
+  NotFound
+}
+
+store Application {
+  state page : Page = Page::Home
+
+  fun setPage (page : Page) : Promise(Never, Void) {
+    next { page = page }
+  }
+}
+----
+
+* We make a `Page` *enum* so that each page is Type - enum values are references with TypeName::Value.
+* We also need a `page` state 
+* We also need a function to mutate the `page` state with the *next* command.
+
+=== Counter Routes
+
+We use the Routes.mint file to do the routing.  We use `Application.setPage` to set the page value -- which will be used in `Main` to render the correct HTML.  You can see we have used each of our Page enum Values - Page::Home, Page::Count, Page::NotFound.
+
+.code/mint/src/count_routes/source/Routes.mint
+[source,linenums]
+----
+routes {
+  / {
+    Application.setPage(Page::Home)
+  }
+
+  /counter {
+    Application.setPage(Page::Count)
+  }
+
+  * {
+    Application.setPage(Page::NotFound)
+  }
+}
+----
+
+* routes match from top-down
+* we can have a match-all at the end with the `*` route.
+
+=== Main Page Routing
+
+.code/mint/src/count_routes/source/Main.mint
+[source,linenums]
+----
+component Main {
+  
+  connect Application exposing { page }
+
+  style base {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 50px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  fun render : Html {
+    case (page) {
+      Page::Home => 
+        <div::base>
+          <Counter/>
+        </div>
+
+      Page::Count => 
+        <div::base>
+          <Counter/>
+        </div>
+
+      Page::NotFound =>
+        <div::base>
+          "Page NOT Found"
+        </div>
+    }
+  }
+}
+----
+
+* We need to attach `Main` to the `Application` store using `connect Application exposing { page }`
+* We can now use a case statement to control what data is displayed - using the *page* value from `Application` store.
+
+stop mint and restart
+
+Now open:
+* `http://localhost:3000`
+* `http://localhost:3000/counter`
+* `http://localhost:3000/counter/junk` - not found should appear
+
+**link:index.html[Mint Page]**

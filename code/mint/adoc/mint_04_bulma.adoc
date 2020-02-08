@@ -17,11 +17,13 @@ Bill Tihen (Mint 0.7.1)
 
 Adding an external CSS: in this case *Bulma* https://bulma.io/
 
+This should allow us to greatly shorten our code to focus on the logic not the format!
+
 === Intitialize a project:
 
 ```bash
-$ mint-lang init mint_bulma
-$ cd mint_bulma 
+$ mint-lang init count_bulma
+$ cd count_bulma 
 $ mkdir assets
 $ touch assets/head.html
 $ mint-lang start
@@ -35,7 +37,7 @@ be sure you see: `Hello Mint!`
 
 We will control our counter values and save the state centrally (this Store resets with every page reload / new connection)
 
-.code/mint/src/bulma_count/assets/head.html
+.code/mint/src/count_bulma/assets/head.html
 [html,source,linenums]
 ----
 <meta charset="utf-8">
@@ -65,7 +67,7 @@ Now we have to tell mint to use this file - you do this by adding:
 ```
 to the mint.json file -- so now the file looks like:
 
-.code/mint/src/bulma_count/mint.json
+.code/mint/src/count_bulma/mint.json
 [html,source,linenums]
 ----
 {
@@ -86,77 +88,75 @@ to the mint.json file -- so now the file looks like:
 
 Now you can see the code is focused on the logic and CSS is mostly external.
 
-* The button CSS: `class="button is-success"`
-* You can still use mint css too: `<span::count class="title is-3">` where I added padding on the sides of the text with:
-```css
-  style count {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-```
+NOTE: We are still using the CounterStore from the previous exploration.
 
-
-.code/mint/src/counter/source/Counter.mint
+.code/mint/src/count_bulma/source/Counter.mint
 [source,linenums]
 ----
-/* Counter.mint */
-
 component Counter {
+
   connect Counter.Store exposing {
     count,
     increment as incrementCounter,
     decrement as decrementCounter
   }
 
-  fun handleClickOnDecrement (event : Html.Event) : Promise(Never, Void) {
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
     decrementCounter()
   }
 
-  fun handleClickOnIncrement (event : Html.Event) : Promise(Never, Void) {
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
     incrementCounter()
   }
 
-  style count {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
   fun render : Html {
-    <div class="columns is-centered is-desktop is-vcentered">
-      <div class="column">
-        <button class="button is-warning" onClick={handleClickOnDecrement}>
-          <i class="fas fa-minus"></i>
-        </button>
-
-        <span::count class="title is-3">
-          <{"Count: #{count}"}>
-        </span>
-
-        <button class="button is-success" onClick={handleClickOnIncrement}>
-          <i class="fas fa-plus"></i>
-        </button>
-      </div>
-    </div>
+    <nav class="panel">
+      <p class="panel-heading">
+        <{ "Mint Counter" }>
+      </p>
+      <p class="panel-tabs">
+        <a>
+          <button class="button is-medium is-warning" onClick={handleDecrement}>
+            <i class="fas fa-minus"></i>
+          </button>
+        </a>
+        <a>
+          <p class="title is-3">
+            <{ "Count: #{count}" }>
+          </p>
+        </a>
+        <a>
+          <button class="button is-medium is-success" onClick={handleIncrement}>
+            <i class="fas fa-plus"></i>
+          </button>
+        </a>
+      </p>
+    </nav>
   }
 }
 ----
 
 === Add our Counter to Main
 
-.code/mint/src/counter/source/Main.mint
+.code/mint/src/count_bulma/source/Main.mint
 [source,linenums]
 ----
 component Main {
 
-  style centerall {
+  style centerAll {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 50px;
+
     justify-content: center;
+    align-items: center;
     display: flex;
     height: 100vh;
     width: 100vw;
   }
 
   fun render : Html {
-    <div::centerall class="container is-fluid">
+    <div::centerAll class="container is-fluid">
       <Counter/>
     </div>
   }
@@ -164,16 +164,8 @@ component Main {
 }
 ----
 
-Here again you can see we mixed Mint CSS with Bulma CSS in `<div::centerall class="container is-fluid">` and
-```css
-  style centerall {
-    justify-content: center;
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-  }
-```
-stop mint and restart -- to load the assets.
+* here in `Main` we used Mint CSS in `<div::centerAll class="container is-fluid">` -- so we can now use both Bulma class tags and Mint to override.
+* you must stop mint and restart -- to load the new assets.
 
 Now open `http://localhost:3000`
 

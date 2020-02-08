@@ -1,0 +1,62 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Mint Hello
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init hello
+$ cd hello 
+$ mint-lang start
+```
+
+open `http://localhost:3000`
+
+be sure you see: `Hello Mint!`
+
+=== Main Code
+
+*Main.mint* is where Mint starts - this is what is looks like:
+
+.code/mint/src/hello/source/Main.mint
+[source,linenums]
+----
+component Main {
+  style base {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 50px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  fun render : Html {
+    <div::base>
+      <{ "Hello Mint!" }>
+    </div>
+  }
+}
+----
+
+* *style* blocks allow css formatting - so the `style base` is the base css for the app.
+* *<div::base>* - attaches the css style of *base* to that `html` block 
+* *<{  }>* - allows execution and then to String conversion for output in html blocks.
+
+**link:index.html[Mint Page]**

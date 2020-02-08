@@ -1,8 +1,6 @@
 component Main {
   style main {
     font-family: sans;
-    font-weight: bold;
-    font-size: 50px;
 
     justify-content: center;
     align-items: center;

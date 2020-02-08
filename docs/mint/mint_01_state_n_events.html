@@ -446,25 +446,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_installation">1. Installation</a></li>
-<li><a href="#_first_tutorial">2. First Tutorial]</a></li>
-<li><a href="#_exploring_mint">3. Exploring Mint</a>
+<li><a href="#_events_and_state">1. Events and State</a>
 <ul class="sectlevel2">
-<li><a href="#_quick_start_hello">3.1. Quick Start (Hello)</a></li>
-<li><a href="#_state_and_events">3.2. State and Events</a></li>
-<li><a href="#_components">3.3. Components</a></li>
-<li><a href="#_store">3.4. Store</a></li>
-<li><a href="#_bulma_external_css">3.5. Bulma - external css</a></li>
-<li><a href="#_routes_properties">3.6. Routes &amp; Properties</a></li>
+<li><a href="#_intitialize_a_project">1.1. Intitialize a project:</a></li>
+<li><a href="#_main_code">1.2. Main Code</a></li>
 </ul>
 </li>
-<li><a href="#_mint_cli_commands">4. Mint CLI commands</a>
-<ul class="sectlevel2">
-<li><a href="#_build_mint_project_for_mint_docker">4.1. Build Mint Project for Mint-Docker</a></li>
-</ul>
-</li>
-<li><a href="#_resources">5. Resources</a></li>
-<li><a href="#_generating_these_docs">6. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -472,59 +459,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
-</div>
-<div class="paragraph">
-<p><strong>The programming language for writing single page applications.</strong></p>
-</div>
-<div class="paragraph">
-<p>Exploring &amp; Learning Crystal Language with code examples and augment the documentation.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.mint-lang.com/" class="bare">https://www.mint-lang.com/</a></p>
-</li>
-<li>
-<p><a href="https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0*" class="bare">https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0*</a></p>
-</li>
-</ul>
+<p><strong><a href="index.html">Mint Page</a></strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_installation">1. Installation</h2>
+<h2 id="_events_and_state">1. Events and State</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>On MacOS - use:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ brew tap acciaiodigitale/homebrew-mint-lang
-$ brew install mint-lang</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>for other OSes see: <a href="https://www.mint-lang.com/install" class="bare">https://www.mint-lang.com/install</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_first_tutorial">2. First Tutorial]</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_exploring_mint">3. Exploring Mint</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Note:
-* Mint uses React&#8217;s file naming conventions (capitalize component name)
-* Mint basically uses React&#8217;s html conventions</p>
+<p>Note: Mint uses React file naming Standards</p>
 </div>
 <div class="sect2">
-<h3 id="_quick_start_hello">3.1. <a href="mint_00_hello.html">Quick Start (Hello)</a></h3>
+<h3 id="_intitialize_a_project">1.1. Intitialize a project:</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang init hello
@@ -533,102 +479,163 @@ $ mint-lang start</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Now open: <strong>http:localhost:3000</strong></p>
+<p>open <code><a href="http://localhost:3000" class="bare">http://localhost:3000</a></code></p>
 </div>
 <div class="paragraph">
-<p>and see: <strong>Hello Mint!</strong></p>
+<p>be sure you see: <code>Hello Mint!</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_state_and_events">3.2. <a href="mint_01_state_n_events.html">State and Events</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_components">3.3. <a href="mint_02_components.html">Components</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_store">3.4. <a href="mint_03_stores.html">Store</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_bulma_external_css">3.5. <a href="mint_04_bulma.html">Bulma - external css</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_routes_properties">3.6. <a href="mint_05_routes.html">Routes &amp; Properties</a></h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_mint_cli_commands">4. Mint CLI commands</h2>
-<div class="sectionbody">
+<h3 id="_main_code">1.2. Main Code</h3>
 <div class="paragraph">
-<p>for all the cli commands do:</p>
+<p><strong>Main.mint</strong> is where Mint starts - this is what is looks like:</p>
 </div>
 <div class="listingblock">
+<div class="title">code/mint/src/hello/source/Main.mint</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang --help</code></pre>
+<pre class="prettyprint highlight"><code data-lang="linenums">component Main {
+  style base {
+    font-family: sans;
+    font-weight: bold;
+    font-size: 36px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  style red {
+    background: red;
+    font-family: sans;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  style green {
+    background: lime;
+    font-family: sans;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  state counter : Number = 0
+
+  fun increment : Promise(Never, Void) {
+    next { counter = counter + 1 }
+  }
+
+  fun decrement : Promise(Never, Void) {
+    next { counter = counter - 1 }
+  }
+
+  fun countHtml (count : Number) : Html {
+    &lt;span&gt;
+      &lt;{ "Count is: " + Number.toString(count) }&gt;
+    &lt;/span&gt;
+  }
+
+  fun countString (count : Number) : String {
+    "Count is: " + Number.toString(count)
+  }
+
+  fun render : Html {
+    &lt;div::base&gt;
+      &lt;button::red onClick={decrement}&gt;
+        "-"
+      &lt;/button&gt;
+
+      &lt;{ countHtml(counter) }&gt;
+
+      &lt;span&gt;
+        &lt;{ countString(counter) }&gt;
+      &lt;/span&gt;
+
+      &lt;span&gt;
+        &lt;{ "Counter is: " + Number.toString(counter) }&gt;
+      &lt;/span&gt;
+
+      &lt;button::green onClick={increment}&gt;
+        "+"
+      &lt;/button&gt;
+    &lt;/div&gt;
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>or see: <a href="https://www.mint-lang.com/guide/getting-started/using-the-cli" class="bare">https://www.mint-lang.com/guide/getting-started/using-the-cli</a></p>
+<p>refresh <code><a href="http://localhost:3000" class="bare">http://localhost:3000</a></code></p>
 </div>
-<div class="sect2">
-<h3 id="_build_mint_project_for_mint_docker">4.1. Build Mint Project for Mint-Docker</h3>
 <div class="paragraph">
-<p>How do I build a .mint file with mint-docker?</p>
+<p>You should see: <code>-Count is: 0Count is: 0Counter is: 0+</code></p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ docker-compose run --rm mint mint build</code></pre>
+<div class="paragraph">
+<p>You can now click on the + and - buttons and the count should change.</p>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources">5. Resources</h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Mint Git Repo - <a href="https://github.com/mint-lang/mint" class="bare">https://github.com/mint-lang/mint</a></p>
+<p>Mint is a <strong>typed</strong> language (these are called literals). The list of literals is here: <a href="https://www.mint-lang.com/guide/reference/literals" class="bare">https://www.mint-lang.com/guide/reference/literals</a></p>
 </li>
 <li>
-<p>Mint Lang Docs - <a href="https://www.mint-lang.com/guide" class="bare">https://www.mint-lang.com/guide</a></p>
+<p>When we declare a variable <strong>state</strong> it&#8217;s <strong>type</strong> must be declared - so <code>state counter : Number = 0</code> says we have a variable named counter of type Number that will be used to track state information (count). See: <a href="https://www.mint-lang.com/guide/reference/components/internal-state" class="bare">https://www.mint-lang.com/guide/reference/components/internal-state</a></p>
 </li>
 <li>
-<p>Mint Lang API (Standard Library) - <a href="https://www.mint-lang.com/api" class="bare">https://www.mint-lang.com/api</a></p>
+<p><strong>style</strong> blocks allow css formatting - so the <code>style base</code> is the base css for the app. See: <a href="https://www.mint-lang.com/guide/getting-started/styling-with-css" class="bare">https://www.mint-lang.com/guide/getting-started/styling-with-css</a></p>
 </li>
 <li>
-<p>Mint Lang Gitter - <a href="https://gitter.im/mint-lang/Lobby" class="bare">https://gitter.im/mint-lang/Lobby</a></p>
+<p><strong>functions</strong> - <code>fun</code> - Functions are callable pieces of code.  Functions rules are:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>type annotations are mandatory</p>
 </li>
 <li>
-<p>Mint Realworld Code - <a href="https://github.com/mint-lang/mint-realworld" class="bare">https://github.com/mint-lang/mint-realworld</a></p>
+<p><strong>must have only one expression as the body</strong></p>
+</li>
+<li>
+<p>start with a lowercase letter and contain only letters and numbers</p>
+</li>
+<li>
+<p>functions are important for all the features see: <a href="https://www.mint-lang.com/guide/reference/functions" class="bare">https://www.mint-lang.com/guide/reference/functions</a></p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">6. Generating these Docs</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/mint code/mint/adoc/*</code></pre>
-</div>
+</li>
+<li>
+<p><strong>Promise</strong> is a function type used for async actions that could fail - they will return either a <code>result</code> or an <code>error</code>. See: <a href="https://www.mint-lang.com/guide/reference/built-in-types" class="bare">https://www.mint-lang.com/guide/reference/built-in-types</a></p>
+</li>
+<li>
+<p><strong>events handlers</strong> i.e. <code>onClick</code> are triggered when events happen.  <code>onClick={increment}</code> calls the <code>increment</code> function when the button is clicked. A full list of events is here: <a href="https://www.mint-lang.com/guide/getting-started/handling-events" class="bare">https://www.mint-lang.com/guide/getting-started/handling-events</a></p>
+</li>
+<li>
+<p><strong>html interpolation - <code>&lt;{  }&gt;</code></strong> - allows <strong>evaluation</strong> the result inside <code>{ }</code> must be either <strong>Html</strong> or <strong>Strings</strong> Type (literals) to be used in html output.</p>
+</li>
+<li>
+<p><strong>calling functions</strong> - <code>countHtml(counter)</code> is done by typing the function name and passing parameters (if any) - in our case we are outputting within html so we also need to call this within the <code>&lt;{  }&gt;</code> html interpolation tags</p>
+</li>
+<li>
+<p><strong>string concatenation</strong> - mint like crystal, ruby, python, etc can build a new string from several strings: i.e.: <code>"Count is: " + Number.toString(count)</code></p>
+</li>
+<li>
+<p><strong>interpolation</strong> - mint like crystal, ruby, python, etc can do inline string  with <code>"Counter is: #{counter}"</code> - this is often simpler than <code>concatenation</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p>Play with this code to get feel for what is possible.</p>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Mint Page</a></strong></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-08 21:07:15 +0100
+Last updated 2020-02-08 20:54:51 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

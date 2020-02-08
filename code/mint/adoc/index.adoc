@@ -17,7 +17,8 @@ Bill Tihen (Mint 0.7.1)
 
 Exploring & Learning Crystal Language with code examples and augment the documentation.
 
-https://www.mint-lang.com/
+* https://www.mint-lang.com/
+* https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0* 
 
 == Installation
 
@@ -29,9 +30,35 @@ $ brew install mint-lang
 
 for other OSes see: https://www.mint-lang.com/install
 
-== link:mint_tutorial_01.html[First Tutorial]
+== First Tutorial]
 
-https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0
+
+== Exploring Mint
+
+Note: 
+* Mint uses React's file naming conventions (capitalize component name)
+* Mint basically uses React's html conventions
+
+=== link:mint_00_hello.html[Quick Start (Hello)]
+
+```bash
+$ mint-lang init hello
+$ cd hello 
+$ mint-lang start
+```
+Now open: *http:localhost:3000*
+
+and see: *Hello Mint!*
+
+=== link:mint_01_state_n_events.html[State and Events]
+
+=== link:mint_02_components.html[Components] 
+
+=== link:mint_03_stores.html[Store]
+
+=== link:mint_04_bulma.html[Bulma - external css]
+
+=== link:mint_05_routes.html[Routes & Properties]
 
 == Mint CLI commands
 
@@ -48,18 +75,6 @@ How do I build a .mint file with mint-docker?
 ```bash
 $ docker-compose run --rm mint mint build
 ```
-
-== Quick Start
-
-```bash
-$ mint-lang init hello
-$ cd hello 
-$ mint-lang start
-```
-
-Now open: *http:localhost:3000*
-
-and see: *Hello Mint!*
 
 
 == Resources

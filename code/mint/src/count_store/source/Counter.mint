@@ -24,36 +24,35 @@ component Counter {
   }
 
   style incrementButton {
-    background: #009c00;
+    background: lime;
   }
 
-  style count {
+  style counterText {
+    font-size: 36px;
     margin: 0 7px 0;
   }
 
-  fun handleClickOnDecrement (event : Html.Event) : Promise(Never, Void) {
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
     decrementCounter()
-    Debug.log("decrement")
   }
 
-  fun handleClickOnIncrement (event : Html.Event) : Promise(Never, Void) {
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
     incrementCounter()
-    Debug.log("increment")
   }
 
   fun render : Html {
     <div::counter>
       <button::counterButton::decrementButton
-        onClick={handleClickOnDecrement}>
+        onClick={handleDecrement}>
         "-"
       </button>
 
-      <div::count>
+      <div::counterText>
         <{"Here's the count: #{count}"}>
       </div>
 
       <button::counterButton::incrementButton
-        onClick={handleClickOnIncrement}>
+        onClick={handleIncrement}>
         "+"
       </button>
     </div>
