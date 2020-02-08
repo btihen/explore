@@ -1,0 +1,9 @@
+{
+  "name": "hello",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ]
+}

@@ -1,0 +1,79 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: crystal
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+*link:../index.html[Home Page]*
+
+*The programming language for writing single page applications.*
+
+Exploring & Learning Crystal Language with code examples and augment the documentation.
+
+https://www.mint-lang.com/
+
+== Installation
+
+On MacOS - use:
+```bash
+$ brew tap acciaiodigitale/homebrew-mint-lang
+$ brew install mint-lang
+```
+
+for other OSes see: https://www.mint-lang.com/install
+
+== Mint CLI commands
+
+for all the cli commands do:
+```bash
+$ mint-lang --help
+```
+or see: https://www.mint-lang.com/guide/getting-started/using-the-cli
+
+=== Build Mint Project for Mint-Docker
+
+How do I build a .mint file with mint-docker?
+
+```bash
+$ docker-compose run --rm mint mint build
+```
+
+== Quick Start
+
+```bash
+$ mint-lang init hello
+$ cd hello 
+$ mint-lang start
+```
+
+Now open: *http:localhost:3000*
+
+and see: *Hello Mint!*
+
+== link:mint_tutorial_01.html[Mint First Tutorial]
+
+https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0
+
+
+== Resources
+
+* Mint Git Repo - https://github.com/mint-lang/mint
+* Mint Lang Docs - https://www.mint-lang.com/guide
+* Mint Lang API (Standard Library) - https://www.mint-lang.com/api
+* Mint Lang Gitter - https://gitter.im/mint-lang/Lobby
+* Mint Realworld Code - https://github.com/mint-lang/mint-realworld
+
+== Generating these Docs
+
+```bash
+$ asciidoctor -D docs/mint code/mint/adoc/*
+```
+
+*link:../index.html[Home Page]*

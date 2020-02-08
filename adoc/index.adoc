@@ -54,13 +54,13 @@ https://swift.org/
 
 == Frontend Languages
 
-=== Elm (Frontend without npm)
+=== Elm (Functional Frontend without npm)
 https://elm-lang.org/
 
 === Ember JS
 https://emberjs.com/
 
-=== Mint (Frontend without npm)
+=== link:mint/index.html[Mint (React like Frontend without npm)]
 https://www.mint-lang.com/
 
 === React JS
@@ -97,6 +97,9 @@ https://luckyframework.org/
 === Crystal -- Spider-Gazelle 
 https://spider-gazelle.net/#/
 https://spider-gazelle.net/#/controllers/websockets
+
+=== Elixir -- Language
+https://elixir-lang.org/
 
 === Elixir -- Phoenix
 https://www.phoenixframework.org/
@@ -140,6 +143,7 @@ asciidoctor -D docs adoc/*
 
 # each language needs to be organized withing docs for github pages
 asciidoctor -D docs/pony code/pony/adoc/*
+asciidoctor -D docs/mint code/mint/adoc/*
 asciidoctor -D docs/prolog code/prolog/adoc/*
 asciidoctor -D docs/crystal code/crystal/adoc/*
 asciidoctor -D docs/crystal_lucky code/crystal_lucky/adoc/*
