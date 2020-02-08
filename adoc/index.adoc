@@ -54,13 +54,15 @@ https://swift.org/
 
 == Frontend Languages
 
-=== Elm (Functional Frontend without npm)
+=== Elm 
+_(Functional Frontend Code without npm)_
 https://elm-lang.org/
 
 === Ember JS
 https://emberjs.com/
 
-=== link:mint/index.html[Mint (React like Frontend without npm)]
+=== link:mint/index.html[Mint]
+_React like Language build using Crystal (Frontend without npm)_
 https://www.mint-lang.com/
 
 === React JS
