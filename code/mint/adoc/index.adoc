@@ -60,7 +60,7 @@ and see: *Hello Mint!*
 
 === link:mint_05_routes.html[Routes]
 
-=== link:mint_06_properites.html[Properties]
+=== link:mint_06_properties.html[Properties]
 
 == Mint CLI commands
 
