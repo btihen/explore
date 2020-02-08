@@ -169,7 +169,8 @@ component Main {
 
 Now open `http://localhost:3000`
 
-be sure you see: 
+be sure you see:
+ 
 * `Count:` centered vertically and horizontally in a new font
 * and `+` and `-` buttons formatted with Fontawesome Icons
 * the buttons should be rounded using the *litera* Bulma theme.

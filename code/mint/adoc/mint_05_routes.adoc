@@ -130,6 +130,7 @@ component Main {
 stop mint and restart
 
 Now open:
+
 * `http://localhost:3000`
 * `http://localhost:3000/counter`
 * `http://localhost:3000/counter/junk` - not found should appear

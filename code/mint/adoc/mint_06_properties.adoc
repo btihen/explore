@@ -214,6 +214,7 @@ component Main {
 stop mint and restart
 
 Now open:
+
 * `http://localhost:3000` -- the counter title should now be `/`
 * `http://localhost:3000/counter` -- the counter title should now be `/counter`
 * `http://localhost:3000/counter/cool` -- the counter title should now be `/counter/cool`
