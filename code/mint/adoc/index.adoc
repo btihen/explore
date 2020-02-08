@@ -58,7 +58,9 @@ and see: *Hello Mint!*
 
 === link:mint_04_bulma.html[Bulma - external css]
 
-=== link:mint_05_routes.html[Routes & Properties]
+=== link:mint_05_routes.html[Routes]
+
+=== link:mint_06_properites.html[Properties]
 
 == Mint CLI commands
 
