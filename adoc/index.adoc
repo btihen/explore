@@ -14,115 +14,161 @@ Bill Tihen
 Exploring & Learning a variety of programming Languages
 
 
-== General Languages
-
-=== Concurnas 
-https://concurnas.com/
-
-=== link:crystal/index.html[Crystal]
-*Fast as C, slick as Ruby*
-https://crystal-lang.org/
-
-=== Elixir
-https://elixir-lang.org/
-
-=== Erlang
-https://www.erlang.org/
-
-=== Julia
-https://julialang.org/
-
-=== Kotlin
-https://kotlinlang.org/
-
-=== link:pony/index.html[Pony]
-*Pony is an open-source, object-oriented, actor-model, capabilities-secure, high-performance programming language.*
-https://www.ponylang.io/
-
-=== link:prolog/index.html[Prolog]
-https://www.swi-prolog.org/
-
-=== Python
-https://www.python.org/
-
-=== Ruby
-https://www.ruby-lang.org/
-
-=== Swift
-https://swift.org/
-
-
 == Frontend Languages
 
 === Elm 
 _(Functional Frontend Code without npm)_
-https://elm-lang.org/
+
+* https://elm-lang.org/
 
 === Ember JS
-https://emberjs.com/
+
+* https://emberjs.com/
 
 === link:mint/index.html[Mint]
 _React like Language build using Crystal (Frontend without npm)_
-https://www.mint-lang.com/
+
+* https://www.mint-lang.com/
+
 
 === React JS
-https://reactjs.org/
+
+* https://reactjs.org/
+
 
 === Stimulus JS
-https://stimulusjs.org/reference/controllers
+
+* https://stimulusjs.org/reference/controllers
 
 === Vue JS
-https://vuejs.org/
+
+* https://vuejs.org/
+
+
+
+== General / Backend Languages
+
+=== Concurnas 
+
+* https://concurnas.com/
+
+
+=== link:crystal/index.html[Crystal]
+*Fast as C, slick as Ruby*
+
+* https://crystal-lang.org/
+
+
+=== Elixir
+
+* https://elixir-lang.org/
+
+
+=== Erlang
+
+* https://www.erlang.org/
+
+
+=== Julia
+
+* https://julialang.org/
+
+
+=== Kotlin
+
+* https://kotlinlang.org/
+
+
+=== link:pony/index.html[Pony]
+*Pony is an open-source, object-oriented, actor-model, capabilities-secure, high-performance programming language.*
+
+* https://www.ponylang.io/
+
+
+=== link:prolog/index.html[Prolog]
+
+* https://www.swi-prolog.org/
+
+=== Python
+
+* https://www.python.org/
+
+
+=== Ruby
+* https://www.ruby-lang.org/
+
+
+=== Swift
+
+* https://swift.org/
+
 
 
 == Web Frameworks
-https://www.techempower.com/benchmarks/
-https://github.com/the-benchmarker/web-frameworks
+
+* https://www.techempower.com/benchmarks/
+* https://github.com/the-benchmarker/web-frameworks
 
 === Crystal -- Amber (Basics)
-https://amberframework.org/
-https://docs.amberframework.org/amber/cookbook/websocket-chat
-https://docs.amberframework.org/amber/guides/websockets/javascript-client
+
+* https://amberframework.org/
+* https://docs.amberframework.org/amber/cookbook/websocket-chat
+* https://docs.amberframework.org/amber/guides/websockets/javascript-client
 
 === Crystal -- Amber (Crecto)
-https://amberframework.org/
-https://www.crecto.com/getting-started
+
+* https://amberframework.org/
+* https://www.crecto.com/getting-started
 
 === Crystal -- Amber (Jennifer)
-https://amberframework.org/
-https://docs.amberframework.org/amber/guides/models/jennifer
-https://docs.amberframework.org/amber/guides/models/jennifer/migrations
+
+* https://amberframework.org/
+* https://docs.amberframework.org/amber/guides/models/jennifer
+* https://docs.amberframework.org/amber/guides/models/jennifer/migrations
 
 === link:crystal_lucky/index.html[Crystal -- Lucky]
-https://luckyframework.org/
+
+* https://luckyframework.org/
 
 === Crystal -- Spider-Gazelle 
-https://spider-gazelle.net/#/
-https://spider-gazelle.net/#/controllers/websockets
 
-=== Elixir -- Language
-https://elixir-lang.org/
+* https://spider-gazelle.net/#/
+* https://spider-gazelle.net/#/controllers/websockets
+
 
 === Elixir -- Phoenix
-https://www.phoenixframework.org/
+* https://www.phoenixframework.org/
+
 
 === Pony - Jennet
-https://github.com/Theodus/jennet
+
+* https://github.com/Theodus/jennet
+
 
 === Ruby -- Hanami
-https://hanamirb.org/
+
+* https://hanamirb.org/
+
 
 === Ruby -- Rails
-https://rubyonrails.org/
+
+* https://rubyonrails.org/
+
 
 === Prolog -- SimpleWeb
-http://www.paulbrownmagic.com/blog/simple_web_intro.html
+
+* http://www.paulbrownmagic.com/blog/simple_web_intro.html
+
 
 === Python -- Django
-https://www.djangoproject.com/
+
+* https://www.djangoproject.com/
+
 
 == Source Repository
-https://github.com/btihen/explore
+
+* https://github.com/btihen/explore
+
 
 .NOTE:
 ****
