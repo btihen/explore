@@ -1,0 +1,185 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: Mint Language
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Mint-Bulma Tutorial
+
+Adding an external CSS: in this case *Bulma* https://bulma.io/
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init mint_bulma
+$ cd mint_bulma 
+$ mkdir assets
+$ touch assets/head.html
+$ mint-lang start
+```
+
+open `http://localhost:3000`
+
+be sure you see: `Hello Mint!`
+
+=== Add Bulma and Fontawesome
+
+We will control our counter values and save the state centrally (this Store resets with every page reload / new connection)
+
+.code/mint/src/bulma_count/assets/head.html
+[html,source,linenums]
+----
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- adding Bulma CSS -->
+<link rel="stylesheet" 
+  href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+  crossorigin="anonymous">
+
+<!-- add Litera Theme -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/bulmaswatch/litera/bulmaswatch.min.css">
+
+<!-- Add Fontawesome -->
+<link rel="stylesheet" 
+  href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" 
+  integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" 
+  crossorigin="anonymous">
+----
+
+Now we have to tell mint to use this file - you do this by adding:
+```json
+"application": {
+    "head": "assets/head.html"
+  },
+```
+to the mint.json file -- so now the file looks like:
+
+.code/mint/src/bulma_count/mint.json
+[html,source,linenums]
+----
+{
+  "name": "bulma_count",
+  "source-directories": [
+    "source"
+  ],
+  "application": {
+    "head": "assets/head.html"
+  },
+  "test-directories": [
+    "tests"
+  ]
+}
+----
+
+=== Counter Component
+
+Now you can see the code is focused on the logic and CSS is mostly external.
+
+* The button CSS: `class="button is-success"`
+* You can still use mint css too: `<span::count class="title is-3">` where I added padding on the sides of the text with:
+```css
+  style count {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+```
+
+
+.code/mint/src/counter/source/Counter.mint
+[source,linenums]
+----
+/* Counter.mint */
+
+component Counter {
+  connect Counter.Store exposing {
+    count,
+    increment as incrementCounter,
+    decrement as decrementCounter
+  }
+
+  fun handleClickOnDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun handleClickOnIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  style count {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  fun render : Html {
+    <div class="columns is-centered is-desktop is-vcentered">
+      <div class="column">
+        <button class="button is-warning" onClick={handleClickOnDecrement}>
+          <i class="fas fa-minus"></i>
+        </button>
+
+        <span::count class="title is-3">
+          <{"Count: #{count}"}>
+        </span>
+
+        <button class="button is-success" onClick={handleClickOnIncrement}>
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  }
+}
+----
+
+=== Add our Counter to Main
+
+.code/mint/src/counter/source/Main.mint
+[source,linenums]
+----
+component Main {
+
+  style centerall {
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  fun render : Html {
+    <div::centerall class="container is-fluid">
+      <Counter/>
+    </div>
+  }
+
+}
+----
+
+Here again you can see we mixed Mint CSS with Bulma CSS in `<div::centerall class="container is-fluid">` and
+```css
+  style centerall {
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+```
+stop mint and restart -- to load the assets.
+
+Now open `http://localhost:3000`
+
+be sure you see: 
+* `Count:` centered vertically and horizontally in a new font
+* and `+` and `-` buttons formatted with Fontawesome Icons
+* the buttons should be rounded using the *litera* Bulma theme.
+
+**link:index.html[Mint Page]**

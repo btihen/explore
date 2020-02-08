@@ -13,22 +13,6 @@ Bill Tihen (Mint 0.7.1)
 
 **link:index.html[Mint Page]**
 
-*The programming language for writing single page applications.*
-
-Exploring & Learning Crystal Language with code examples and augment the documentation.
-
-https://www.mint-lang.com/
-
-== Installation
-
-On MacOS - use:
-```bash
-$ brew tap acciaiodigitale/homebrew-mint-lang
-$ brew install mint-lang
-```
-
-for other languages see: https://www.mint-lang.com/install
-
 == Mini Tutorial
 
 https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0

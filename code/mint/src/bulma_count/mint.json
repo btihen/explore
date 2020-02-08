@@ -1,0 +1,12 @@
+{
+  "name": "bulma_count",
+  "source-directories": [
+    "source"
+  ],
+  "application": {
+    "head": "assets/head.html"
+  },
+  "test-directories": [
+    "tests"
+  ]
+}
