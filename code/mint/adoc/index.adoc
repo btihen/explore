@@ -29,6 +29,10 @@ $ brew install mint-lang
 
 for other OSes see: https://www.mint-lang.com/install
 
+== link:mint_tutorial_01.html[First Tutorial]
+
+https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0
+
 == Mint CLI commands
 
 for all the cli commands do:
@@ -56,10 +60,6 @@ $ mint-lang start
 Now open: *http:localhost:3000*
 
 and see: *Hello Mint!*
-
-== link:mint_tutorial_01.html[Mint First Tutorial]
-
-https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0
 
 
 == Resources

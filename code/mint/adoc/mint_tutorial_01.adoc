@@ -43,6 +43,10 @@ $ cd counter
 $ mint-lang start
 ```
 
+open `http://localhost:3000`
+
+be sure you see: `Hello Mint!`
+
 === Counter Store / State-Machine:
 
 We will control our counter values and save the state centrally (this Store resets with every page reload / new connection)
@@ -154,7 +158,7 @@ component Counter {
       </button>
 
       <div::count>
-        <{"Here's the count: #{count}"}>
+        <{"Count is: #{count}"}>
       </div>
 
       <button::counterButton::incrementButton
@@ -195,5 +199,9 @@ component Main {
   }
 }
 ----
+
+open `http://localhost:3000`
+
+be sure you see: `Count is:` with a `+` and `-` buttons
 
 **link:index.html[Mint Page]**
