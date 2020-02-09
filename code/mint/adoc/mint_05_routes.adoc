@@ -8,7 +8,7 @@ Bill Tihen (Mint 0.7.1)
 :toc-title: Contents
 
 :description: Exploring Mint's Features
-:keywords: Mint Language
+:keywords: mint route enum case 
 :imagesdir: ./images
 
 **link:index.html[Mint Page]**

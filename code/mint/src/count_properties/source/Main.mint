@@ -15,26 +15,22 @@ component Main {
   }
 
   fun render : Html {
-    case (page) {
-      Page::Home => 
-        <div::base>
+    <div::base>
+      case (page) {
+        Page::Home => 
           <Counter/>
-        </div>
 
-      Page::Count => 
-        <div::base>
+        Page::Count => 
           <Counter routeName="/counter"/>
-        </div>
 
-      Page::Named => 
-        <div::base>
+        Page::Named => 
           <Counter routeName={"/counter/#{route}"}/>
-        </div>
 
-      Page::NotFound =>
-        <div::base>
-          "Page NOT Found"
-        </div>
-    }
+        Page::NotFound =>
+          <div>
+            "Page NOT Found"
+          </div>
+      }
+    </div>
   }
 }

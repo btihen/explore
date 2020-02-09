@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Crystal Lang Explorations</title>
+<meta name="author" content="Bill Tihen (Mint 0.7.1)">
+<title>Mint Lang Explorations</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,73 +439,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Crystal Lang Explorations</h1>
+<h1>Mint Lang Explorations</h1>
 <div class="details">
-<span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
+<span id="author" class="author">Bill Tihen (Mint 0.7.1)</span><br>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_installation">1. Installation</a></li>
-<li><a href="#_crystal_cli">2. Crystal CLI</a></li>
-<li><a href="#_blocks">3. Blocks</a></li>
-<li><a href="#_macros_sort_of_meta_code">4. Macros <em>(Sort-of Meta-Code)</em></a></li>
-<li><a href="#_data_structures">5. Data Structures</a>
+<li><a href="#_organizing_mint">1. Organizing Mint</a>
 <ul class="sectlevel2">
-<li><a href="#_structs">5.1. Structs</a></li>
-<li><a href="#_records">5.2. Records</a></li>
-<li><a href="#_json_data">5.3. JSON Data</a></li>
+<li><a href="#_strategy">1.1. Strategy</a></li>
+<li><a href="#_intitialize_a_project">1.2. Intitialize a project:</a></li>
+<li><a href="#_unchanged_files">1.3. Unchanged Files</a></li>
+<li><a href="#_stores">1.4. Stores</a></li>
+<li><a href="#_layouts">1.5. Layouts</a></li>
+<li><a href="#_components">1.6. Components</a></li>
+<li><a href="#_pages">1.7. Pages</a></li>
 </ul>
 </li>
-<li><a href="#_code_patterns">6. Code Patterns</a>
-<ul class="sectlevel2">
-<li><a href="#_decorator">6.1. Decorator</a></li>
-<li><a href="#_value_object">6.2. Value Object</a></li>
-<li><a href="#_east_oriented_fluent_interface">6.3. East Oriented <em>(Fluent Interface)</em></a></li>
-<li><a href="#_http_server_and_client">6.4. HTTP (Server and Client)</a>
-<ul class="sectlevel3">
-<li><a href="#_basic_web_client">6.4.1. Basic Web Client</a></li>
-<li><a href="#_basic_web_server">6.4.2. Basic Web Server</a></li>
-<li><a href="#_processing_web_requests">6.4.3. Processing Web Requests</a></li>
-</ul>
-</li>
-<li><a href="#_http_server_and_client_2">6.5. HTTP (Server and Client)</a>
-<ul class="sectlevel3">
-<li><a href="#_web_client_https">6.5.1. Web Client (HTTPS)</a></li>
-<li><a href="#_secure_web_server_https">6.5.2. Secure Web Server (HTTPS)</a></li>
-</ul>
-</li>
-<li><a href="#_websockets_server_and_client">6.6. WebSockets (Server and Client)</a>
-<ul class="sectlevel3">
-<li><a href="#_websockets">6.6.1. WebSockets</a></li>
-<li><a href="#_websockets_with_ssl">6.6.2. WebSockets with SSL</a></li>
-<li><a href="#_websockets_with_named_channels">6.6.3. WebSockets with Named Channels</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_concurrency_parallelism">7. Concurrency &amp; Parallelism</a>
-<ul class="sectlevel2">
-<li><a href="#_concurrency_basics">7.1. Concurrency Basics</a></li>
-<li><a href="#_concurrent_objects">7.2. Concurrent Objects</a></li>
-<li><a href="#_channels_async_messaging">7.3. Channels <em>(Async Messaging)</em></a></li>
-<li><a href="#_channel_buffers">7.4. Channel Buffers</a></li>
-<li><a href="#_channel_callbacks">7.5. Channel Callbacks</a></li>
-<li><a href="#_crystal_promises">7.6. Crystal Promises</a></li>
-<li><a href="#_crystal_priority_queues">7.7. Crystal Priority Queues</a></li>
-<li><a href="#_parallelism">7.8. Parallelism</a></li>
-<li><a href="#_actor_model">7.9. Actor Model</a></li>
-</ul>
-</li>
-<li><a href="#_making_shards">8. Making Shards</a></li>
-<li><a href="#_mini_projects">9. Mini-Projects</a>
-<ul class="sectlevel2">
-<li><a href="#_game_of_life">9.1. Game of Life</a></li>
-<li><a href="#_chat_room">9.2. Chat Room</a></li>
-</ul>
-</li>
-<li><a href="#_resources">10. Resources</a></li>
-<li><a href="#_generating_these_docs">11. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -513,312 +464,312 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Fast as C, slick as Ruby</strong></p>
-</div>
-<div class="paragraph">
-<p>Exploring &amp; Learning Crystal Language with code examples and augment the documentation.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://crystal-lang.org/" class="bare">https://crystal-lang.org/</a></p>
+<p><strong><a href="index.html">Mint Page</a></strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_installation">1. Installation</h2>
+<h2 id="_organizing_mint">1. Organizing Mint</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>On MacOS - use:</p>
+<p>Organizing the code can encourage the following:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>well organized and ready to grow into a large project.</p>
+</li>
+<li>
+<p>have short files: which are focused and easy to read and understand.</p>
+</li>
+<li>
+<p>files focused on a single responsibility that are easy to reason about.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_strategy">1.1. Strategy</h3>
+<div class="paragraph">
+<p>Now that the files are getting longer and the files are doing different roles as our project gets more complex.  To solve this we will create some folders to state the purpose of the files within.  Mint loads all the files so the folder structure within source is for the people.  Mint won&#8217;t care&#8201;&#8212;&#8201;I would leave <code>Main.mint</code> where it is.</p>
+</div>
+<div class="paragraph">
+<p>We will add the folders for the following roles:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>source/Pages</p>
+</li>
+<li>
+<p>source/Stores</p>
+</li>
+<li>
+<p>source/Layouts</p>
+</li>
+<li>
+<p>source/Components</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Perhaps in a large project one might also make a <code>Modules</code> folder. Modules are globally available functions independent of components.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_intitialize_a_project">1.2. Intitialize a project:</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ brew install crystal</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang init count_routes
+$ cd count_routes
+$ mkdir assets
+$ mkdir external_js
+$ mkdir source/Pages
+$ mkdir source/Stores
+$ mkdir source/Layouts
+$ mkdir source/Components
+$ touch assets/head.html
+$ touch source/Routes.mint
+$ touch source/Page/Counter.mint
+$ touch source/Layouts/Layout.mint
+$ touch source/Layouts/Header.mint
+$ touch source/Layouts/Footer.mint
+$ touch source/Layouts/Content.mint
+$ touch source/Stores/Application.mint
+$ touch source/Stores/CounterStore.mint
+$ touch source/Components/CountTextHtml.mint
+$ touch source/Components/DecrementCounterButton.mint
+$ touch source/Components/IncrementCounterButton.mint</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>For all other systems see: <a href="https://crystal-lang.org/install/" class="bare">https://crystal-lang.org/install/</a></p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_crystal_cli">2. <a href="crystal_cli.html">Crystal CLI</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_unchanged_files">1.3. Unchanged Files</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Useful commands when using crystal</p>
+<p>mint.json</p>
 </li>
 <li>
-<p>My most useful command while developing is:</p>
+<p>assets/head.html</p>
+</li>
+<li>
+<p>source/Main.mint</p>
+</li>
+<li>
+<p>source/Routes.mint</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stores">1.4. Stores</h3>
+<div class="paragraph">
+<p>These files haven&#8217;t changed - just moved to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>source/Application.mint</p>
+</li>
+<li>
+<p>source/CounterStore.mint</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>into the <code>Stores</code> folder - i.e.:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>source/Stores/Application.mint</p>
+</li>
+<li>
+<p>source/Stores/CounterStore.mint</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_layouts">1.5. Layouts</h3>
+<div class="paragraph">
+<p>Let&#8217;s reorganize the Layouts into more smaller files&#8201;&#8212;&#8201;each file will be doing a specific role.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Layout will combine all aspects together (Header, Content, Footer).</p>
+</li>
+<li>
+<p>Content will have the structural code for the Content.</p>
+</li>
+<li>
+<p>Header will have all the Header/Navbar code.</p>
+</li>
+<li>
+<p>Footer will have the Footer code.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
+<div class="title">code/mint/src/count_organized/source/Layouts/Footer.mint</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">crystal run src/file_name.cr</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_blocks">3. Blocks</h2>
-<div class="sectionbody">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Footer {
 
+  fun render : Html {
+    &lt;footer class="footer is-light"&gt;
+      &lt;div class="container"&gt;
+        &lt;{ "Copyright © 2019 Counter. All rights reserved." }&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  }
+}</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_macros_sort_of_meta_code">4. Macros <em>(Sort-of Meta-Code)</em></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_data_structures">5. Data Structures</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_structs">5.1. <a href="crystal_structs.html">Structs</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Structs <em>(&amp; Records)</em> are immutable data structures - these are <code>safe</code> when used in a concurrent/parallel context.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_records">5.2. <a href="crystal_records.html">Records</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Structs <em>(&amp; Records)</em> are immutable data structures - these are <code>safe</code> when used in a concurrent/parallel context.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_json_data">5.3. JSON Data</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_code_patterns">6. Code Patterns</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_decorator">6.1. Decorator</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_value_object">6.2. Value Object</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_east_oriented_fluent_interface">6.3. East Oriented <em>(Fluent Interface)</em></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_http_server_and_client">6.4. HTTP (Server and Client)</h3>
 <div class="paragraph">
-<p>Non-stateful - short-term connections over TCP.</p>
+<p>Now the Header/Navbar (it&#8217;s still long):</p>
 </div>
-<div class="sect3">
-<h4 id="_basic_web_client">6.4.1. <a href="crystal_web_client.html">Basic Web Client</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_basic_web_server">6.4.2. <a href="crystal_web_server.html">Basic Web Server</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_processing_web_requests">6.4.3. <a href="crystal_web_processing.html">Processing Web Requests</a></h4>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="_http_server_and_client_2">6.5. HTTP (Server and Client)</h3>
-<div class="paragraph">
-<p>Encrypted HTTP Interactions</p>
-</div>
-<div class="sect3">
-<h4 id="_web_client_https">6.5.1. <a href="crystal_web_ssl_client.html">Web Client (HTTPS)</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_secure_web_server_https">6.5.2. <a href="crystal_web_ssl_server.html">Secure Web Server (HTTPS)</a></h4>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="_websockets_server_and_client">6.6. WebSockets (Server and Client)</h3>
-<div class="paragraph">
-<p>Long-lived client-server connections over TCP.</p>
-</div>
-<div class="sect3">
-<h4 id="_websockets">6.6.1. <a href="crystal_websockets.html">WebSockets</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_websockets_with_ssl">6.6.2. WebSockets with SSL</h4>
-
-</div>
-<div class="sect3">
-<h4 id="_websockets_with_named_channels">6.6.3. WebSockets with Named Channels</h4>
-
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_concurrency_parallelism">7. Concurrency &amp; Parallelism</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>An intro into the basics of how things like websockets work</p>
-</div>
-<div class="sidebarblock">
+<div class="listingblock">
+<div class="title">code/mint/src/count_organized/source/Layouts/Header.mint</div>
 <div class="content">
-<div class="title">TODO</div>
+<pre class="prettyprint highlight"><code data-lang="linenums">component Header {
+
+  fun render : Html {
+    &lt;nav class="navbar is-light" role="navigation" aria-label="main navigation"&gt;
+      &lt;div class="navbar-brand"&gt;
+        &lt;a class="navbar-item" href="/"&gt;
+          &lt;h1 id="title" class="navbar-item"&gt;
+            &lt;{ "Counter" }&gt;
+          &lt;/h1&gt;
+        &lt;/a&gt;
+
+        &lt;a role="button" class="navbar-burger burger" aria-label="menu"
+                          aria-expanded="false" data-target="navbarCounter"&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;div id="navbarCounter" class="navbar-menu"&gt;
+        &lt;div class="navbar-start"&gt;
+
+          &lt;a class="navbar-item"&gt;
+            &lt;{ "Docs" }&gt;
+          &lt;/a&gt;
+
+          &lt;div class="navbar-item has-dropdown is-hoverable"&gt;
+            &lt;a class="navbar-link"&gt;
+              &lt;{ "More" }&gt;
+            &lt;/a&gt;
+
+            &lt;div class="navbar-dropdown"&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "About" }&gt;
+              &lt;/a&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "Contact" }&gt;
+              &lt;/a&gt;
+              &lt;hr class="navbar-divider"/&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "Report an issue" }&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="navbar-end"&gt;
+          &lt;div class="navbar-item"&gt;
+            &lt;div class="buttons"&gt;
+              &lt;a class="button is-primary"&gt;
+                &lt;strong&gt;&lt;{ "Sign up" }&gt;&lt;/strong&gt;
+              &lt;/a&gt;
+              &lt;a class="button is-light"&gt;
+                &lt;{ "Log in" }&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>Augment and adapt content using inspiration from: <a href="https://blog.golang.org/pipelines" class="bare">https://blog.golang.org/pipelines</a></p>
+<p>Now that we have the Header and Footer we can create the Content Layout (probably overkill since the content structure is simple - but why not - it makes the Layout read nicely).</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concurrency_basics">7.1. <a href="crystal_concurrency_basics.html">Concurrency Basics</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Basics on starting processes concurrently</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concurrent_objects">7.2. <a href="crystal_concurrent_objects.html">Concurrent Objects</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Examples of using concurrency with objects</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_channels_async_messaging">7.3. <a href="crystal_channels_async_messaging.html">Channels <em>(Async Messaging)</em></a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Channels allow us to safely communicate between concurrent processes.</p>
-</li>
-<li>
-<p>To safely share data/state send immutable data only <strong>(Structs are a good option)</strong>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_channel_buffers">7.4. <a href="crystal_channel_buffers.html">Channel Buffers</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>What to do when messages come faster than collected</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_channel_callbacks">7.5. <a href="crystal_channel_callbacks.html">Channel Callbacks</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Safely share state information when its available</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_crystal_promises">7.6. Crystal Promises</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/spider-gazelle/promise" class="bare">https://github.com/spider-gazelle/promise</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_crystal_priority_queues">7.7. Crystal Priority Queues</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/spider-gazelle/priority-queue" class="bare">https://github.com/spider-gazelle/priority-queue</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_parallelism">7.8. <a href="crystal_parallelism.html">Parallelism</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Compiling to use multiple CPUs (add <code>-Dpreview_mt</code>) to the compile command</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_actor_model">7.9. Actor Model</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Using macros to build async message sending, callbacks and state sharing.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_making_shards">8. Making Shards</h2>
-<div class="sectionbody">
+<div class="listingblock">
+<div class="title">code/mint/src/count_organized/source/Layouts/Content.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Content {
+  property children : Array(Html) = []
 
+  fun render : Html {
+    &lt;section class="section"&gt;
+      &lt;div class="container is-fluid"&gt;
+        &lt;{ children }&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  }
+}</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_mini_projects">9. Mini-Projects</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_game_of_life">9.1. Game of Life</h3>
+<div class="paragraph">
+<p>Finally, lets put it all together in Layout:</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_organized/source/Layouts/Layout.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Layout {
+  property children : Array(Html) = []
 
+  style base {
+    height: 100vh;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  fun render : Html {
+    &lt;div::base&gt;
+      &lt;Header/&gt;
+
+      &lt;Content&gt;
+        &lt;{ children }&gt;
+      &lt;/Content&gt;
+
+      &lt;Footer/&gt;
+    &lt;/div&gt;
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_chat_room">9.2. Chat Room</h3>
+<h3 id="_components">1.6. Components</h3>
+<div class="paragraph">
+<p>We will split our Counter page and break it into Counter Components and then assemble them together in the Counter Page.  The Counter page will still contain the overall layout structure, the parts will be very focused on a small component.</p>
+</div>
+<div class="paragraph">
+<p>We will start by creating the <strong>CounterText</strong> - so this will just define the Counter output text.</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_organized/Components/CounterText.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component CounterText {
+  connect Counter.Store exposing {
+    count
+  }
 
+  fun render : Html {
+    &lt;p class="title is-3"&gt;
+      &lt;{ "Count: #{count}" }&gt;
+    &lt;/p&gt;
+  }
+}</code></pre>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources">10. Resources</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Crystal Git Repo - <a href="https://github.com/crystal-lang/crystal/" class="bare">https://github.com/crystal-lang/crystal/</a></p>
-</li>
-<li>
-<p>Crystal Lang GitBook - <a href="https://crystal-lang.org/reference/guides" class="bare">https://crystal-lang.org/reference/guides</a></p>
-</li>
-<li>
-<p>Crystal Lang API Docs - <a href="https://crystal-lang.org/api/0.32.1/index.html" class="bare">https://crystal-lang.org/api/0.32.1/index.html</a></p>
-</li>
-<li>
-<p>Crystal Lang Gitter - <a href="https://gitter.im/crystal-lang/crystal" class="bare">https://gitter.im/crystal-lang/crystal</a></p>
-</li>
-<li>
-<p>Exercism: <a href="https://exercism.io/my/tracks/crystal" class="bare">https://exercism.io/my/tracks/crystal</a></p>
-</li>
-</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -827,30 +778,141 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Note</div>
 </td>
 <td class="content">
-<strong>Crystal Lang Gitter</strong> is a great group of people willing to help. (special mention to: @stnluu_twitter, @watzon, @repomaa, @randiaz95, @straight-shoota &amp; @paulcsmith)
+now we will only import the aspects of the store needed for that component.  To display the count we only need the <code>count</code> exposed.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Next we will create the <strong>DecrementButton</strong></p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">11. Generating these Docs</h2>
-<div class="sectionbody">
 <div class="listingblock">
+<div class="title">code/mint/src/count_organized/Components/DecrementCounterButton.mint</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/crystal code/crystal/adoc/*</code></pre>
+<pre class="prettyprint highlight"><code data-lang="linenums">component DecrementCounterButton {
+  connect Counter.Store exposing {
+    decrement as decrementCounter
+  }
+
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun render : Html {
+    &lt;button class="button is-medium is-warning" onClick={handleDecrement}&gt;
+      &lt;i class="fas fa-minus"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>in this case we only need access to the decrement function and not the <code>count</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Finally we will create the <strong>IncrementButton</strong></p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_organized/Components/IncrementCounterButton.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component IncrementCounterButton {
+  connect Counter.Store exposing {
+    increment as incrementCounter
+  }
+
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  fun render : Html {
+    &lt;button class="button is-medium is-success" onClick={handleIncrement}&gt;
+      &lt;i class="fas fa-plus"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pages">1.7. Pages</h3>
+<div class="paragraph">
+<p>In this case we only have one page, but frequently there will be multiple pages - so we will also organize this code by it&#8217;s role too.</p>
+</div>
+<div class="paragraph">
+<p>Generally, Pages should have all the structural information for the page and import Components with the contents.  In this case, I chose NOT to separate the Counter Route Title&#8201;&#8212;&#8201;since its oneline and doesn&#8217;t affect readability (in my mind).</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_organized/Pages/Counter.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Counter {
+
+  style counter {
+    /* set panel size */
+    max-width: 300px;
+    min-width: 300px;
+    /* horizontal center */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  property routeName : String = "/"
+
+  fun render : Html {
+    &lt;div::counter&gt;
+      &lt;nav class="panel"&gt;
+        &lt;p class="panel-heading"&gt;
+          &lt;{ "Path: #{routeName}" }&gt;
+        &lt;/p&gt;
+        &lt;p class="panel-tabs"&gt;
+          &lt;a&gt;
+            &lt;DecrementCounterButton/&gt;
+          &lt;/a&gt;
+          &lt;a&gt;
+            &lt;CounterText/&gt;
+          &lt;/a&gt;
+          &lt;a&gt;
+            &lt;IncrementCounterButton/&gt;
+          &lt;/a&gt;
+        &lt;/p&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p>start mint&#8201;&#8212;&#8201;<em>every thing should still work!</em></p>
+</div>
+<div class="paragraph">
+<p>Now, the project should now:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>be well organized and ready to grow into a large project.</p>
+</li>
+<li>
+<p>have short files: which are focused and easy to read and understand.</p>
+</li>
+<li>
+<p>files focused on a single responsibility that are easy to reason about.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Mint Page</a></strong></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-26 20:47:57 +0100
+Last updated 2020-02-09 21:05:37 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

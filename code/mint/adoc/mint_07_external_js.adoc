@@ -1,0 +1,363 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: mint bulma layout external-js function calls
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Adding External JS
+
+*We need to add a little JS to get Bulma Navbar fully functional*
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init count_routes
+$ cd count_routes
+
+$ mkdir js
+$ mkdir assets
+
+$ touch js/bulma_navbar.js
+$ touch assets/head.html
+$ touch source/Layout.mint
+$ touch source/Routes.mint
+$ touch source/Counter.mint
+$ touch source/Application.mint
+$ touch source/CounterStore.mint
+```
+
+The following files are the same as in the previous version:
+
+* assets/head.html
+* source/Routes.mint
+* source/Application.mint
+* source/CounterStore.mint
+
+New or changed files are:
+
+* source/Main.mint
+* source/Layout.mint
+* touch source/Counter.mint
+* js/bulma_navbar.js
+* mint.json
+
+The HTML rending functions were getting long in the last version and the HTML structure has been getting unclear.  To solve this we will organize our HTML into more functions.
+
+=== Adjust Main.mint for a Layout
+
+We will start by updating Main.mint to use a `Layout` compontent.
+
+.code/mint/src/count_external_js/source/Main.mint
+[source,linenums]
+----
+component Main {
+  
+  connect Application exposing { page, route }
+
+  fun getPageHtml(page : Page) : Html {
+    case (page) {
+      Page::Home => 
+        <Counter/>
+
+      Page::Count => 
+        <Counter routeName="/counter"/>
+
+      Page::Named => 
+        <Counter routeName={"/counter/#{route}"}/>
+
+      Page::NotFound => 
+        <div>
+          "Page NOT Found"
+        </div>
+    }
+  }
+ 
+  fun render : Html {
+    <Layout>
+      <{ getPageHtml(page) }>
+    </Layout>
+  }
+}
+----
+
+NOTE: 
+
+* We  put the *page selection* into a function. Now its clear that we are creating a `Layout` and the `Page` will be embedded within the Layout tags. It's also often easier (for me) to see what's being rendered when the HTML is simple to read.
+* ALSO NOTICE how the page property is passed to the property `children` within the Layout with:
+```mint
+<Layout>
+  <{ getPageHtml(page) }>
+</Layout>
+```
+It's not yet clear to me how this works: 
+
+* how is it associated with the `children` property?
+* how is the HTML tranformed/received as an Array of HTML?
+
+=== Layout Component
+
+We will now build a Layout with a Header and a Footer with Content in the middle.
+
+.code/mint/src/count_external_js/source/Layout.mint
+[source,linenums]
+----
+component Layout {
+  property children : Array(Html) = []
+
+  style base {
+    height: 100vh;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  fun headerHtml : Html {
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <h1 id="title" class="navbar-item">
+            <{ "Counter" }>
+          </h1>
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" 
+                          aria-expanded="false" data-target="navbarCounter">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarCounter" class="navbar-menu">
+        <div class="navbar-start">
+
+          <a class="navbar-item">
+            <{ "Docs" }>
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <{ "More" }>
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                <{ "About" }>
+              </a>
+              <a class="navbar-item">
+                <{ "Contact" }>
+              </a>
+              <hr class="navbar-divider"/>
+              <a class="navbar-item">
+                <{ "Report an issue" }>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong><{ "Sign up" }></strong>
+              </a>
+              <a class="button is-light">
+                <{ "Log in" }>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  }
+
+  fun footerHtml : Html {
+    <div>
+      <footer class="footer is-light">
+        <div class="container">
+          <{ "Copyright © 2019 Counter. All rights reserved." }>
+        </div>
+      </footer>
+    </div>
+  }
+
+  fun render : Html {
+    <div::base>
+      <{ headerHtml() }>
+
+      <section class="section">
+        <div class="container is-fluid">
+          <{ children }>
+        </div>
+      </section>
+
+      <{ footerHtml() }>
+    </div>
+  }
+}
+----
+
+NOTE: 
+
+* *function calls* that don't take arguments, like: `<{ headerHtml() }>`, still need the `()` -- even though they aren't required when defining them. 
+
+=== Counter Refactored
+
+.code/mint/src/count_external_js/source/Counter.mint
+[source,linenums]
+----
+component Counter {
+
+  style counter {
+    /* set panel size */
+    max-width: 300px;
+    min-width: 300px;
+    /* horizontal center */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  property routeName : String = "/"
+
+  connect Counter.Store exposing {
+    count,
+    decrement as decrementCounter,
+    increment as incrementCounter
+  }
+
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  fun decrementButton : Html {
+    <button class="button is-medium is-warning" onClick={handleDecrement}>
+      <i class="fas fa-minus"></i>
+    </button>
+  }
+
+  fun counterTextHtml : Html {
+    <p class="title is-3">
+      <{ "Count: #{count}" }>
+    </p>
+  }
+
+  fun incrementButton : Html {
+    <button class="button is-medium is-success" onClick={handleIncrement}>
+      <i class="fas fa-plus"></i>
+    </button>
+  }
+
+  fun render : Html {
+    <div::counter>
+      <nav class="panel">
+        <p class="panel-heading">
+          <{ "Path: #{routeName}" }>
+        </p>
+        <p class="panel-tabs">
+          <a>
+            <{ decrementButton() }>
+          </a>
+          <a>
+            <{ counterTextHtml() }> 
+          </a>
+          <a>
+            <{ incrementButton() }>
+          </a>
+        </p>
+      </nav>
+    </div>
+  }
+}
+----
+
+NOTES:
+
+* now when we visit `localhost:3000` it should look like a normal web app.
+* *UNFORTUNATELY*, when we make the website small and click on the Hamburger - we notice it doesn't work.  We need to now add external JS shown on the Bulma navbar page: https://bulma.io/documentation/components/navbar/#navbar-menu
+
+
+=== External JS
+
+Once we have made the js folder we can just add the js as:
+
+.code/mint/src/count_external_js/js/bulma_navbar.js
+[source,linenums]
+----
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});
+----
+
+Mint says this is risky since Mint can't check that this code works with mint and can cause problems.  USE WITH CARE.
+
+=== Load the External JS
+
+To load the external JS we need to add it to the mint.json config - we need to add the snippet:
+```mint
+  "external-javascripts": [
+    "js/bulma_navbar.js"
+  ]
+```
+So the full file should now look like: 
+
+.code/mint/src/count_external_js/mint.json
+[json,source,linenums]
+----
+{
+  "name": "route_n_properties",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ],
+  "application": {
+    "head": "assets/head.html"
+  },
+  "external-javascripts": [
+    "js/bulma_navbar.js"
+  ]
+}
+----
+
+stop mint and restart
+
+Now open `http://localhost:3000/` and wildly change the width of the browser window.  The menu should now dropdown in mobile/tablet mode.
+
+**link:index.html[Mint Page]**

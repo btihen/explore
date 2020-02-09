@@ -691,27 +691,23 @@ store Application {
   }
 
   fun render : Html {
-    case (page) {
-      Page::Home =&gt;
-        &lt;div::base&gt;
+    &lt;div::base&gt;
+      case (page) {
+        Page::Home =&gt;
           &lt;Counter/&gt;
-        &lt;/div&gt;
 
-      Page::Count =&gt;
-        &lt;div::base&gt;
+        Page::Count =&gt;
           &lt;Counter routeName="/counter"/&gt;
-        &lt;/div&gt;
 
-      Page::Named =&gt;
-        &lt;div::base&gt;
+        Page::Named =&gt;
           &lt;Counter routeName={"/counter/#{route}"}/&gt;
-        &lt;/div&gt;
 
-      Page::NotFound =&gt;
-        &lt;div::base&gt;
-          "Page NOT Found"
-        &lt;/div&gt;
-    }
+        Page::NotFound =&gt;
+          &lt;div&gt;
+            "Page NOT Found"
+          &lt;/div&gt;
+      }
+    &lt;/div&gt;
   }
 }</code></pre>
 </div>
@@ -750,7 +746,7 @@ store Application {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-09 00:07:34 +0100
+Last updated 2020-02-09 20:00:20 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

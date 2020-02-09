@@ -1,0 +1,345 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: mint layout external-js namespace
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Organizing Mint 
+
+Organizing the code can encourage the following:
+
+* well organized and ready to grow into a large project.  
+* have short files: which are focused and easy to read and understand.
+* files focused on a single responsibility that are easy to reason about.
+
+=== Strategy
+
+Now that the files are getting longer and the files are doing different roles as our project gets more complex.  To solve this we will create some folders to state the purpose of the files within.  Mint loads all the files so the folder structure within source is for the people.  Mint won't care -- I would leave `Main.mint` where it is.
+
+We will add the folders for the following roles:
+
+* source/Pages
+* source/Stores
+* source/Layouts
+* source/Components
+
+Perhaps in a large project one might also make a `Modules` folder. Modules are globally available functions independent of components.
+
+=== Intitialize a project:
+
+```bash
+$ mint-lang init count_routes
+$ cd count_routes
+$ mkdir assets
+$ mkdir external_js
+$ mkdir source/Pages
+$ mkdir source/Stores
+$ mkdir source/Layouts
+$ mkdir source/Components
+$ touch assets/head.html
+$ touch source/Routes.mint
+$ touch source/Page/Counter.mint
+$ touch source/Layouts/Layout.mint
+$ touch source/Layouts/Header.mint
+$ touch source/Layouts/Footer.mint
+$ touch source/Layouts/Content.mint
+$ touch source/Stores/Application.mint
+$ touch source/Stores/CounterStore.mint
+$ touch source/Components/CountTextHtml.mint
+$ touch source/Components/DecrementCounterButton.mint
+$ touch source/Components/IncrementCounterButton.mint
+```
+
+=== Unchanged Files
+
+* mint.json
+* assets/head.html
+* source/Main.mint
+* source/Routes.mint
+
+=== Stores
+
+These files haven't changed - just moved to:
+
+* source/Application.mint
+* source/CounterStore.mint
+
+into the `Stores` folder - i.e.:
+
+* source/Stores/Application.mint
+* source/Stores/CounterStore.mint
+
+=== Layouts
+
+Let's reorganize the Layouts into more smaller files -- each file will be doing a specific role.
+
+* Layout will combine all aspects together (Header, Content, Footer).
+* Content will have the structural code for the Content.
+* Header will have all the Header/Navbar code.
+* Footer will have the Footer code.
+
+.code/mint/src/count_organized/source/Layouts/Footer.mint
+[source,linenums]
+----
+component Footer {
+
+  fun render : Html {
+    <footer class="footer is-light">
+      <div class="container">
+        <{ "Copyright © 2019 Counter. All rights reserved." }>
+      </div>
+    </footer>
+  }
+}
+----
+
+Now the Header/Navbar (it's still long):
+
+.code/mint/src/count_organized/source/Layouts/Header.mint
+[source,linenums]
+----
+component Header {
+
+  fun render : Html {
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <h1 id="title" class="navbar-item">
+            <{ "Counter" }>
+          </h1>
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" 
+                          aria-expanded="false" data-target="navbarCounter">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarCounter" class="navbar-menu">
+        <div class="navbar-start">
+
+          <a class="navbar-item">
+            <{ "Docs" }>
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <{ "More" }>
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                <{ "About" }>
+              </a>
+              <a class="navbar-item">
+                <{ "Contact" }>
+              </a>
+              <hr class="navbar-divider"/>
+              <a class="navbar-item">
+                <{ "Report an issue" }>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong><{ "Sign up" }></strong>
+              </a>
+              <a class="button is-light">
+                <{ "Log in" }>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  }
+}
+----
+
+Now that we have the Header and Footer we can create the Content Layout (probably overkill since the content structure is simple - but why not - it makes the Layout read nicely).
+
+.code/mint/src/count_organized/source/Layouts/Content.mint
+[source,linenums]
+----
+component Content {
+  property children : Array(Html) = []
+
+  fun render : Html {
+    <section class="section">
+      <div class="container is-fluid">
+        <{ children }>
+      </div>
+    </section>
+  }
+}
+----
+
+Finally, lets put it all together in Layout:
+
+.code/mint/src/count_organized/source/Layouts/Layout.mint
+[source,linenums]
+----
+component Layout {
+  property children : Array(Html) = []
+
+  style base {
+    height: 100vh;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  fun render : Html {
+    <div::base>
+      <Header/>
+
+      <Content>
+        <{ children }>
+      </Content>
+
+      <Footer/>
+    </div>
+  }
+}
+----
+
+=== Components
+
+We will split our Counter page and break it into Counter Components and then assemble them together in the Counter Page.  The Counter page will still contain the overall layout structure, the parts will be very focused on a small component.
+
+We will start by creating the *CounterText* - so this will just define the Counter output text.
+
+.code/mint/src/count_organized/Components/CounterText.mint
+[source,linenums]
+----
+component CounterText {
+  connect Counter.Store exposing {
+    count
+  }
+
+  fun render : Html {
+    <p class="title is-3">
+      <{ "Count: #{count}" }>
+    </p>
+  }
+}
+----
+
+NOTE: now we will only import the aspects of the store needed for that component.  To display the count we only need the `count` exposed.
+
+Next we will create the *DecrementButton*
+
+.code/mint/src/count_organized/Components/DecrementCounterButton.mint
+[source,linenums]
+----
+component DecrementCounterButton {
+  connect Counter.Store exposing {
+    decrement as decrementCounter
+  }
+
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun render : Html {
+    <button class="button is-medium is-warning" onClick={handleDecrement}>
+      <i class="fas fa-minus"></i>
+    </button>
+  }
+}
+----
+
+* in this case we only need access to the decrement function and not the `count`
+
+Finally we will create the *IncrementButton*
+
+.code/mint/src/count_organized/Components/IncrementCounterButton.mint
+[source,linenums]
+----
+component IncrementCounterButton {
+  connect Counter.Store exposing {
+    increment as incrementCounter
+  }
+
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  fun render : Html {
+    <button class="button is-medium is-success" onClick={handleIncrement}>
+      <i class="fas fa-plus"></i>
+    </button>
+  }
+}
+----
+
+=== Pages
+
+In this case we only have one page, but frequently there will be multiple pages - so we will also organize this code by it's role too.
+
+Generally, Pages should have all the structural information for the page and import Components with the contents.  In this case, I chose NOT to separate the Counter Route Title -- since its oneline and doesn't affect readability (in my mind).
+
+.code/mint/src/count_organized/Pages/Counter.mint
+[source,linenums]
+----
+component Counter {
+
+  style counter {
+    /* set panel size */
+    max-width: 300px;
+    min-width: 300px;
+    /* horizontal center */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  property routeName : String = "/"
+
+  fun render : Html {
+    <div::counter>
+      <nav class="panel">
+        <p class="panel-heading">
+          <{ "Path: #{routeName}" }>
+        </p>
+        <p class="panel-tabs">
+          <a>
+            <DecrementCounterButton/>
+          </a>
+          <a>
+            <CounterText/>
+          </a>
+          <a>
+            <IncrementCounterButton/>
+          </a>
+        </p>
+      </nav>
+    </div>
+  }
+}
+----
+
+start mint -- _every thing should still work!_ 
+
+Now, the project should now:
+
+* be well organized and ready to grow into a large project.  
+* have short files: which are focused and easy to read and understand.
+* files focused on a single responsibility that are easy to reason about.
+
+**link:index.html[Mint Page]**

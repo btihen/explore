@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<meta name="author" content="Bill Tihen (Crystal 0.32.1)">
-<title>Crystal Lang Explorations</title>
+<meta name="author" content="Bill Tihen (Mint 0.7.1)">
+<title>Mint Lang Explorations</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,73 +439,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Crystal Lang Explorations</h1>
+<h1>Mint Lang Explorations</h1>
 <div class="details">
-<span id="author" class="author">Bill Tihen (Crystal 0.32.1)</span><br>
+<span id="author" class="author">Bill Tihen (Mint 0.7.1)</span><br>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_installation">1. Installation</a></li>
-<li><a href="#_crystal_cli">2. Crystal CLI</a></li>
-<li><a href="#_blocks">3. Blocks</a></li>
-<li><a href="#_macros_sort_of_meta_code">4. Macros <em>(Sort-of Meta-Code)</em></a></li>
-<li><a href="#_data_structures">5. Data Structures</a>
+<li><a href="#_adding_external_js">1. Adding External JS</a>
 <ul class="sectlevel2">
-<li><a href="#_structs">5.1. Structs</a></li>
-<li><a href="#_records">5.2. Records</a></li>
-<li><a href="#_json_data">5.3. JSON Data</a></li>
+<li><a href="#_intitialize_a_project">1.1. Intitialize a project:</a></li>
+<li><a href="#_adjust_main_mint_for_a_layout">1.2. Adjust Main.mint for a Layout</a></li>
+<li><a href="#_layout_component">1.3. Layout Component</a></li>
+<li><a href="#_counter_refactored">1.4. Counter Refactored</a></li>
+<li><a href="#_external_js">1.5. External JS</a></li>
+<li><a href="#_load_the_external_js">1.6. Load the External JS</a></li>
 </ul>
 </li>
-<li><a href="#_code_patterns">6. Code Patterns</a>
-<ul class="sectlevel2">
-<li><a href="#_decorator">6.1. Decorator</a></li>
-<li><a href="#_value_object">6.2. Value Object</a></li>
-<li><a href="#_east_oriented_fluent_interface">6.3. East Oriented <em>(Fluent Interface)</em></a></li>
-<li><a href="#_http_server_and_client">6.4. HTTP (Server and Client)</a>
-<ul class="sectlevel3">
-<li><a href="#_basic_web_client">6.4.1. Basic Web Client</a></li>
-<li><a href="#_basic_web_server">6.4.2. Basic Web Server</a></li>
-<li><a href="#_processing_web_requests">6.4.3. Processing Web Requests</a></li>
-</ul>
-</li>
-<li><a href="#_http_server_and_client_2">6.5. HTTP (Server and Client)</a>
-<ul class="sectlevel3">
-<li><a href="#_web_client_https">6.5.1. Web Client (HTTPS)</a></li>
-<li><a href="#_secure_web_server_https">6.5.2. Secure Web Server (HTTPS)</a></li>
-</ul>
-</li>
-<li><a href="#_websockets_server_and_client">6.6. WebSockets (Server and Client)</a>
-<ul class="sectlevel3">
-<li><a href="#_websockets">6.6.1. WebSockets</a></li>
-<li><a href="#_websockets_with_ssl">6.6.2. WebSockets with SSL</a></li>
-<li><a href="#_websockets_with_named_channels">6.6.3. WebSockets with Named Channels</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_concurrency_parallelism">7. Concurrency &amp; Parallelism</a>
-<ul class="sectlevel2">
-<li><a href="#_concurrency_basics">7.1. Concurrency Basics</a></li>
-<li><a href="#_concurrent_objects">7.2. Concurrent Objects</a></li>
-<li><a href="#_channels_async_messaging">7.3. Channels <em>(Async Messaging)</em></a></li>
-<li><a href="#_channel_buffers">7.4. Channel Buffers</a></li>
-<li><a href="#_channel_callbacks">7.5. Channel Callbacks</a></li>
-<li><a href="#_crystal_promises">7.6. Crystal Promises</a></li>
-<li><a href="#_crystal_priority_queues">7.7. Crystal Priority Queues</a></li>
-<li><a href="#_parallelism">7.8. Parallelism</a></li>
-<li><a href="#_actor_model">7.9. Actor Model</a></li>
-</ul>
-</li>
-<li><a href="#_making_shards">8. Making Shards</a></li>
-<li><a href="#_mini_projects">9. Mini-Projects</a>
-<ul class="sectlevel2">
-<li><a href="#_game_of_life">9.1. Game of Life</a></li>
-<li><a href="#_chat_room">9.2. Chat Room</a></li>
-</ul>
-</li>
-<li><a href="#_resources">10. Resources</a></li>
-<li><a href="#_generating_these_docs">11. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -513,344 +463,445 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Fast as C, slick as Ruby</strong></p>
-</div>
-<div class="paragraph">
-<p>Exploring &amp; Learning Crystal Language with code examples and augment the documentation.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://crystal-lang.org/" class="bare">https://crystal-lang.org/</a></p>
+<p><strong><a href="index.html">Mint Page</a></strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_installation">1. Installation</h2>
+<h2 id="_adding_external_js">1. Adding External JS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>On MacOS - use:</p>
+<p><strong>We need to add a little JS to get Bulma Navbar fully functional</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_intitialize_a_project">1.1. Intitialize a project:</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang init count_routes
+$ cd count_routes
+
+$ mkdir js
+$ mkdir assets
+
+$ touch js/bulma_navbar.js
+$ touch assets/head.html
+$ touch source/Layout.mint
+$ touch source/Routes.mint
+$ touch source/Counter.mint
+$ touch source/Application.mint
+$ touch source/CounterStore.mint</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following files are the same as in the previous version:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>assets/head.html</p>
+</li>
+<li>
+<p>source/Routes.mint</p>
+</li>
+<li>
+<p>source/Application.mint</p>
+</li>
+<li>
+<p>source/CounterStore.mint</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>New or changed files are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>source/Main.mint</p>
+</li>
+<li>
+<p>source/Layout.mint</p>
+</li>
+<li>
+<p>touch source/Counter.mint</p>
+</li>
+<li>
+<p>js/bulma_navbar.js</p>
+</li>
+<li>
+<p>mint.json</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The HTML rending functions were getting long in the last version and the HTML structure has been getting unclear.  To solve this we will organize our HTML into more functions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adjust_main_mint_for_a_layout">1.2. Adjust Main.mint for a Layout</h3>
+<div class="paragraph">
+<p>We will start by updating Main.mint to use a <code>Layout</code> compontent.</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_external_js/source/Main.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Main {
+
+  connect Application exposing { page, route }
+
+  fun getPageHtml(page : Page) : Html {
+    case (page) {
+      Page::Home =&gt;
+        &lt;Counter/&gt;
+
+      Page::Count =&gt;
+        &lt;Counter routeName="/counter"/&gt;
+
+      Page::Named =&gt;
+        &lt;Counter routeName={"/counter/#{route}"}/&gt;
+
+      Page::NotFound =&gt;
+        &lt;div&gt;
+          "Page NOT Found"
+        &lt;/div&gt;
+    }
+  }
+
+  fun render : Html {
+    &lt;Layout&gt;
+      &lt;{ getPageHtml(page) }&gt;
+    &lt;/Layout&gt;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>NOTE:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We  put the <strong>page selection</strong> into a function. Now its clear that we are creating a <code>Layout</code> and the <code>Page</code> will be embedded within the Layout tags. It&#8217;s also often easier (for me) to see what&#8217;s being rendered when the HTML is simple to read.</p>
+</li>
+<li>
+<p>ALSO NOTICE how the page property is passed to the property <code>children</code> within the Layout with:</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ brew install crystal</code></pre>
+<pre class="prettyprint highlight"><code data-lang="mint">&lt;Layout&gt;
+  &lt;{ getPageHtml(page) }&gt;
+&lt;/Layout&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For all other systems see: <a href="https://crystal-lang.org/install/" class="bare">https://crystal-lang.org/install/</a></p>
+<p>It&#8217;s not yet clear to me how this works:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_crystal_cli">2. <a href="crystal_cli.html">Crystal CLI</a></h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Useful commands when using crystal</p>
+<p>how is it associated with the <code>children</code> property?</p>
 </li>
 <li>
-<p>My most useful command while developing is:</p>
+<p>how is the HTML tranformed/received as an Array of HTML?</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_layout_component">1.3. Layout Component</h3>
+<div class="paragraph">
+<p>We will now build a Layout with a Header and a Footer with Content in the middle.</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_external_js/source/Layout.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Layout {
+  property children : Array(Html) = []
+
+  style base {
+    height: 100vh;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  fun headerHtml : Html {
+    &lt;nav class="navbar is-light" role="navigation" aria-label="main navigation"&gt;
+      &lt;div class="navbar-brand"&gt;
+        &lt;a class="navbar-item" href="/"&gt;
+          &lt;h1 id="title" class="navbar-item"&gt;
+            &lt;{ "Counter" }&gt;
+          &lt;/h1&gt;
+        &lt;/a&gt;
+
+        &lt;a role="button" class="navbar-burger burger" aria-label="menu"
+                          aria-expanded="false" data-target="navbarCounter"&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;div id="navbarCounter" class="navbar-menu"&gt;
+        &lt;div class="navbar-start"&gt;
+
+          &lt;a class="navbar-item"&gt;
+            &lt;{ "Docs" }&gt;
+          &lt;/a&gt;
+
+          &lt;div class="navbar-item has-dropdown is-hoverable"&gt;
+            &lt;a class="navbar-link"&gt;
+              &lt;{ "More" }&gt;
+            &lt;/a&gt;
+
+            &lt;div class="navbar-dropdown"&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "About" }&gt;
+              &lt;/a&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "Contact" }&gt;
+              &lt;/a&gt;
+              &lt;hr class="navbar-divider"/&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "Report an issue" }&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="navbar-end"&gt;
+          &lt;div class="navbar-item"&gt;
+            &lt;div class="buttons"&gt;
+              &lt;a class="button is-primary"&gt;
+                &lt;strong&gt;&lt;{ "Sign up" }&gt;&lt;/strong&gt;
+              &lt;/a&gt;
+              &lt;a class="button is-light"&gt;
+                &lt;{ "Log in" }&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  }
+
+  fun footerHtml : Html {
+    &lt;div&gt;
+      &lt;footer class="footer is-light"&gt;
+        &lt;div class="container"&gt;
+          &lt;{ "Copyright © 2019 Counter. All rights reserved." }&gt;
+        &lt;/div&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt;
+  }
+
+  fun render : Html {
+    &lt;div::base&gt;
+      &lt;{ headerHtml() }&gt;
+
+      &lt;section class="section"&gt;
+        &lt;div class="container is-fluid"&gt;
+          &lt;{ children }&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;{ footerHtml() }&gt;
+    &lt;/div&gt;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>NOTE:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>function calls</strong> that don&#8217;t take arguments, like: <code>&lt;{ headerHtml() }&gt;</code>, still need the <code>()</code>&#8201;&#8212;&#8201;even though they aren&#8217;t required when defining them.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_counter_refactored">1.4. Counter Refactored</h3>
+<div class="listingblock">
+<div class="title">code/mint/src/count_external_js/source/Counter.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Counter {
+
+  style counter {
+    /* set panel size */
+    max-width: 300px;
+    min-width: 300px;
+    /* horizontal center */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  property routeName : String = "/"
+
+  connect Counter.Store exposing {
+    count,
+    decrement as decrementCounter,
+    increment as incrementCounter
+  }
+
+  fun handleDecrement (event : Html.Event) : Promise(Never, Void) {
+    decrementCounter()
+  }
+
+  fun handleIncrement (event : Html.Event) : Promise(Never, Void) {
+    incrementCounter()
+  }
+
+  fun decrementButton : Html {
+    &lt;button class="button is-medium is-warning" onClick={handleDecrement}&gt;
+      &lt;i class="fas fa-minus"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+  }
+
+  fun counterTextHtml : Html {
+    &lt;p class="title is-3"&gt;
+      &lt;{ "Count: #{count}" }&gt;
+    &lt;/p&gt;
+  }
+
+  fun incrementButton : Html {
+    &lt;button class="button is-medium is-success" onClick={handleIncrement}&gt;
+      &lt;i class="fas fa-plus"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+  }
+
+  fun render : Html {
+    &lt;div::counter&gt;
+      &lt;nav class="panel"&gt;
+        &lt;p class="panel-heading"&gt;
+          &lt;{ "Path: #{routeName}" }&gt;
+        &lt;/p&gt;
+        &lt;p class="panel-tabs"&gt;
+          &lt;a&gt;
+            &lt;{ decrementButton() }&gt;
+          &lt;/a&gt;
+          &lt;a&gt;
+            &lt;{ counterTextHtml() }&gt;
+          &lt;/a&gt;
+          &lt;a&gt;
+            &lt;{ incrementButton() }&gt;
+          &lt;/a&gt;
+        &lt;/p&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>NOTES:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>now when we visit <code>localhost:3000</code> it should look like a normal web app.</p>
+</li>
+<li>
+<p><strong>UNFORTUNATELY</strong>, when we make the website small and click on the Hamburger - we notice it doesn&#8217;t work.  We need to now add external JS shown on the Bulma navbar page: <a href="https://bulma.io/documentation/components/navbar/#navbar-menu" class="bare">https://bulma.io/documentation/components/navbar/#navbar-menu</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_external_js">1.5. External JS</h3>
+<div class="paragraph">
+<p>Once we have made the js folder we can just add the js as:</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_external_js/js/bulma_navbar.js</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">document.addEventListener('DOMContentLoaded', () =&gt; {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length &gt; 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el =&gt; {
+      el.addEventListener('click', () =&gt; {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mint says this is risky since Mint can&#8217;t check that this code works with mint and can cause problems.  USE WITH CARE.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_the_external_js">1.6. Load the External JS</h3>
+<div class="paragraph">
+<p>To load the external JS we need to add it to the mint.json config - we need to add the snippet:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="crystal">crystal run src/file_name.cr</code></pre>
+<pre class="prettyprint highlight"><code data-lang="mint">  "external-javascripts": [
+    "js/bulma_navbar.js"
+  ]</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_blocks">3. Blocks</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_macros_sort_of_meta_code">4. Macros <em>(Sort-of Meta-Code)</em></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_data_structures">5. Data Structures</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_structs">5.1. <a href="crystal_structs.html">Structs</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Structs <em>(&amp; Records)</em> are immutable data structures - these are <code>safe</code> when used in a concurrent/parallel context.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_records">5.2. <a href="crystal_records.html">Records</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Structs <em>(&amp; Records)</em> are immutable data structures - these are <code>safe</code> when used in a concurrent/parallel context.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_json_data">5.3. JSON Data</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_code_patterns">6. Code Patterns</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_decorator">6.1. Decorator</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_value_object">6.2. Value Object</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_east_oriented_fluent_interface">6.3. East Oriented <em>(Fluent Interface)</em></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_http_server_and_client">6.4. HTTP (Server and Client)</h3>
 <div class="paragraph">
-<p>Non-stateful - short-term connections over TCP.</p>
+<p>So the full file should now look like:</p>
 </div>
-<div class="sect3">
-<h4 id="_basic_web_client">6.4.1. <a href="crystal_web_client.html">Basic Web Client</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_basic_web_server">6.4.2. <a href="crystal_web_server.html">Basic Web Server</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_processing_web_requests">6.4.3. <a href="crystal_web_processing.html">Processing Web Requests</a></h4>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="_http_server_and_client_2">6.5. HTTP (Server and Client)</h3>
-<div class="paragraph">
-<p>Encrypted HTTP Interactions</p>
-</div>
-<div class="sect3">
-<h4 id="_web_client_https">6.5.1. <a href="crystal_web_ssl_client.html">Web Client (HTTPS)</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_secure_web_server_https">6.5.2. <a href="crystal_web_ssl_server.html">Secure Web Server (HTTPS)</a></h4>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="_websockets_server_and_client">6.6. WebSockets (Server and Client)</h3>
-<div class="paragraph">
-<p>Long-lived client-server connections over TCP.</p>
-</div>
-<div class="sect3">
-<h4 id="_websockets">6.6.1. <a href="crystal_websockets.html">WebSockets</a></h4>
-
-</div>
-<div class="sect3">
-<h4 id="_websockets_with_ssl">6.6.2. WebSockets with SSL</h4>
-
-</div>
-<div class="sect3">
-<h4 id="_websockets_with_named_channels">6.6.3. WebSockets with Named Channels</h4>
-
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_concurrency_parallelism">7. Concurrency &amp; Parallelism</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>An intro into the basics of how things like websockets work</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">TODO</div>
-<div class="paragraph">
-<p>Augment and adapt content using inspiration from: <a href="https://blog.golang.org/pipelines" class="bare">https://blog.golang.org/pipelines</a></p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concurrency_basics">7.1. <a href="crystal_concurrency_basics.html">Concurrency Basics</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Basics on starting processes concurrently</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concurrent_objects">7.2. <a href="crystal_concurrent_objects.html">Concurrent Objects</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Examples of using concurrency with objects</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_channels_async_messaging">7.3. <a href="crystal_channels_async_messaging.html">Channels <em>(Async Messaging)</em></a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Channels allow us to safely communicate between concurrent processes.</p>
-</li>
-<li>
-<p>To safely share data/state send immutable data only <strong>(Structs are a good option)</strong>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_channel_buffers">7.4. <a href="crystal_channel_buffers.html">Channel Buffers</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>What to do when messages come faster than collected</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_channel_callbacks">7.5. <a href="crystal_channel_callbacks.html">Channel Callbacks</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Safely share state information when its available</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_crystal_promises">7.6. Crystal Promises</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/spider-gazelle/promise" class="bare">https://github.com/spider-gazelle/promise</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_crystal_priority_queues">7.7. Crystal Priority Queues</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/spider-gazelle/priority-queue" class="bare">https://github.com/spider-gazelle/priority-queue</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_parallelism">7.8. <a href="crystal_parallelism.html">Parallelism</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Compiling to use multiple CPUs (add <code>-Dpreview_mt</code>) to the compile command</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_actor_model">7.9. Actor Model</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Using macros to build async message sending, callbacks and state sharing.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_making_shards">8. Making Shards</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_mini_projects">9. Mini-Projects</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_game_of_life">9.1. Game of Life</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_chat_room">9.2. Chat Room</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources">10. Resources</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Crystal Git Repo - <a href="https://github.com/crystal-lang/crystal/" class="bare">https://github.com/crystal-lang/crystal/</a></p>
-</li>
-<li>
-<p>Crystal Lang GitBook - <a href="https://crystal-lang.org/reference/guides" class="bare">https://crystal-lang.org/reference/guides</a></p>
-</li>
-<li>
-<p>Crystal Lang API Docs - <a href="https://crystal-lang.org/api/0.32.1/index.html" class="bare">https://crystal-lang.org/api/0.32.1/index.html</a></p>
-</li>
-<li>
-<p>Crystal Lang Gitter - <a href="https://gitter.im/crystal-lang/crystal" class="bare">https://gitter.im/crystal-lang/crystal</a></p>
-</li>
-<li>
-<p>Exercism: <a href="https://exercism.io/my/tracks/crystal" class="bare">https://exercism.io/my/tracks/crystal</a></p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<strong>Crystal Lang Gitter</strong> is a great group of people willing to help. (special mention to: @stnluu_twitter, @watzon, @repomaa, @randiaz95, @straight-shoota &amp; @paulcsmith)
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">11. Generating these Docs</h2>
-<div class="sectionbody">
 <div class="listingblock">
+<div class="title">code/mint/src/count_external_js/mint.json</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/crystal code/crystal/adoc/*</code></pre>
+<pre>{
+  "name": "route_n_properties",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ],
+  "application": {
+    "head": "assets/head.html"
+  },
+  "external-javascripts": [
+    "js/bulma_navbar.js"
+  ]
+}</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p>stop mint and restart</p>
+</div>
+<div class="paragraph">
+<p>Now open <code><a href="http://localhost:3000/" class="bare">http://localhost:3000/</a></code> and wildly change the width of the browser window.  The menu should now dropdown in mobile/tablet mode.</p>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Mint Page</a></strong></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-26 20:47:57 +0100
+Last updated 2020-02-09 20:18:30 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

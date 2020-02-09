@@ -8,7 +8,7 @@ Bill Tihen (Mint 0.7.1)
 :toc-title: Contents
 
 :description: Exploring Mint's Features
-:keywords: Mint Language
+:keywords: mint css fontawesome bulma theme
 :imagesdir: ./images
 
 **link:index.html[Mint Page]**
@@ -170,7 +170,7 @@ component Main {
 Now open `http://localhost:3000`
 
 be sure you see:
- 
+
 * `Count:` centered vertically and horizontally in a new font
 * and `+` and `-` buttons formatted with Fontawesome Icons
 * the buttons should be rounded using the *litera* Bulma theme.

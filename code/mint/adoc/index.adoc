@@ -62,6 +62,10 @@ and see: *Hello Mint!*
 
 === link:mint_06_properties.html[Properties]
 
+=== link:mint_07_external_js.html[Add External JS]
+
+=== link:mint_08_organized.html[Mint Organized]
+
 == Mint CLI commands
 
 for all the cli commands do:
