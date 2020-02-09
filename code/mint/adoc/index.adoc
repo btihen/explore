@@ -45,10 +45,11 @@ Note:
 $ mint-lang init hello
 $ cd hello 
 $ mint-lang start
+# Now open: *http://localhost:3000* 
+# Hopefully you see: *Hello Mint!*
+# If you are happy with the project build for deploy with:
+$ mint-lang build
 ```
-Now open: *http:localhost:3000*
-
-and see: *Hello Mint!*
 
 === link:mint_01_state_n_events.html[State and Events]
 
@@ -67,10 +68,13 @@ and see: *Hello Mint!*
 === link:mint_08_organized.html[Mint Organized]
 
 === link:mint_09_computed_properties.html[Computed Properties]
+
 _Bulma without external JS Code_
 
 
-== Mint CLI commands
+== Deploy Mint
+
+== Mint CLI Commands
 
 for all the cli commands do:
 ```bash
