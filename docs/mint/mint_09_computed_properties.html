@@ -446,29 +446,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_installation">1. Installation</a></li>
-<li><a href="#_first_tutorial">2. First Tutorial]</a></li>
-<li><a href="#_exploring_mint">3. Exploring Mint</a>
+<li><a href="#_computed_properties">1. Computed Properties</a>
 <ul class="sectlevel2">
-<li><a href="#_quick_start_hello">3.1. Quick Start (Hello)</a></li>
-<li><a href="#_state_and_events">3.2. State and Events</a></li>
-<li><a href="#_components">3.3. Components</a></li>
-<li><a href="#_store">3.4. Store</a></li>
-<li><a href="#_bulma_external_css">3.5. Bulma - external css</a></li>
-<li><a href="#_routes">3.6. Routes</a></li>
-<li><a href="#_properties">3.7. Properties</a></li>
-<li><a href="#_add_external_js">3.8. Add External JS</a></li>
-<li><a href="#_mint_organized">3.9. Mint Organized</a></li>
-<li><a href="#_computed_properties">3.10. Computed Properties</a></li>
+<li><a href="#_setup">1.1. Setup</a></li>
+<li><a href="#_strategy">1.2. Strategy</a></li>
+<li><a href="#_remove_jsbulma_navbar_js">1.3. Remove <code>js/bulma_navbar.js</code></a></li>
+<li><a href="#_restore_mint_json">1.4. Restore <code>mint.json</code></a></li>
+<li><a href="#_update_header_with_mint_code">1.5. Update Header with mint code</a></li>
+<li><a href="#_try_it">1.6. Try it</a></li>
 </ul>
 </li>
-<li><a href="#_mint_cli_commands">4. Mint CLI commands</a>
-<ul class="sectlevel2">
-<li><a href="#_build_mint_project_for_mint_docker">4.1. Build Mint Project for Mint-Docker</a></li>
-</ul>
-</li>
-<li><a href="#_resources">5. Resources</a></li>
-<li><a href="#_generating_these_docs">6. Generating these Docs</a></li>
 </ul>
 </div>
 </div>
@@ -476,181 +463,360 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p><strong><a href="index.html">Mint Page</a></strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_computed_properties">1. Computed Properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Allowing Native Bulma Navbars</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>The programming language for writing single page applications.</strong></p>
+<p>Given the warning NOT to use external JS.</p>
 </div>
 <div class="paragraph">
-<p>Exploring &amp; Learning Crystal Language with code examples and augment the documentation.</p>
+<p>This builds off the the last version of counter organized.</p>
 </div>
+<div class="paragraph">
+<p>Thanks to Szikszai Gusztáv, @gdotdesign on Mint-Gitter for code to replace <code>bulma_navbar.js</code> with native <code>Mint</code> code.</p>
+</div>
+<div class="sect2">
+<h3 id="_setup">1.1. Setup</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ cp -r count_organized count_computed_properties
+$ cd count_computed_properties</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_strategy">1.2. Strategy</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.mint-lang.com/" class="bare">https://www.mint-lang.com/</a></p>
+<p>Remove: js/bulma_navbar.js</p>
 </li>
 <li>
-<p><a href="https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0*" class="bare">https://dev.to/franciscello/mint-a-breath-of-fresh-air-for-the-web-fn0*</a></p>
+<p>Restore: mint.json to the original settings</p>
+</li>
+<li>
+<p>Update: source/Layouts/Header.mint - to replace <code>js/bulma_navbar.js</code> using computed properties</p>
 </li>
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_remove_jsbulma_navbar_js">1.3. Remove <code>js/bulma_navbar.js</code></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ rm js/bulma_navbar.js
+$ rmdir js</code></pre>
 </div>
-<div class="sect1">
-<h2 id="_installation">1. Installation</h2>
-<div class="sectionbody">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_restore_mint_json">1.4. Restore <code>mint.json</code></h3>
 <div class="paragraph">
-<p>On MacOS - use:</p>
+<p>Restore <code>mint.json</code> to its original setting.</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_computed_properties/mint.json</div>
+<div class="content">
+<pre>{
+  "name": "route_n_properties",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ],
+  "application": {
+    "head": "assets/head.html"
+  }
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_header_with_mint_code">1.5. Update Header with mint code</h3>
+<div class="paragraph">
+<p>Update: <code>source/Layouts/Header.mint</code> with computed properties</p>
+</div>
+<div class="paragraph">
+<p>First lets understand what the JS code is doing:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ brew tap acciaiodigitale/homebrew-mint-lang
-$ brew install mint-lang</code></pre>
+<pre class="prettyprint highlight"><code data-lang="javascript">document.addEventListener('DOMContentLoaded', () =&gt; {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length &gt; 0) {
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el =&gt; {
+      el.addEventListener('click', () =&gt; {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+});</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>for other OSes see: <a href="https://www.mint-lang.com/install" class="bare">https://www.mint-lang.com/install</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_first_tutorial">2. First Tutorial]</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_exploring_mint">3. Exploring Mint</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Note:
-* Mint uses React&#8217;s file naming conventions (capitalize component name)
-* Mint basically uses React&#8217;s html conventions</p>
-</div>
-<div class="sect2">
-<h3 id="_quick_start_hello">3.1. <a href="mint_00_hello.html">Quick Start (Hello)</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang init hello
-$ cd hello
-$ mint-lang start</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now open: <strong>http:localhost:3000</strong></p>
-</div>
-<div class="paragraph">
-<p>and see: <strong>Hello Mint!</strong></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_state_and_events">3.2. <a href="mint_01_state_n_events.html">State and Events</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_components">3.3. <a href="mint_02_components.html">Components</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_store">3.4. <a href="mint_03_stores.html">Store</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_bulma_external_css">3.5. <a href="mint_04_bulma.html">Bulma - external css</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_routes">3.6. <a href="mint_05_routes.html">Routes</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_properties">3.7. <a href="mint_06_properties.html">Properties</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_add_external_js">3.8. <a href="mint_07_external_js.html">Add External JS</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_mint_organized">3.9. <a href="mint_08_organized.html">Mint Organized</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="_computed_properties">3.10. <a href="mint_09_computed_properties.html">Computed Properties</a></h3>
-<div class="paragraph">
-<p><em>Bulma without external JS Code</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_mint_cli_commands">4. Mint CLI commands</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>for all the cli commands do:</p>
+<p>The most important thing to notice&#8201;&#8212;&#8201;despite all the rest of the code is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang --help</code></pre>
+<pre class="prettyprint highlight"><code data-lang="javascript">// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>or see: <a href="https://www.mint-lang.com/guide/getting-started/using-the-cli" class="bare">https://www.mint-lang.com/guide/getting-started/using-the-cli</a></p>
+<p>As the comment says&#8201;&#8212;&#8201;we need to toggle (add / remove) the bulma class <code>is-active</code> to the elements with the classes: <code>navbar-burger</code> and the <code>navbar-menu</code></p>
 </div>
-<div class="sect2">
-<h3 id="_build_mint_project_for_mint_docker">4.1. Build Mint Project for Mint-Docker</h3>
 <div class="paragraph">
-<p>How do I build a .mint file with mint-docker?</p>
+<p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ docker-compose run --rm mint mint build</code></pre>
+<pre class="prettyprint highlight"><code data-lang="javascript">        &lt;a role="button" class="navbar-burger burger" aria-label="menu"
+                          aria-expanded="false" data-target="navbarCounter"&gt;
+// and when active:
+        &lt;a role="button" class="navbar-burger burger is-active" aria-label="menu"
+                          aria-expanded="false" data-target="navbarCounter"&gt;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>And</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="javascript">        &lt;div id="navbarCounter" class="navbar-menu"&gt;
+// and when active:
+        &lt;div id="navbarCounter" class="navbar-menu is-active"&gt;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>We need to do this <code>toggle</code> when the <code>navbar-burger</code> is clicked.</p>
 </div>
-<div class="sect1">
-<h2 id="_resources">5. Resources</h2>
-<div class="sectionbody">
+<div class="paragraph">
+<p><strong>With this knowledge lets update Header</strong></p>
+</div>
+<div class="paragraph">
+<p>First we will create two computed properties (Computed properties are functions that work like properties, they are defined with the <strong>get</strong> keyword and no arguments.)</p>
+</div>
+<div class="paragraph">
+<p>In our case we will use them to control the Bulma classes we need to update.  For more info on propertied see: <a href="https://www.mint-lang.com/guide/reference/components/computed-properties" class="bare">https://www.mint-lang.com/guide/reference/components/computed-properties</a></p>
+</div>
+<div class="paragraph">
+<p>Here is the example of how to toggle with the navburger&#8201;&#8212;&#8201;we need 3 main parts:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Mint Git Repo - <a href="https://github.com/mint-lang/mint" class="bare">https://github.com/mint-lang/mint</a></p>
+<p>a state to track if the menu is <code>active</code> (by default the state is NOT active)</p>
 </li>
 <li>
-<p>Mint Lang Docs - <a href="https://www.mint-lang.com/guide" class="bare">https://www.mint-lang.com/guide</a></p>
+<p>we need a function <code>navbarClick</code> to change the state when the menu is clicked</p>
 </li>
 <li>
-<p>Mint Lang API (Standard Library) - <a href="https://www.mint-lang.com/api" class="bare">https://www.mint-lang.com/api</a></p>
-</li>
-<li>
-<p>Mint Lang Gitter - <a href="https://gitter.im/mint-lang/Lobby" class="bare">https://gitter.im/mint-lang/Lobby</a></p>
-</li>
-<li>
-<p>Mint Realworld Code - <a href="https://github.com/mint-lang/mint-realworld" class="bare">https://github.com/mint-lang/mint-realworld</a></p>
+<p>we need the computed properties <code>burgerClass</code> and <code>menuClass</code> - which get automatically updated when the <code>active</code> state changes.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Below are the new code snippets needed:</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_generating_these_docs">6. Generating these Docs</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ asciidoctor -D docs/mint code/mint/adoc/*</code></pre>
+<pre class="prettyprint highlight"><code data-lang="mint">  state active : Bool = false
+
+  fun navbarClick (event : Html.Event) : Promise(Never, Void) {
+    next { active = !active }
+  }
+
+  get burgerClass : String {
+    if (active) {
+      "navbar-burger burger is-active"
+    } else {
+      "navbar-burger burger"
+    }
+  }
+  get menuClass : String {
+    if (active) {
+      "navbar-menu is-active"
+    } else {
+      "navbar-menu"
+    }
+  }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong><a href="../index.html">Home Page</a></strong></p>
+<p>To integrate these we need to update the <code>navbar-burger</code> and <code>navbar-menu</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="mint">  &lt;a role="button" class={burgerClass} onClick={navbarClick}
+                    aria-label="menu" aria-expanded="false"
+                    data-target="navbarCounter"&gt;
+// and
+  &lt;div id="navbarCounter" class={menuClass}&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice we integrate the computed properties with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="mint">class={burgerClass}
+// and
+class={menuClass}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We only need the click activation on the navbar-burger - we integrate that with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="mint">onClick={navbarClick}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Just like the button clicks on the counters.</p>
+</div>
+<div class="paragraph">
+<p>So the full Header code now looks like:</p>
+</div>
+<div class="listingblock">
+<div class="title">code/mint/src/count_computed_properties/source/Layouts/Header.mint</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="linenums">component Header {
+
+  state active : Bool = false
+
+  fun navbarClick (event : Html.Event) : Promise(Never, Void) {
+    next { active = !active }
+  }
+
+  get burgerClass : String {
+    if (active) {
+      "navbar-burger burger is-active"
+    } else {
+      "navbar-burger burger"
+    }
+  }
+
+  get menuClass : String {
+    if (active) {
+      "navbar-menu is-active"
+    } else {
+      "navbar-menu"
+    }
+  }
+
+  fun render : Html {
+    &lt;nav class="navbar is-light" role="navigation" aria-label="main navigation"&gt;
+      &lt;div class="navbar-brand"&gt;
+        &lt;a class="navbar-item" href="/"&gt;
+          &lt;h1 id="title" class="navbar-item"&gt;
+            &lt;{ "Counter" }&gt;
+          &lt;/h1&gt;
+        &lt;/a&gt;
+
+        &lt;a role="button" class={burgerClass} onClick={navbarClick}
+                          aria-label="menu" aria-expanded="false"
+                          data-target="navbarCounter"&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+          &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;div id="navbarCounter" class={menuClass}&gt;
+        &lt;div class="navbar-start"&gt;
+
+          &lt;a class="navbar-item"&gt;
+            &lt;{ "Docs" }&gt;
+          &lt;/a&gt;
+
+          &lt;div class="navbar-item has-dropdown is-hoverable"&gt;
+            &lt;a class="navbar-link"&gt;
+              &lt;{ "More" }&gt;
+            &lt;/a&gt;
+
+            &lt;div class="navbar-dropdown"&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "About" }&gt;
+              &lt;/a&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "Contact" }&gt;
+              &lt;/a&gt;
+              &lt;hr class="navbar-divider"/&gt;
+              &lt;a class="navbar-item"&gt;
+                &lt;{ "Report an issue" }&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="navbar-end"&gt;
+          &lt;div class="navbar-item"&gt;
+            &lt;div class="buttons"&gt;
+              &lt;a class="button is-primary"&gt;
+                &lt;strong&gt;&lt;{ "Sign up" }&gt;&lt;/strong&gt;
+              &lt;/a&gt;
+              &lt;a class="button is-light"&gt;
+                &lt;{ "Log in" }&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_try_it">1.6. Try it</h3>
+<div class="paragraph">
+<p>start mint:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ mint-lang start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>every thing should still work!</em></p>
+</div>
+<div class="paragraph">
+<p>Now, the project is free of JS.</p>
+</div>
+<div class="paragraph">
+<p><strong><a href="index.html">Mint Page</a></strong></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-09 22:12:01 +0100
+Last updated 2020-02-09 22:12:46 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

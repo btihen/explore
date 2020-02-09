@@ -1,0 +1,292 @@
+= Mint Lang Explorations
+:source-highlighter: prettify
+:source-language: mint
+Bill Tihen (Mint 0.7.1)
+:sectnums:
+:toc:
+:toclevels: 4
+:toc-title: Contents
+
+:description: Exploring Mint's Features
+:keywords: mint layout external-js namespace
+:imagesdir: ./images
+
+**link:index.html[Mint Page]**
+
+== Computed Properties
+
+*Allowing Native Bulma Navbars*
+
+Given the warning NOT to use external JS.
+
+This builds off the the last version of counter organized.
+
+Thanks to Szikszai Gusztáv, @gdotdesign on Mint-Gitter for code to replace `bulma_navbar.js` with native `Mint` code. 
+
+=== Setup
+
+```bash
+$ cp -r count_organized count_computed_properties
+$ cd count_computed_properties
+```
+
+=== Strategy
+
+* Remove: js/bulma_navbar.js
+* Restore: mint.json to the original settings
+* Update: source/Layouts/Header.mint - to replace `js/bulma_navbar.js` using computed properties
+
+
+=== Remove `js/bulma_navbar.js`
+
+```bash
+$ rm js/bulma_navbar.js
+$ rmdir js
+```
+=== Restore `mint.json`
+
+Restore `mint.json` to its original setting.
+
+.code/mint/src/count_computed_properties/mint.json
+[json,source,linenums]
+----
+{
+  "name": "route_n_properties",
+  "source-directories": [
+    "source"
+  ],
+  "test-directories": [
+    "tests"
+  ],
+  "application": {
+    "head": "assets/head.html"
+  }
+}
+----
+
+=== Update Header with mint code
+
+Update: `source/Layouts/Header.mint` with computed properties
+
+First lets understand what the JS code is doing:
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+});
+```
+
+The most important thing to notice -- despite all the rest of the code is:
+```javascript
+// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+```
+As the comment says -- we need to toggle (add / remove) the bulma class `is-active` to the elements with the classes: `navbar-burger` and the `navbar-menu`
+
+For example:
+```javascript
+        <a role="button" class="navbar-burger burger" aria-label="menu" 
+                          aria-expanded="false" data-target="navbarCounter">
+// and when active:
+        <a role="button" class="navbar-burger burger is-active" aria-label="menu" 
+                          aria-expanded="false" data-target="navbarCounter">
+```
+
+And
+
+```javascript
+        <div id="navbarCounter" class="navbar-menu">
+// and when active:
+        <div id="navbarCounter" class="navbar-menu is-active">
+``` 
+
+We need to do this `toggle` when the `navbar-burger` is clicked.
+
+*With this knowledge lets update Header*
+
+First we will create two computed properties (Computed properties are functions that work like properties, they are defined with the *get* keyword and no arguments.) 
+
+In our case we will use them to control the Bulma classes we need to update.  For more info on propertied see: https://www.mint-lang.com/guide/reference/components/computed-properties
+
+Here is the example of how to toggle with the navburger -- we need 3 main parts:
+
+* a state to track if the menu is `active` (by default the state is NOT active)
+* we need a function `navbarClick` to change the state when the menu is clicked 
+* we need the computed properties `burgerClass` and `menuClass` - which get automatically updated when the `active` state changes.  
+
+Below are the new code snippets needed:
+
+```mint
+  state active : Bool = false
+
+  fun navbarClick (event : Html.Event) : Promise(Never, Void) {
+    next { active = !active }
+  }
+
+  get burgerClass : String {
+    if (active) {
+      "navbar-burger burger is-active"
+    } else {
+      "navbar-burger burger"
+    }
+  }
+  get menuClass : String {
+    if (active) {
+      "navbar-menu is-active"
+    } else {
+      "navbar-menu"
+    }
+  }
+```
+
+To integrate these we need to update the `navbar-burger` and `navbar-menu`:
+
+```mint
+  <a role="button" class={burgerClass} onClick={navbarClick}
+                    aria-label="menu" aria-expanded="false" 
+                    data-target="navbarCounter">
+// and 
+  <div id="navbarCounter" class={menuClass}>
+```
+
+Notice we integrate the computed properties with:
+
+```mint
+class={burgerClass}
+// and
+class={menuClass}
+```
+
+We only need the click activation on the navbar-burger - we integrate that with:
+
+```mint
+onClick={navbarClick}
+```
+
+Just like the button clicks on the counters.
+
+So the full Header code now looks like:
+
+.code/mint/src/count_computed_properties/source/Layouts/Header.mint
+[source,linenums]
+----
+component Header {
+
+  state active : Bool = false
+
+  fun navbarClick (event : Html.Event) : Promise(Never, Void) {
+    next { active = !active }
+  }
+
+  get burgerClass : String {
+    if (active) {
+      "navbar-burger burger is-active"
+    } else {
+      "navbar-burger burger"
+    }
+  }
+
+  get menuClass : String {
+    if (active) {
+      "navbar-menu is-active"
+    } else {
+      "navbar-menu"
+    }
+  }
+
+  fun render : Html {
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <h1 id="title" class="navbar-item">
+            <{ "Counter" }>
+          </h1>
+        </a>
+
+        <a role="button" class={burgerClass} onClick={navbarClick}
+                          aria-label="menu" aria-expanded="false" 
+                          data-target="navbarCounter">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarCounter" class={menuClass}>
+        <div class="navbar-start">
+
+          <a class="navbar-item">
+            <{ "Docs" }>
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <{ "More" }>
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                <{ "About" }>
+              </a>
+              <a class="navbar-item">
+                <{ "Contact" }>
+              </a>
+              <hr class="navbar-divider"/>
+              <a class="navbar-item">
+                <{ "Report an issue" }>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong><{ "Sign up" }></strong>
+              </a>
+              <a class="button is-light">
+                <{ "Log in" }>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  }
+}
+----
+
+=== Try it
+
+start mint:
+```bash
+$ mint-lang start
+```
+
+_every thing should still work!_ 
+
+Now, the project is free of JS.
+
+**link:index.html[Mint Page]**

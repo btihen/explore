@@ -66,6 +66,10 @@ and see: *Hello Mint!*
 
 === link:mint_08_organized.html[Mint Organized]
 
+=== link:mint_09_computed_properties.html[Computed Properties]
+_Bulma without external JS Code_
+
+
 == Mint CLI commands
 
 for all the cli commands do:
